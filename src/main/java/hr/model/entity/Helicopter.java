@@ -7,10 +7,14 @@
 package hr.model.entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -26,6 +30,9 @@ public class Helicopter implements Serializable {
     private Integer capacity;
     private boolean status;
     private Double fixedcost;
+    @ManyToOne
+    @JoinColumn(name="branch_id")
+    private Branch branch;
 
     public Helicopter() {
     }
@@ -68,6 +75,14 @@ public class Helicopter implements Serializable {
 
     public void setFixedcost(Double fixedcost) {
         this.fixedcost = fixedcost;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 
 }

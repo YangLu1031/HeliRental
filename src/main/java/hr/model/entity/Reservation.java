@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -31,6 +33,18 @@ public class Reservation implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date endTime;
     private int passengers;
+    @ManyToOne
+    @JoinColumn(name="pilot_id")
+    private Pilot pilot;
+    @ManyToOne
+    @JoinColumn(name="helicopter_id")
+    private Helicopter helicopter;
+    @ManyToOne
+    @JoinColumn(name="customer_id")
+    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name="priceTable_id")
+    private PriceTable price;
 
     public Reservation() {
     }
@@ -73,6 +87,38 @@ public class Reservation implements Serializable {
 
     public void setPassengers(int passengers) {
         this.passengers = passengers;
+    }
+
+    public Pilot getPilot() {
+        return pilot;
+    }
+
+    public void setPilot(Pilot pilot) {
+        this.pilot = pilot;
+    }
+
+    public Helicopter getHelicopter() {
+        return helicopter;
+    }
+
+    public void setHelicopter(Helicopter helicopter) {
+        this.helicopter = helicopter;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public PriceTable getPrice() {
+        return price;
+    }
+
+    public void setPrice(PriceTable price) {
+        this.price = price;
     }
     
 }

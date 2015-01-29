@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -29,6 +31,9 @@ public class Staff implements Serializable {
     private String password;
     private String phone;
     private String address;
+    @ManyToOne
+    @JoinColumn(name="branch_id")
+    private Branch branch;
 
     public Staff() {
 
@@ -96,6 +101,14 @@ public class Staff implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 
 }
