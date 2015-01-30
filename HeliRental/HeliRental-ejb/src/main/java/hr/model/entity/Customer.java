@@ -29,8 +29,7 @@ public class Customer implements Serializable {
     private String password;
     private String phone;
     private String address;
-    @OneToMany(mappedBy = "reservation",cascade = CascadeType.REFRESH)
-    private Reservation reservation;
+
 
     public Customer() {
     }
@@ -83,12 +82,5 @@ public class Customer implements Serializable {
         this.address = address;
     }
 
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
     
 }

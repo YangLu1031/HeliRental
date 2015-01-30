@@ -7,7 +7,6 @@ package hr.ejb;
 
 import hb.boundary.AbstractFacade;
 import hr.model.entity.Branch;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
