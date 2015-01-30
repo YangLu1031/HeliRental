@@ -25,11 +25,10 @@ public class TestMB implements Serializable {
     private BranchService bs;
     
     public void testRun() {
-        Branch b=new Branch();
-        b.setLocation("Chicago");
-        bs.create(b);
-        b.setLocation("Los Angeles");
-        bs.create(b);
+        Branch c=new Branch();
+        c.setLocation("Dallas");
+        bs.create(c);
+
         
     }
 
