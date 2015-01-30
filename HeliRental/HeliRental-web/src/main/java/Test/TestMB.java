@@ -28,6 +28,9 @@ public class TestMB implements Serializable {
         Branch b=new Branch();
         b.setLocation("Chicago");
         bs.create(b);
+        b.setLocation("Los Angeles");
+        bs.create(b);
+        
     }
 
     public BranchService getBs() {
