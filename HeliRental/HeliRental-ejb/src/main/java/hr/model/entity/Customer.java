@@ -7,6 +7,7 @@
 package hr.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +30,8 @@ public class Customer implements Serializable {
     private String password;
     private String phone;
     private String address;
-    @OneToMany(mappedBy = "reservation",cascade = CascadeType.REFRESH)
-    private Reservation reservation;
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.REFRESH)
+    private List<Reservation> reservations;
 
     public Customer() {
     }
@@ -83,12 +84,12 @@ public class Customer implements Serializable {
         this.address = address;
     }
 
-    public Reservation getReservation() {
-        return reservation;
+    public List<Reservation> getReservations() {
+        return reservations;
     }
 
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
     
 }

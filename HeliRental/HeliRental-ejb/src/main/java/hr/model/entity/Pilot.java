@@ -7,6 +7,7 @@
 package hr.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -20,8 +21,8 @@ public class Pilot extends Staff implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private boolean status;
-    @OneToMany(mappedBy = "reservation",cascade = CascadeType.REFRESH)
-    private Reservation reservation;
+    @OneToMany(mappedBy = "pilot",cascade = CascadeType.REFRESH)
+    private List<Reservation> reservations;
 
     public Pilot(){
         
@@ -35,12 +36,12 @@ public class Pilot extends Staff implements Serializable {
         this.status = status;
     }
 
-    public Reservation getReservation() {
-        return reservation;
+    public List<Reservation> getReservations() {
+        return reservations;
     }
 
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
 }
