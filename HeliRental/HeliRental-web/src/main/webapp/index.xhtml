@@ -9,11 +9,45 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        
         <h:form id="form">
             <p:growl id="msgs" showDetail="true" />
-            <p:inputText />
-            <p:calendar id="inline" mindate="#{mainPage.currentDate}"/>
+            <p:menubar>
+                <p:menuitem value="HOME" url="#" />
+                <p:menuitem value="TOUR" url="#" />
+                <p:menuitem value="CHARTER" url="#" />
+                <p:menuitem value="GALLERY" url="#" />
+                <p:menuitem value="ABOUT US" url="http://www.primefaces.org" />
+
+                <f:facet name="options">
+                    <p:inputText style="margin-right:10px" placeholder="Search"/>
+                    <p:commandButton type="button" icon="ui-icon-extlink" />
+                </f:facet>
+            </p:menubar>
+            <h:graphicImage url=""> </h:graphicImage>
+            <h:panelGrid style="margin-top:20px">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="2">Make a reservation</p:column>
+                    </p:row>
+                </f:facet>
+                <p:row>
+                    <p:column style="font-weight: bold;">From: </p:column>
+                    <p:column><p:inputText style="margin-right:10px"/></p:column>
+                </p:row>
+                <p:row>
+                    <p:column style="font-weight: bold;">To: </p:column>
+                    <p:column><p:inputText /></p:column>
+                </p:row>
+                <p:row>
+                    <p:column style="font-weight: bold;">Date:</p:column>
+                    <p:column><p:calendar id="inline" mindate="#{mainPage.currentDate}"/></p:column>
+                </p:row>
+                <p:row>
+                    <p:column style="font-weight: bold;">Passengers:</p:column>
+                    <p:column><p:spinner id="basic"  /></p:column>
+                </p:row>
+            </h:panelGrid>
         </h:form>
     </h:body>
 </html>
