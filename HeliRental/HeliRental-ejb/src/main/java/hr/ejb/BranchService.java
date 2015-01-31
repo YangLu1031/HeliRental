@@ -7,9 +7,12 @@ package hr.ejb;
 
 import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
+import hr.model.entity.Customer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,5 +31,20 @@ public class BranchService extends AbstractFacade<Branch> {
 
     public BranchService() {
         super(Branch.class);
+    }
+    
+    public void find(){
+        Branch b=em.find(Branch.class, 1);
+        System.out.println(b.getLocation());
+    }
+    
+    public Branch findBranchWithLocation(String location){
+        try {
+            TypedQuery query = em.createNamedQuery("Branch.findBranchByLocation", Branch.class).setParameter("location", location);
+            Branch b = (Branch) query.getSingleResult();
+            return b;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
