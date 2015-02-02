@@ -35,7 +35,7 @@ public class BranchService extends AbstractFacade<Branch> {
     
     public void find(){
         Branch b=em.find(Branch.class, 1);
-        System.out.println(b.getLocation());
+        System.out.println(b.getName());
     }
     
     public Branch findBranchWithLocation(String location){

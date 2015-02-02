@@ -10,10 +10,12 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 /**
  *
@@ -30,7 +32,8 @@ public class Customer implements Serializable {
     private String password;
     private String phone;
     private String address;
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.REFRESH, fetch=FetchType.EAGER)
+    @OrderBy("startTime ASC")
     private List<Reservation> reservations;
 
     public Customer() {

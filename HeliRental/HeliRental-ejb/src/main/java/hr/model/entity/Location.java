@@ -3,40 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package hr.model.entity;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
- * @author Xpan
+ * @author hasee
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Branch.findBranchByLocation", query = "select b from Branch b where b.location=:location"),})
-public class Branch implements Serializable {
-
+public class Location implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
-    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Location> locations;
-
-    public Branch() {
-
-    }
+    @ManyToOne
+    @JoinColumn(name="branch_id")
+    private Branch branch;
+    
 
     public int getId() {
         return id;
@@ -54,12 +46,12 @@ public class Branch implements Serializable {
         this.name = name;
     }
 
-    public List<Location> getLocations() {
-        return locations;
+    public Branch getBranch() {
+        return branch;
     }
 
-    public void setLocations(List<Location> locations) {
-        this.locations = locations;
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 
 }

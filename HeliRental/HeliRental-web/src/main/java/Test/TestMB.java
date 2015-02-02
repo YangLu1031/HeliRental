@@ -79,19 +79,19 @@ public class TestMB implements Serializable {
 //        p.setSalary(4000);
 //        p.setStatus(true);
 //        ps.create(p);
-        Pilot p = new Pilot();
-        p.setAddress("87 Burlington, Chicago");
-        Branch b = bs.findBranchWithLocation("Chicago");
-        p.setBranch(b);
-        p.setEmail("Kevin@gmail.com");
-        p.setName("Kevin");
-        p.setPassword("123456");
-        p.setPhone("6412394657");
-        p.setPosition("night-time pilot");
-        p.setReservations(null);
-        p.setSalary(5000);
-        p.setStatus(true);
-        ps.create(p);
+//        Pilot p = new Pilot();
+//        p.setAddress("87 Burlington, Chicago");
+//        Branch b = bs.findBranchWithLocation("Chicago");
+//        p.setBranch(b);
+//        p.setEmail("Kevin@gmail.com");
+//        p.setName("Kevin");
+//        p.setPassword("123456");
+//        p.setPhone("6412394657");
+//        p.setPosition("night-time pilot");
+//        p.setReservations(null);
+//        p.setSalary(5000);
+//        p.setStatus(true);
+//        ps.create(p);
 
     }
 

@@ -21,8 +21,9 @@ public class Pilot extends Staff implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private boolean status;
+    private String type;
     @OneToMany(mappedBy = "pilot",cascade = CascadeType.REFRESH)
-    private List<Reservation> reservations;
+    private List<Pschedule> schedules;
 
     public Pilot(){
         
@@ -36,12 +37,20 @@ public class Pilot extends Staff implements Serializable {
         this.status = status;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
+    public String getType() {
+        return type;
     }
 
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<Pschedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Pschedule> schedules) {
+        this.schedules = schedules;
     }
 
 }
