@@ -19,7 +19,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class CustomerService extends AbstractFacade<Customer>{
-    @PersistenceContext(unitName = "CustomerPU")
+    
+    @PersistenceContext(unitName = "HeliRental")
     private EntityManager em;
 
     public CustomerService() {

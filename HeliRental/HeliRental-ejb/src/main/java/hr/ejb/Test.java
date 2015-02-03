@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class Test extends AbstractFacade<Branch> {
 
-    @PersistenceContext(name = "HeliRental-ejbPU")
+    @PersistenceContext(name = "HeliRental")
     private EntityManager em;
 
 

@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Table
 @NamedQueries({
     @NamedQuery(name = "Customer.findByEmail",
-        query = "SELECT c FROM Customer c WHERE c.emailAddress = :emailAddress")    
+        query = "SELECT c FROM Customer c WHERE c.email = :emailAddress")    
 })
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;

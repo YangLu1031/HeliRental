@@ -18,7 +18,7 @@ import javax.inject.Named;
  *
  * @author 吕杨
  */
-@Named
+@Named(value="RegCustomer")
 @SessionScoped
 public class RegCustomer implements Serializable{
     @Inject
