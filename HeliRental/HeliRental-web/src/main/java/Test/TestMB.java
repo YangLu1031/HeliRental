@@ -32,18 +32,19 @@ public class TestMB implements Serializable {
     private PilotService ps;
 
     public void testRun() {
-//        Branch c = new Branch();
-//        c.setLocation("Dallas");
-//        bs.create(c);
-//        c.setLocation("New York");
-//        bs.create(c);
-//        c.setLocation("Chicago");
-//        bs.create(c);
-//        c.setLocation("Des Moines");
-//        bs.create(c);
-//        c.setLocation("Los Angeles");
-//        bs.create(c);
-//        bs.find();
+        Branch b = new Branch();
+        b.setName("Dallas");
+        bs.create(b);
+        b.setName("New York");
+        bs.create(b);
+        b.setName("Chicago");
+        bs.create(b);
+        b.setName("Des Moines");
+        bs.create(b);
+        b.setName("Los Angeles");
+        bs.create(b);
+        
+        bs.find();
 //          Manager m=new Manager();
 //          m.setAddress("87 Burlington, Chicago");
 //          Branch b=bs.findBranchWithLocation("Chicago");

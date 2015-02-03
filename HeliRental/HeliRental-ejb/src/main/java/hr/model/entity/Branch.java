@@ -23,7 +23,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Branch.findBranchByLocation", query = "select b from Branch b where b.location=:location"),})
+    @NamedQuery(name = "Branch.findBranchByLocation", query = "select b from Branch b where b.name=:name"),})
 public class Branch implements Serializable {
 
     private static final long serialVersionUID = 1L;

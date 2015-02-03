@@ -47,12 +47,6 @@ public class Reservation implements Serializable {
     @ManyToOne
     @JoinColumn(name = "priceTable_id")
     private PriceTable price;
-    @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Location departure;
-    @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Location arrival;
 
     public Reservation() {
     }
@@ -136,21 +130,4 @@ public class Reservation implements Serializable {
     public void setReservTime(Date reservTime) {
         this.reservTime = reservTime;
     }
-
-    public Location getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(Location departure) {
-        this.departure = departure;
-    }
-
-    public Location getArrival() {
-        return arrival;
-    }
-
-    public void setArrival(Location arrival) {
-        this.arrival = arrival;
-    }
-
 }

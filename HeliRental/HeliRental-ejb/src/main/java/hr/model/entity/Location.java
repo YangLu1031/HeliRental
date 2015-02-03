@@ -25,6 +25,7 @@ public class Location implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
+    private Double prepareTime;
     @ManyToOne
     @JoinColumn(name="branch_id")
     private Branch branch;
@@ -52,6 +53,14 @@ public class Location implements Serializable {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    public Double getPrepareTime() {
+        return prepareTime;
+    }
+
+    public void setPrepareTime(Double prepareTime) {
+        this.prepareTime = prepareTime;
     }
 
 }

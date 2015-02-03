@@ -26,7 +26,7 @@ public class Staff implements Serializable {
     private int id;
     private String name;
     private String position;
-    private Integer salary;
+    private Double salary;
     private String email;
     private String password;
     private String phone;
@@ -63,11 +63,11 @@ public class Staff implements Serializable {
         this.position = position;
     }
 
-    public Integer getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(Integer salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
 
