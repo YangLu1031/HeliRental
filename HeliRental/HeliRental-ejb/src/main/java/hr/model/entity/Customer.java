@@ -12,13 +12,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Xpan
  */
 @Entity
+@Table
+@NamedQueries({
+    @NamedQuery(name = "Customer.findByEmail",
+        query = "SELECT c FROM Customer c WHERE c.emailAddress = :emailAddress")    
+})
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
