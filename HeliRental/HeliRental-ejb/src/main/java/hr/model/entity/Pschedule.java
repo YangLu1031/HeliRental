@@ -41,7 +41,7 @@ public class Pschedule implements Serializable {
     @ManyToOne
     @JoinColumn(name="helicopter_id")
     private Helicopter helicopter;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH})
     private Reservation reservation;
 
     public int getId() {

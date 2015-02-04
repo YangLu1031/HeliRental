@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 /**
@@ -22,7 +23,7 @@ public class Pilot extends Staff implements Serializable {
 
     private boolean status;
     private String type;
-    @OneToMany(mappedBy = "pilot",cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "pilot",cascade = CascadeType. ALL,fetch=FetchType.EAGER)
     private List<Pschedule> schedules;
 
     public Pilot(){

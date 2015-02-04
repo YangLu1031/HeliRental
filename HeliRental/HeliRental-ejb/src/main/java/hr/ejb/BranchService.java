@@ -32,13 +32,13 @@ public class BranchService extends AbstractFacade<Branch> {
     }
     
     public void find(){
-        Branch b=em.find(Branch.class, 1);
-        System.out.println(b.getName());
+        Branch b=em.find(Branch.class, 2);
+        System.out.println("======"+b.getLocations().get(1).getName());
     }
     
-    public Branch findBranchWithLocation(String location){
+    public Branch findBranchWithName(String name){
         try {
-            TypedQuery query = em.createNamedQuery("Branch.findBranchByLocation", Branch.class).setParameter("location", location);
+            TypedQuery query = em.createNamedQuery("Branch.findBranchByName", Branch.class).setParameter("name", name);
             Branch b = (Branch) query.getSingleResult();
             return b;
         } catch (Exception e) {

@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Customer implements Serializable {
     private int id;
     private String name;
     private String email;
+    @Size(min=6)
     private String password;
     private String phone;
     private String address;

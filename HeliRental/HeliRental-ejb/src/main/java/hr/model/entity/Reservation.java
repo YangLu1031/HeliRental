@@ -7,6 +7,7 @@ package hr.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,7 +37,7 @@ public class Reservation implements Serializable {
     private int passengers;
     @Temporal(TemporalType.DATE)
     private Date reservTime;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private Pschedule pSchedule;
     @ManyToOne
     @JoinColumn(name = "helicopter_id")
