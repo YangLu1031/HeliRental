@@ -12,6 +12,7 @@
                 <p:messages/>
                 <p:panel header="Please Enter Your Registration Information">
                     <h:panelGrid columns="2">
+                        
                         <h:outputLabel for="emailAddress" value="Email Address" 
                                        styleClass="requiredLbl"/>
                         <h:inputText id="emailAddress" label="Email Address" 
@@ -21,11 +22,22 @@
                         <f:validateRegex
 pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                         </h:inputText>
-                        <h:outputLabel for="firstName" value="First Name" 
-                                       styleClass="optionalLbl"/>
-                        <h:inputText id="firstName" label="First Name" 
+                        
+                        <h:outputLabel for="name" value="Name" styleClass="optionalLbl"/>
+                        <h:inputText id="name" label="Name" 
                                      value="#{RegCustomer.name}"/>
-                
+                        
+                        <h:outputLabel for="password" value="Password" styleClass="optionalLbl"/>
+                        <h:inputSecret
+                            id="password" value="#{RegCustomer.password}"
+                            required="true" validatorMessage="Length of password should between 6-16">
+                            <f:validateLength maximum="16" minimum="6"/>
+                        </h:inputSecret>
+                        
+                        <h:outputLabel for="phone" value="Phone" styleClass="optionalLbl"/>
+                        <h:inputText id="phone" label="Phone" 
+                                     value="#{RegCustomer.phone}"/>         
+                        
                         <h:panelGroup/>
                         <p:commandButton 
                             value="Submit" 

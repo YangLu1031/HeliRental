@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!--<title>Facelet Title</title>-->
+        <link rel="stylesheet" type="text/css" href="style.css" />
+     
+    </h:head>
+    <h:body>
+                <div id="secCol">
+                <fieldset id="login">
+                <h4>Members login</h4>
+                        <form >
+                            <p class="clearfix"><h:outputLabel for="emailAddr">Email</h:outputLabel>
+                                <input name="username" id="username" type="text" value="" />
+                                <h:inputText id="emailAddr" styleClass="emailAddr"
+                                     value="#{loginMB.email}"/></p>
+                    <p class="clearfix"><h:outputLabel for="password">Password</h:outputLabel>
+                        <h:inputText id="password" label="Password" 
+                                     value="#{loginMB.password}" 
+                                     required="true"/>
+                                                </p>
+                    <p class="clearfix check"><input type="checkbox" id="remember" name="remember" />
+                    <label for="remember" id="remlabel">Remember me</label>
+                <input name="submit" id="submit" type="submit" value="" /></p>
+                <form>
+                <p class="member"><a href="#">Lost your Password?</a><br />Not a member yet? <a href="#">Register now!</a></p>
+                </fieldset>
+                </div>
+                <div>
+                <h:form>
+                <p:messages/>
+                <p:panel >
+                        <h:outputLabel for="emailAddr" value="Email Address" 
+                                       styleClass="requiredLbl"/>
+                        <h:inputText id="emailAddr" label="Email Address" 
+                                     value="#{loginMB.email}" 
+                                     required="true"/>
+                        <h:outputLabel for="password" value="Password" 
+                                       styleClass="requiredLbl"/>
+                        <h:inputText id="password" label="Password" 
+                                     value="#{loginMB.password}" 
+                                     required="true"/>
+                        
+                        <h:panelGroup/>
+                        <p:commandButton 
+                            value="Submit" 
+                            action ="#{loginMB.loginUser}" 
+                            ajax="false"/>
+                </p:panel>
+            </h:form>
+            </div>
+    </h:body>
+</html>
+

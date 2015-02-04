@@ -5,7 +5,16 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
         <ui:composition>
-            <h1>This is default header</h1>
+            <ui:define name="header">
+                <a href="#"><img src="images/logo.png" title="Affiliate Promo logo" id="logo" alt="Logo" /></a>
+                <ul id="navBar">
+                    <li class="current"><a href="index.html">Home</a></li>
+                <li><a href="#">Our Services</a></li>
+                <li><a href="#">Pricing Plans</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Contact us</a></li>            
+                </ul>
+            </ui:define>
         </ui:composition>
     </h:body>
 </html>

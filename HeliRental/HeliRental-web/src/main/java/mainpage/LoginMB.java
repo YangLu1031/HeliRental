@@ -17,7 +17,7 @@ import javax.inject.Named;
  *
  * @author 984228
  */
-@Named
+@Named(value="loginMB")
 @SessionScoped
 public class LoginMB implements Serializable{
     
@@ -25,6 +25,9 @@ public class LoginMB implements Serializable{
     private String password;
     private Date currentDate = new Date();
 
+    public String loginUser(){
+        return "";
+    }
     public Date getCurrentDate() {
         return currentDate;
     }

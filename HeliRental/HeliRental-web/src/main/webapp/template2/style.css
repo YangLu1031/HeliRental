@@ -16,7 +16,7 @@ padding:0 1px;
 background-color:#FFFFFF;
 position:relative;
 }
-html body{
+html > body{
 min-height:100%;
 height:auto;
 }
@@ -100,15 +100,12 @@ margin:0 15px;
 width:962px;
 overflow:hidden;
 padding:32px 0 150px 22px;
-//background-image:url(images/bg.jpg);
-background-image:url(images/discover-kauai-hawaii.jpg);
+background-image:url(images/bg.jpg);
 background-position:top left;
-background-size: 984px 330px;
 background-repeat:no-repeat
 }
 #left{
 float:left;
-padding:300px 0 0 0;
 width:455px;
 }
 .column{
