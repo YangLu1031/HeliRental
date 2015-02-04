@@ -7,11 +7,9 @@ package hr.ejb;
 
 import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
-import hr.model.entity.Customer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**

@@ -25,13 +25,13 @@ public class PriceTable implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name = "departure_id")
     private Location departure;
     @ManyToOne
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name = "arrival_id")
     private Location arrival;
     private boolean day_night;
-    private Double duration;
+    private Integer duration;
     private Double sellprice;
     private Double pilotBonus;
     private Double expense;
@@ -55,11 +55,11 @@ public class PriceTable implements Serializable {
         this.day_night = day_night;
     }
 
-    public Double getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(Double duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 

@@ -33,7 +33,7 @@ public class Customer implements Serializable {
     private String phone;
     private String address;
     @OneToMany(mappedBy = "customer",cascade = CascadeType.REFRESH, fetch=FetchType.EAGER)
-    @OrderBy("startTime ASC")
+    @OrderBy("departureTime ASC")
     private List<Reservation> reservations;
 
     public Customer() {

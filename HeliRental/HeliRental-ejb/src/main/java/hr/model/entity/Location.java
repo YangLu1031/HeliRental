@@ -22,10 +22,10 @@ import javax.persistence.ManyToOne;
 public class Location implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private Double prepareTime;
+    private Integer prepareTime;
     @ManyToOne
     @JoinColumn(name="branch_id")
     private Branch branch;
@@ -55,11 +55,11 @@ public class Location implements Serializable {
         this.branch = branch;
     }
 
-    public Double getPrepareTime() {
+    public Integer getPrepareTime() {
         return prepareTime;
     }
 
-    public void setPrepareTime(Double prepareTime) {
+    public void setPrepareTime(Integer prepareTime) {
         this.prepareTime = prepareTime;
     }
 

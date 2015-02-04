@@ -9,9 +9,12 @@ import hr.ejb.BranchService;
 import hr.ejb.ManagerService;
 import hr.ejb.PilotService;
 import hr.model.entity.Branch;
+import hr.model.entity.Location;
 import hr.model.entity.Manager;
 import hr.model.entity.Pilot;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -32,19 +35,26 @@ public class TestMB implements Serializable {
     private PilotService ps;
 
     public void testRun() {
-        Branch b = new Branch();
-        b.setName("Dallas");
-        bs.create(b);
-        b.setName("New York");
-        bs.create(b);
-        b.setName("Chicago");
-        bs.create(b);
-        b.setName("Des Moines");
-        bs.create(b);
-        b.setName("Los Angeles");
-        bs.create(b);
+//        Branch b = new Branch();
+//        b.setName("Dallas");
+//        List l=new ArrayList();
+//        b.setLocations(l);
+//        bs.create(b);
         
-        bs.find();
+        Branch b= new Branch();
+        b.setName("New York");//validation constraints call callbacks @PrePersist
+        bs.create(b);
+//        b.setName("Chicago");
+//        bs.create(b);
+//        b.setName("Des Moines");
+//        bs.create(b);
+//        b.setName("Los Angeles");
+//        bs.create(b);
+//        
+//        Location l=new Location();
+//        l.setName("Grace Hospital");
+//        l.setPrepareTime();
+//        bs.find();
 //          Manager m=new Manager();
 //          m.setAddress("87 Burlington, Chicago");
 //          Branch b=bs.findBranchWithLocation("Chicago");
