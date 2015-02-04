@@ -10,27 +10,6 @@
      
     </h:head>
     <h:body>
-                <div id="secCol">
-                <fieldset id="login">
-                <h4>Members login</h4>
-                        <form >
-                            <p class="clearfix"><h:outputLabel for="emailAddr">Email</h:outputLabel>
-                                <input name="username" id="username" type="text" value="" />
-                                <h:inputText id="emailAddr" styleClass="emailAddr"
-                                     value="#{loginMB.email}"/></p>
-                    <p class="clearfix"><h:outputLabel for="password">Password</h:outputLabel>
-                        <h:inputText id="password" label="Password" 
-                                     value="#{loginMB.password}" 
-                                     required="true"/>
-                                                </p>
-                    <p class="clearfix check"><input type="checkbox" id="remember" name="remember" />
-                    <label for="remember" id="remlabel">Remember me</label>
-                <input name="submit" id="submit" type="submit" value="" /></p>
-                <form>
-                <p class="member"><a href="#">Lost your Password?</a><br />Not a member yet? <a href="#">Register now!</a></p>
-                </fieldset>
-                </div>
-                <div>
                 <h:form>
                 <p:messages/>
                 <p:panel >
@@ -52,7 +31,7 @@
                             ajax="false"/>
                 </p:panel>
             </h:form>
-            </div>
+            
     </h:body>
 </html>
 

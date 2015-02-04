@@ -16,7 +16,8 @@
                 <h:inputText id="emailAddr" styleClass="" value="#{loginMB.email}"/>
                 <h:outputLabel for="password" value="Password"/>
                 <h:inputText id="password" label="Password"  value="#{loginMB.password}" required="true"/>
-                <h:commandButton value="Login" action ="#{loginMB.loginUser}"/>																																																																
+                <h:commandButton value="Sign in" action ="#{loginMB.loginUser}"/>	
+                <h:commandButton value="Sign up" action ="#{RegCustomer.saveRegInfo}"/>
             </div>
 		<ul id="menu">
 			<li><a href="index.html">Home Page</a></li>
