@@ -22,7 +22,7 @@ public class ReservationMB implements Serializable{
     
     public String reserve(){
         
-        return "reserve";
+        return "congrats";
     }
     public String getDepart() {
         return depart;

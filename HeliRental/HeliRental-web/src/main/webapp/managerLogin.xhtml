@@ -10,11 +10,31 @@
     <h:body>
         <h:form>
                 <p:messages/>
-                <p:dataTable value="">
-                    <p:column headerText="Helicopter Name" >
-                        <h:outputText value="#{car.year}" />
+                <p:dataTable id="heliTable" value="#{managerMB.helicopters}" var="heli">
+                    <p:column headerText="Helicopter ID" >
+                        <h:outputText value="#{heli.id}" />
                     </p:column>
+                    <p:column headerText="Helicopter capacity" >
+                        <h:outputText value="#{heli.capacity}" />
+                    </p:column>          
+                    <p:column headerText="Helicopter fixedcost" >
+                        <h:outputText value="#{heli.fixedcost}" />
+                    </p:column>
+                    <p:column headerText="Helicopter update" >
+                        <h:commandLink value="Delete" action="#{managerMB.deleteHeli(heli)}">
+                            <f:ajax execute="@this" render="heliTable"/>
+                        </h:commandLink>
+                        
+                    </p:column>                    
                 </p:dataTable>
+                <p:panelGrid columns="4">
+                    <h:inputText value="#{managerMB.id}" />
+                    <h:inputText value="#{managerMB.capacity}" />
+                    <h:inputText value="#{managerMB.fixedcost}" />
+                    <h:commandLink value="Add" action="#{managerMB.addHeli}">
+                            
+                    </h:commandLink>
+                </p:panelGrid>
             </h:form>
     </h:body>
 </html>
