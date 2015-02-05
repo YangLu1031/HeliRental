@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package hr.ejb;
 
-import hb.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
 import hr.model.entity.Customer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -43,5 +44,6 @@ public class CustomerService extends AbstractFacade<Customer>{
             System.out.println("new user "+e);
             return null;
         }
+
     }
 }

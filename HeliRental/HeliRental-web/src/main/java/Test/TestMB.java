@@ -1,0 +1,160 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Test;
+
+import hr.ejb.BranchService;
+import hr.ejb.LocationService;
+import hr.ejb.ManagerService;
+import hr.ejb.PilotService;
+import hr.model.entity.Branch;
+import hr.model.entity.Location;
+import hr.model.entity.Manager;
+import hr.model.entity.Pilot;
+import java.io.IOException;
+import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+import javax.validation.ValidationException;
+
+/**
+ *
+ * @author Xpan
+ */
+@Named(value = "testMB")
+@RequestScoped
+public class TestMB implements Serializable {
+
+    @EJB
+    private BranchService bs;
+    @EJB
+    private ManagerService ms;
+    @EJB
+    private PilotService ps;
+    @EJB
+    private LocationService ls;
+
+    public void testRun() {
+//        Branch b = new Branch();
+//        b.setName("Dallas");
+//        bs.create(b);
+//        b.setName("New York");
+//        bs.create(b);
+//        try {
+//            b.setName("Chicago");//validation constraints call callbacks @PrePersist
+//            bs.create(b);
+//        }catch(ValidationException e){
+//            System.err.println("branch name is null: " + e.getMessage());
+//        }
+//        b.setName("Des Moines");
+//        bs.create(b);
+//        b.setName("Los Angeles");
+//        bs.create(b);       
+
+//        Location l=new Location();
+//        l.setName("Grace Hospital");
+//        l.setPrepareTime(20);
+//        Branch b=bs.findBranchWithName("New York");
+//        l.setBranch(b);
+//        ls.create(l);
+//        l.setName("Arlin Square");
+//        l.setPrepareTime(25);
+//        Branch b = bs.findBranchWithName("Dallas");
+//        l.setBranch(b);
+//        ls.create(l);
+//        l.setName("Twin Skyscraper");
+//        l.setPrepareTime(20);
+//        Branch b = bs.findBranchWithName("Dallas");
+//        l.setBranch(b);
+//        ls.create(l);
+//        bs.find();
+
+//          Manager m=new Manager();
+//          m.setAddress("87 Burlington, Chicago");
+//          Branch b=bs.findBranchWithLocation("Chicago");
+//          m.setBranch(b);
+//          m.setEmail("grace.pan92gmail.com");
+//          m.setName("Grace");
+//          m.setPassword("123456");
+//          m.setPhone("3194006824");
+//          m.setPosition("Project Manager");
+//          m.setSalary(5000);
+//          ms.create(m);
+//          
+//          m.setAddress("1003 Arlin, Los Angeles");
+//          b=bs.findBranchWithLocation("Los Angeles");
+//          m.setBranch(b);
+//          m.setEmail("xsh@gmail.com");
+//          m.setName("Vienna");
+//          m.setPassword("123456");
+//          m.setPhone("3194006824");
+//          m.setPosition("HR Manager");
+//          m.setSalary(5000);
+//          ms.create(m);
+//        Pilot p = new Pilot();
+//        p.setAddress("87 Burlington, Chicago");
+//        Branch b = bs.findBranchWithLocation("Chicago");
+//        p.setBranch(b);
+//        p.setEmail("tom@gmail.com");
+//        p.setName("Tom");
+//        p.setPassword("123456");
+//        p.setPhone("6412399877");
+//        p.setPosition("daytime pilot");
+//        p.setReservations(null);
+//        p.setSalary(4000);
+//        p.setStatus(true);
+//        ps.create(p);
+//        Pilot p = new Pilot();
+//        p.setAddress("87 Burlington, Chicago");
+//        Branch b = bs.findBranchWithLocation("Chicago");
+//        p.setBranch(b);
+//        p.setEmail("Kevin@gmail.com");
+//        p.setName("Kevin");
+//        p.setPassword("123456");
+//        p.setPhone("6412394657");
+//        p.setPosition("night-time pilot");
+//        p.setReservations(null);
+//        p.setSalary(5000);
+//        p.setStatus(true);
+//        ps.create(p);
+    }
+
+    public BranchService getBs() {
+        return bs;
+    }
+
+    public void setBs(BranchService bs) {
+        this.bs = bs;
+    }
+
+    public ManagerService getMs() {
+        return ms;
+    }
+
+    public void setMs(ManagerService ms) {
+        this.ms = ms;
+    }
+
+    public PilotService getPs() {
+        return ps;
+    }
+
+    public void setPs(PilotService ps) {
+        this.ps = ps;
+    }
+
+    public LocationService getLs() {
+        return ls;
+    }
+
+    public void setLs(LocationService ls) {
+        this.ls = ls;
+    }
+
+}

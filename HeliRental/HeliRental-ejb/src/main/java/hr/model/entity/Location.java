@@ -7,34 +7,33 @@
 package hr.model.entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Xpan
+ * @author hasee
  */
 @Entity
-public class Helicopter implements Serializable {
+public class Location implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String type;
-    private Integer capacity;
-    private boolean status;
-    private Double fixedcost;
-    @ManyToOne
+    @NotNull
+    private String name;
+    private Integer prepareTime;
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name="branch_id")
     private Branch branch;
-
-    public Helicopter() {
-    }
     
+
     public int getId() {
         return id;
     }
@@ -43,36 +42,12 @@ public class Helicopter implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Double getFixedcost() {
-        return fixedcost;
-    }
-
-    public void setFixedcost(Double fixedcost) {
-        this.fixedcost = fixedcost;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Branch getBranch() {
@@ -81,6 +56,14 @@ public class Helicopter implements Serializable {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    public Integer getPrepareTime() {
+        return prepareTime;
+    }
+
+    public void setPrepareTime(Integer prepareTime) {
+        this.prepareTime = prepareTime;
     }
 
 }

@@ -3,37 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package hr.ejb;
 
-import hb.boundary.AbstractFacade;
-import hr.model.entity.Branch;
+import hr.boundary.AbstractFacade;
+import hr.model.entity.Pilot;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author hasee
+ * @author Xpan
  */
 @Stateless
-public class Test extends AbstractFacade<Branch> {
+public class PilotService extends AbstractFacade<Pilot> {
 
     @PersistenceContext(name = "HeliRental")
     private EntityManager em;
-
-
-    public void create() {
-        Branch b=new Branch();
-        b.setLocation("Chicago");
-        create(b);
-    }
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
-    public Test() {
-        super(Branch.class);
+    public PilotService() {
+        super(Pilot.class);
     }
 }

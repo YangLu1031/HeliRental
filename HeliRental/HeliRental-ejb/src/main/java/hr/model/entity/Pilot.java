@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 /**
@@ -21,6 +22,9 @@ public class Pilot extends Staff implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private boolean status;
+    private String type;
+    @OneToMany(mappedBy = "pilot",cascade = CascadeType. ALL,fetch=FetchType.EAGER)
+    private List<Pschedule> schedules;
 
 
     public Pilot(){
@@ -36,7 +40,20 @@ public class Pilot extends Staff implements Serializable {
     }
 
 
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
+    public List<Pschedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Pschedule> schedules) {
+        this.schedules = schedules;
+    }
 
 }

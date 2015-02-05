@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package hr.model.entity;
 
 import java.io.Serializable;
@@ -11,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -18,15 +19,22 @@ import javax.persistence.Id;
  */
 @Entity
 public class PriceTable implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String departure;
-    private String arrival;
+    @ManyToOne
+    @JoinColumn(name = "departure_id")
+    private Location departure;
+    @ManyToOne
+    @JoinColumn(name = "arrival_id")
+    private Location arrival;
     private boolean day_night;
-    private Double duration;
-    private Double price;
+    private Integer duration;
+    private Double sellprice;
+    private Double pilotBonus;
+    private Double expense;
 
     public PriceTable() {
     }
@@ -39,22 +47,6 @@ public class PriceTable implements Serializable {
         this.id = id;
     }
 
-    public String getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(String departure) {
-        this.departure = departure;
-    }
-
-    public String getArrival() {
-        return arrival;
-    }
-
-    public void setArrival(String arrival) {
-        this.arrival = arrival;
-    }
-
     public boolean isDay_night() {
         return day_night;
     }
@@ -63,20 +55,52 @@ public class PriceTable implements Serializable {
         this.day_night = day_night;
     }
 
-    public Double getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(Double duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
-    public Double getPrice() {
-        return price;
+    public Location getDeparture() {
+        return departure;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setDeparture(Location departure) {
+        this.departure = departure;
+    }
+
+    public Location getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(Location arrival) {
+        this.arrival = arrival;
+    }
+
+    public Double getSellprice() {
+        return sellprice;
+    }
+
+    public void setSellprice(Double sellprice) {
+        this.sellprice = sellprice;
+    }
+
+    public Double getPilotBonus() {
+        return pilotBonus;
+    }
+
+    public void setPilotBonus(Double pilotBonus) {
+        this.pilotBonus = pilotBonus;
+    }
+
+    public Double getExpense() {
+        return expense;
+    }
+
+    public void setExpense(Double expense) {
+        this.expense = expense;
     }
 
 }
