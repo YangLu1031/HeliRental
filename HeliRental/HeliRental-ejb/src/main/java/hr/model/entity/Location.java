@@ -26,7 +26,7 @@ public class Location implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
+    
     private String name;
     private Integer prepareTime;
     @ManyToOne(cascade = CascadeType.REFRESH)

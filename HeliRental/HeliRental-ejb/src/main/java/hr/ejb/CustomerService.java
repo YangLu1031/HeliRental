@@ -46,4 +46,14 @@ public class CustomerService extends AbstractFacade<Customer>{
         }
 
     }
+    
+    public boolean checkUser(String email, String password) {
+        Customer f = findCustomerByEmail(email);
+        if (f != null) {
+            if (f.getPassword().equals(password)) {
+                return true;//log in successfully
+            }
+        }
+        return false;//invalid input
+    } 
 }

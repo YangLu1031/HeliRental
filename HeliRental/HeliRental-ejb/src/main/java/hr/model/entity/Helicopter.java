@@ -13,12 +13,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Xpan
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Helicopters.findByBranchId",
+        query = "SELECT h FROM Helicopter h WHERE h.branch.id = :id")
+})
 public class Helicopter implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -28,6 +34,7 @@ public class Helicopter implements Serializable {
     private Integer capacity;
     private boolean status;
     private Double fixedcost;
+    
     @ManyToOne
     @JoinColumn(name="branch_id")
     private Branch branch;

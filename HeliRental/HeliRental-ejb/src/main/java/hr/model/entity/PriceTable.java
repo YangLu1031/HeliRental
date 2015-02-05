@@ -24,16 +24,17 @@ public class PriceTable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     @ManyToOne
     @JoinColumn(name = "departure_id")
     private Location departure;
+    
     @ManyToOne
     @JoinColumn(name = "arrival_id")
     private Location arrival;
-    private boolean day_night;
+    
     private Integer duration;
     private Double sellprice;
-    private Double pilotBonus;
     private Double expense;
 
     public PriceTable() {
@@ -45,14 +46,6 @@ public class PriceTable implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public boolean isDay_night() {
-        return day_night;
-    }
-
-    public void setDay_night(boolean day_night) {
-        this.day_night = day_night;
     }
 
     public Integer getDuration() {
@@ -87,13 +80,6 @@ public class PriceTable implements Serializable {
         this.sellprice = sellprice;
     }
 
-    public Double getPilotBonus() {
-        return pilotBonus;
-    }
-
-    public void setPilotBonus(Double pilotBonus) {
-        this.pilotBonus = pilotBonus;
-    }
 
     public Double getExpense() {
         return expense;

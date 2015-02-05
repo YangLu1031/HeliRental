@@ -11,6 +11,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -18,42 +20,23 @@ import javax.persistence.OneToMany;
  * @author Xpan
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Pilot.findByEmail",
+        query = "SELECT p FROM Pilot p WHERE p.email = :emailAddress"),  
+    @NamedQuery(name = "Pilots.findByBranchId",
+        query = "SELECT p FROM Pilot p WHERE p.branch.id = :id")         
+})
 public class Pilot extends Staff implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private boolean status;
-    private String type;
-    @OneToMany(mappedBy = "pilot",cascade = CascadeType. ALL,fetch=FetchType.EAGER)
-    private List<Pschedule> schedules;
+
 
 
     public Pilot(){
         
     }
     
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public List<Pschedule> getSchedules() {
-        return schedules;
-    }
-
-    public void setSchedules(List<Pschedule> schedules) {
-        this.schedules = schedules;
-    }
 
 }
