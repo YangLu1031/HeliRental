@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <!--<title>Facelet Title</title>-->
         <link rel="stylesheet" type="text/css" href="style.css" />
@@ -14,16 +15,19 @@
                 <p:messages/>
                 <p:panel >
                     <h:outputLabel for="depart" value="Depart" styleClass="requiredLbl"/>
-                    <h:inputText id="depart" label="Depart" value="#{reserveMB.depart}" required="true"/>
+                    <h:inputText id="depart" label="Depart" value="#{loginMB.depart}" required="true"/>
                     <h:outputLabel for="arrival" value="Arrival" styleClass="requiredLbl"/>
                     <h:inputText id="arrival" label="Arrival" 
-                                 value="#{reserveMB.arrival}" 
+                                 value="#{loginMB.arrival}" 
                                  required="true"/>
-
+                    <p:calendar mindate="#{loginMB.currentDate}" value="#{loginMB.selectDate}" pattern="MM/dd/yyyy">
+                        <f:convertDateTime pattern="MM/dd/yyyy"/>
+                    </p:calendar>
+                  
                     <h:panelGroup/>
                     <p:commandButton 
                         value="Submit" 
-                        action ="#{reserveMB.reserve}" 
+                        action ="#{loginMB.checkAvailablity}" 
                         ajax="false"/>
                 </p:panel>
             </h:form>

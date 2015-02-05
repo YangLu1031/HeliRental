@@ -6,6 +6,9 @@ package mainpage;
 import hr.ejb.*;
 import hr.model.entity.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -38,15 +41,31 @@ public class LoginMB implements Serializable{
     private CustomerService cs;
     private Customer loginCustomer;
     
+    @Inject
+    private ReservService rs;
+
+    
+    //login 
     private String email;
     private String password;
+    
+    //search reservation
+    private String depart;
+    private String arrival;
+    private Integer passengers;
+    private Date selectDate;
     private Date currentDate = new Date();
     
+    //managerLogin
     private List<Helicopter> helicopters = new ArrayList<Helicopter>();
     private List<Pilot> pilots = new ArrayList<Pilot>();
     private int id;
     private Integer capacity;
     private Double fixedcost;
+    
+    //searchResult
+    private Reservation showResv;    
+    private boolean status;
     
     public String loginUser(){
         
@@ -65,6 +84,23 @@ public class LoginMB implements Serializable{
         }
         return null;
     }
+    
+    public String checkAvailablity() throws ParseException{
+        Reservation resv = rs.findReservationBySearch(depart, arrival, selectDate);
+        if(resv!=null){
+            showResv = resv;
+            status = false;
+        }else{
+            Reservation r = new Reservation();
+            r.setDepart(depart);
+            r.setArrival(arrival);
+            r.setReservDate(selectDate);
+            showResv = r;
+            status = true; 
+        }
+        return "searchReslt";
+    }
+    
     public void deleteHeli(Helicopter h){
 
         if(helicopters.contains(h))
@@ -81,6 +117,62 @@ public class LoginMB implements Serializable{
         helicopter.setId(this.id);        
         helicopters.add(helicopter);
         return "managerLogin";
+    }
+
+    public ReservService getRs() {
+        return rs;
+    }
+
+    public void setRs(ReservService rs) {
+        this.rs = rs;
+    }
+
+    public Reservation getShowResv() {
+        return showResv;
+    }
+
+    public void setShowResv(Reservation showResv) {
+        this.showResv = showResv;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Date getSelectDate() {
+        return selectDate;
+    }
+
+    public void setSelectDate(Date selectDate) {
+        this.selectDate = selectDate;
+    }
+    
+    public String getDepart() {
+        return depart;
+    }
+
+    public void setDepart(String depart) {
+        this.depart = depart;
+    }
+
+    public String getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(String arrival) {
+        this.arrival = arrival;
+    }
+
+    public Integer getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Integer passengers) {
+        this.passengers = passengers;
     }
 
     public HeliService getHs() {

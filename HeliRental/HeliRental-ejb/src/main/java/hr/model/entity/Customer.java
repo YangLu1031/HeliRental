@@ -19,7 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -38,13 +37,11 @@ public class Customer implements Serializable {
     private int id;
     private String name;
     private String email;
-    @Size(min=6)
     private String password;
     private String phone;
     private String address;
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.REFRESH, fetch=FetchType.EAGER)
-    @OrderBy("departureTime ASC")
     private List<Reservation> reservations;
 
     public Customer() {

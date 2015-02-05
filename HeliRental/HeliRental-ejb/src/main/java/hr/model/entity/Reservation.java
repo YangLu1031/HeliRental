@@ -7,38 +7,43 @@ package hr.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author Xpan
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Reservation.findBySearch",
+        query = "SELECT r FROM Reservation r WHERE r.depart = :depart"
+                + " AND r.arrival = :arrival"
+                + " AND r.reservDate = :reservDate"           
+    )
+})
 public class Reservation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+   
+    private String depart;
     
-    @Temporal(TemporalType.DATE)
-    private Date departureTime;
+    private String arrival;
     
-    @Temporal(TemporalType.DATE)
-    private Date arrivalTime;
     private int passengers;
     
-    @Temporal(TemporalType.DATE)
-    private Date reservTime;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date reservDate;
     
     @ManyToOne
     @JoinColumn(name = "helicopter_id")
@@ -67,22 +72,6 @@ public class Reservation implements Serializable {
         this.id = id;
     }
 
-
-    public Date getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public Date getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
 
     public int getPassengers() {
         return passengers;
@@ -117,11 +106,36 @@ public class Reservation implements Serializable {
         this.price = price;
     }
 
-    public Date getReservTime() {
-        return reservTime;
+    public String getDepart() {
+        return depart;
     }
 
-    public void setReservTime(Date reservTime) {
-        this.reservTime = reservTime;
+    public void setDepart(String depart) {
+        this.depart = depart;
     }
+
+    public String getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(String arrival) {
+        this.arrival = arrival;
+    }
+
+    public Date getReservDate() {
+        return reservDate;
+    }
+
+    public void setReservDate(Date reservDate) {
+        this.reservDate = reservDate;
+    }
+
+    public Pilot getPilot() {
+        return pilot;
+    }
+
+    public void setPilot(Pilot pilot) {
+        this.pilot = pilot;
+    }
+
 }
