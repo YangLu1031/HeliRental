@@ -97,7 +97,7 @@ public class LoginMB implements Serializable{
     
     public String checkAvailablity() throws ParseException{
 
-        showResv = rs.findPilotHeliByReserveDate(selectDate);
+//        showResv = rs.findPilotHeliByReserveDate(selectDate);
         if(showResv!=null){
             status = true;
         }else{

@@ -36,19 +36,19 @@ public class ReservService extends AbstractFacade<Reservation> {
         super(Reservation.class);
     }
     
-    public Collection findPilotHeliByReserveDate(Date reservDate){
-        try {
-            System.out.println("query for Reservation with ReserveDate ");
-            Query userNameQuery = em.createNamedQuery("Reservations.findPilotHeliByReserveDate");
-            userNameQuery.setParameter("reservDate", reservDate);
-            Collection foundResult =  userNameQuery.getResultList();
-            return foundResult;
-        } catch (NoResultException e) {
-            System.out.println("new ReserveDate "+e);
-            return null;
-        }
-
-    }
+//    public Collection findPilotHeliByReserveDate(Date reservDate){
+//        try {
+//            System.out.println("query for Reservation with ReserveDate ");
+//            Query userNameQuery = em.createNamedQuery("Reservations.findPilotHeliByReserveDate");
+//            userNameQuery.setParameter("reservDate", reservDate);
+//            Collection foundResult =  userNameQuery.getResultList();
+//            return foundResult;
+//        } catch (NoResultException e) {
+//            System.out.println("new ReserveDate "+e);
+//            return null;
+//        }
+//
+//    }
     
     public List<Reservation> findReservationsByPilotId(int id){
         try {
