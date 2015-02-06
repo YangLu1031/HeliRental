@@ -104,7 +104,7 @@ public class MakeReservationMB {
                     date = new Date();
                     System.out.println("============" + dateFormat.format(date));
                     r.setReservTime(date);
-                    rs.create(r);
+//                    rs.create(r);
                     s.setReservation(r);
                     pss.create(s);
                 } else {
