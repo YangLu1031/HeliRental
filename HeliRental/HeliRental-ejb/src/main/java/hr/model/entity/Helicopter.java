@@ -26,21 +26,19 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Helicopter.findAllASC", query = "select h from Helicopter h ORDER BY size(h.reservations) asc"),})
+    @NamedQuery(name = "Helicopter.findAllASCByBranch", query = "select h from Helicopter h where h.branch=:branch Order BY size(h.schedules) asc"),})
 public class Helicopter implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String type;
     private Integer capacity;
-    private boolean status;
     private Double fixedcost;
     @ManyToOne
     @JoinColumn(name="branch_id")
     private Branch branch;
     @OneToMany(mappedBy = "helicopter", cascade = CascadeType.REFRESH)
-    private List<Reservation> reservations;
+    private List<Pschedule> schedules;
     
 
     public Helicopter() {
@@ -54,28 +52,12 @@ public class Helicopter implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public Integer getCapacity() {
         return capacity;
     }
 
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public Double getFixedcost() {
@@ -94,12 +76,12 @@ public class Helicopter implements Serializable {
         this.branch = branch;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
+    public List<Pschedule> getSchedules() {
+        return schedules;
     }
 
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
+    public void setSchedules(List<Pschedule> schedules) {
+        this.schedules = schedules;
     }
-
+    
 }

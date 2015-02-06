@@ -29,7 +29,6 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String status;
     @Temporal(TemporalType.DATE)
     private Date departureTime;
     @Temporal(TemporalType.DATE)
@@ -37,11 +36,6 @@ public class Reservation implements Serializable {
     private int passengers;
     @Temporal(TemporalType.DATE)
     private Date reservTime;
-    @OneToOne(cascade=CascadeType.ALL)
-    private Pschedule pSchedule;
-    @ManyToOne
-    @JoinColumn(name = "helicopter_id")
-    private Helicopter helicopter;
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -58,14 +52,6 @@ public class Reservation implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Date getDepartureTime() {
@@ -90,22 +76,6 @@ public class Reservation implements Serializable {
 
     public void setPassengers(int passengers) {
         this.passengers = passengers;
-    }
-
-    public Pschedule getpSchedule() {
-        return pSchedule;
-    }
-
-    public void setpSchedule(Pschedule pSchedule) {
-        this.pSchedule = pSchedule;
-    }
-
-    public Helicopter getHelicopter() {
-        return helicopter;
-    }
-
-    public void setHelicopter(Helicopter helicopter) {
-        this.helicopter = helicopter;
     }
 
     public Customer getCustomer() {

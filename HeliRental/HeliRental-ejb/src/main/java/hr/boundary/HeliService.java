@@ -6,6 +6,7 @@
 
 package hr.boundary;
 
+import hr.model.entity.Branch;
 import hr.model.entity.Helicopter;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -32,8 +33,8 @@ public class HeliService extends AbstractFacade<Helicopter> {
         super(Helicopter.class);
     }
     
-    public List<Helicopter> findAllASC(){
-        TypedQuery<Helicopter> query = em.createNamedQuery("Helicopter.findAllASC", Helicopter.class);
+    public List<Helicopter> findAllASCWithBranch(Branch b){
+        TypedQuery<Helicopter> query = em.createNamedQuery("Helicopter.findAllASCByBranch", Helicopter.class).setParameter("branch", b);
         List<Helicopter> helis = query.getResultList();
         return helis;
     }

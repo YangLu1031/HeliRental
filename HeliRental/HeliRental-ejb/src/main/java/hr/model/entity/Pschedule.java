@@ -33,8 +33,6 @@ public class Pschedule implements Serializable {
     private Date startTime;
     @Temporal(TemporalType.DATE)
     private Date endTime;
-    private String status;
-    private boolean type;
     @ManyToOne
     @JoinColumn(name="pilot_id")
     private Pilot pilot;
@@ -66,22 +64,6 @@ public class Pschedule implements Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public boolean isType() {
-        return type;
-    }
-
-    public void setType(boolean type) {
-        this.type = type;
     }
 
     public Pilot getPilot() {

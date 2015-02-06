@@ -33,7 +33,7 @@ public class PriceTableService extends AbstractFacade<PriceTable> {
         super(PriceTable.class);
     }
 
-    public PriceTable findPriceTableWithRoutine(Location departure, Location arrival, boolean day) {
+    public PriceTable findPriceTableWithRoutine(Location departure, Location arrival) {
         try {
             TypedQuery query = em.createNamedQuery("PriceTable.findPriceTableByRoutine",
                     PriceTable.class).setParameter("departure", departure.getId()).setParameter("arrival", arrival.getId());

@@ -33,7 +33,6 @@ public class Branch implements Serializable {
     private int id;
     @NotNull
     private String name;
-    private String timezone;
     @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Location> locations;
 
@@ -63,14 +62,6 @@ public class Branch implements Serializable {
 
     public void setLocations(List<Location> locations) {
         this.locations = locations;
-    }
-
-    public String getTimezone() {
-        return timezone;
-    }
-
-    public void setTimezone(String timezone) {
-        this.timezone = timezone;
     }
 
 }
