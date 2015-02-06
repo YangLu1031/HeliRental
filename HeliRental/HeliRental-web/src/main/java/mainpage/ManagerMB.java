@@ -11,8 +11,10 @@ import java.io.Serializable;
 import java.util.*;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,7 +32,6 @@ public class ManagerMB implements Serializable{
     @Inject
     private PilotService ps;
     
-    @ManagedProperty(value="#{loginMB.loginManager}")
     private Manager manager;
     
     private List<Helicopter> helicopters = new ArrayList<Helicopter>();
@@ -40,7 +41,7 @@ public class ManagerMB implements Serializable{
     private Double fixedcost;
     
     public ManagerMB(){
-        //setProperty();
+//        setProperty();
     }
 //        FacesContext context = FacesContext.getCurrentInstance();
 //    ExternalContext ec = context.getExternalContext();
@@ -54,7 +55,7 @@ public class ManagerMB implements Serializable{
 //    // session.setAttribute("loggedUserName", user.getName());
 //    session.setAttribute("loggedUserId", user.getId());
 //    
-    public void setProperty(){
+    public void setProperty(Manager manager){
 //        Helicopter helicopter = new Helicopter();
 //        Helicopter helicopter1 = new Helicopter();
 //        helicopter.setCapacity(4);
@@ -65,6 +66,9 @@ public class ManagerMB implements Serializable{
 //        helicopter1.setStatus(true);
 //        helicopters.add(helicopter);
 //        helicopters.add(helicopter1);
+//        FacesContext facesContext = FacesContext.getCurrentInstance();
+//        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+//        manager = (Manager) session.getAttribute("loginManager");
         int id = ms.findBranchIdByManagerId(manager.getId());
         helicopters = hs.findHelicoptersByBranchId(id);
         pilots = ps.findPilotsByBranchId(id);

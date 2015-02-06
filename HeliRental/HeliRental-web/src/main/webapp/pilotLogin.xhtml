@@ -10,9 +10,18 @@
     <h:body>
         <h:form>
                 <p:messages/>
-                <p:dataTable value="">
-                    <p:column headerText="Start Time" >
-                        <h:outputText value="#{pilotMB.startTime}" />
+                <p:dataTable value="#{loginMB.schedule}" var="schdl">
+                    <p:column headerText="Reserved Date" >
+                        <h:outputText value="#{schdl.reservDate}" />
+                    </p:column>
+                    <p:column headerText="depart" >
+                        <h:outputText value="#{schdl.depart}" />
+                    </p:column>
+                    <p:column headerText="arrival" >
+                        <h:outputText value="#{schdl.arrival}" />
+                    </p:column>
+                    <p:column headerText="Passengers" >
+                        <h:outputText value="#{schdl.passengers}" />
                     </p:column>
                 </p:dataTable>
         </h:form>

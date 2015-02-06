@@ -11,8 +11,8 @@
         <h:form>
                 <p:messages/>
                 <p:dataTable id="heliTable" value="#{loginMB.helicopters}" var="heli">
-                    <p:column headerText="Helicopter ID" >
-                        <h:outputText value="#{heli.id}" />
+                    <p:column headerText="Helicopter Type" >
+                        <h:outputText value="#{heli.type}" />
                     </p:column>
                     <p:column headerText="Helicopter capacity" >
                         <h:outputText value="#{heli.capacity}" />
@@ -28,29 +28,39 @@
                     </p:column>                    
                 </p:dataTable>
                 <p:panelGrid columns="4">
-                    <h:inputText value="#{loginMB.id}" />
+                    <h:inputText value="#{loginMB.type}" />
                     <h:inputText value="#{loginMB.capacity}" />
                     <h:inputText value="#{loginMB.fixedcost}" />
                     <h:commandLink value="Add" action="#{loginMB.addHeli}">
                             
                     </h:commandLink>
                 </p:panelGrid>
+                
                 <p:dataTable id="pilotTable" value="#{loginMB.pilots}" var="pilot">
-                    <p:column headerText="Helicopter ID" >
-                        <h:outputText value="#{pilot.id}" />
-                    </p:column>
-                    <p:column headerText="Helicopter capacity" >
+           
+                    <p:column headerText="Name" >
                         <h:outputText value="#{pilot.name}" />
                     </p:column>          
-                    <p:column headerText="Helicopter fixedcost" >
+                    <p:column headerText="Email" >
                         <h:outputText value="#{pilot.email}" />
                     </p:column>
-                    <p:column headerText="Helicopter update" >
-     
+                     <p:column headerText="Password" >
+                        <h:outputText value="#{pilot.password}" />
+                    </p:column>        
+                    <p:column headerText="Update" >
+                        <h:commandLink value="Delete" action="#{loginMB.deletePilot(pilot)}">
+
+                        </h:commandLink>           
                     </p:column>                    
                 </p:dataTable>
+                
                 <p:panelGrid columns="4">
-
+                    <h:inputText value="#{loginMB.pilotName}" />
+                    <h:inputText value="#{loginMB.pilotEmail}" />
+                    <h:inputText value="#{loginMB.pilotPassword}" />
+                    <h:commandLink value="Add" action="#{loginMB.addPilot}">
+                            
+                    </h:commandLink>
                 </p:panelGrid>
             </h:form>
     </h:body>

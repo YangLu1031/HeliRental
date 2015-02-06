@@ -6,13 +6,14 @@ package mainpage;
 import hr.ejb.*;
 import hr.model.entity.*;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.Query;
+import javax.servlet.http.HttpSession;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,6 +27,8 @@ import javax.inject.Named;
 @Named(value="loginMB")
 @SessionScoped
 public class LoginMB implements Serializable{
+    @Inject
+    private BranchService bs;
     
     @Inject
     private ManagerService ms;
@@ -56,27 +59,36 @@ public class LoginMB implements Serializable{
     private Date selectDate;
     private Date currentDate = new Date();
     
-    //managerLogin
+    //helicopters
     private List<Helicopter> helicopters = new ArrayList<Helicopter>();
-    private List<Pilot> pilots = new ArrayList<Pilot>();
-    private int id;
+    private String type;
     private Integer capacity;
     private Double fixedcost;
+    private int branchId;
+    
+    //pilots
+    private List<Pilot> pilots = new ArrayList<Pilot>();
+    private String pilotName;
+    private String pilotEmail;
+    private String pilotPassword;
+    private List<Reservation> schedule = new ArrayList<Reservation>();
     
     //searchResult
-    private Reservation showResv;    
+    private Collection showResv;    
     private boolean status;
+    
     
     public String loginUser(){
         
         if(ms.checkUser(email, password)){
             loginManager = ms.findManagerByEmail(email);
-            int id = ms.findBranchIdByManagerId(loginManager.getId());
-            helicopters = hs.findHelicoptersByBranchId(id);
-            pilots = ps.findPilotsByBranchId(id);
+            branchId = ms.findBranchIdByManagerId(loginManager.getId());
+            helicopters = hs.findHelicoptersByBranchId(branchId);
+            pilots = ps.findPilotsByBranchId(branchId);
             return "managerLogin";
         }else if(ps.checkUser(email, password)){
             loginPilot = ps.findPilotByEmail(email);
+            schedule = rs.findReservationsByPilotId(loginPilot.getId());
             return "pilotLogin";
         }else if(cs.checkUser(email, password)){
             loginCustomer = cs.findCustomerByEmail(email);
@@ -86,38 +98,108 @@ public class LoginMB implements Serializable{
     }
     
     public String checkAvailablity() throws ParseException{
-        Reservation resv = rs.findReservationBySearch(depart, arrival, selectDate);
-        if(resv!=null){
-            showResv = resv;
-            status = false;
+
+        showResv = rs.findPilotHeliByReserveDate(selectDate);
+        if(showResv!=null){
+            status = true;
         }else{
-            Reservation r = new Reservation();
-            r.setDepart(depart);
-            r.setArrival(arrival);
-            r.setReservDate(selectDate);
-            showResv = r;
-            status = true; 
+            status = false; 
         }
         return "searchReslt";
     }
     
-    public void deleteHeli(Helicopter h){
+    public String deleteHeli(Helicopter h){
 
         if(helicopters.contains(h))
         {
+            hs.remove(h);
             helicopters.remove(h);
         }
-        //return "managerLogin";
+        return "managerLogin";
     }
     
     public String addHeli(){
+        Branch branch = bs.find(branchId);
         Helicopter helicopter = new Helicopter();
         helicopter.setCapacity(this.capacity);
         helicopter.setFixedcost(this.fixedcost);
-        helicopter.setId(this.id);        
+        helicopter.setType(this.type);
+        helicopter.setBranch(branch);
         helicopters.add(helicopter);
+        hs.create(helicopter);
         return "managerLogin";
     }
+    
+    public String deletePilot(Pilot p){
+        if(pilots.contains(p))
+        {
+            ps.remove(p);
+            pilots.remove(p);
+        }
+        return "managerLogin";
+    }
+    
+    public String addPilot(){
+        Branch branch = bs.find(branchId);
+        Pilot p = new Pilot();
+        p.setName(this.pilotName);
+        p.setEmail(this.pilotEmail);
+        p.setPassword(this.pilotPassword);
+        p.setBranch(branch);
+        pilots.add(p);
+        ps.create(p);
+        return "managerLogin";
+    }    
+
+    public List<Reservation> getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(List<Reservation> schedule) {
+        this.schedule = schedule;
+    }
+
+
+    public String getPilotName() {
+        return pilotName;
+    }
+
+    public void setPilotName(String pilotName) {
+        this.pilotName = pilotName;
+    }
+
+    public String getPilotEmail() {
+        return pilotEmail;
+    }
+
+    public void setPilotEmail(String pilotEmail) {
+        this.pilotEmail = pilotEmail;
+    }
+
+    public String getPilotPassword() {
+        return pilotPassword;
+    }
+
+    public void setPilotPassword(String pilotPassword) {
+        this.pilotPassword = pilotPassword;
+    }
+    
+    public BranchService getBs() {
+        return bs;
+    }
+
+    public void setBs(BranchService bs) {
+        this.bs = bs;
+    }
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
+    }
+
 
     public ReservService getRs() {
         return rs;
@@ -127,13 +209,14 @@ public class LoginMB implements Serializable{
         this.rs = rs;
     }
 
-    public Reservation getShowResv() {
+    public Collection getShowResv() {
         return showResv;
     }
 
-    public void setShowResv(Reservation showResv) {
+    public void setShowResv(Collection showResv) {
         this.showResv = showResv;
     }
+
 
     public boolean isStatus() {
         return status;
@@ -267,13 +350,14 @@ public class LoginMB implements Serializable{
         this.pilots = pilots;
     }
 
-    public int getId() {
-        return id;
+    public String getType() {
+        return type;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setType(String type) {
+        this.type = type;
     }
+
 
     public Integer getCapacity() {
         return capacity;

@@ -62,19 +62,21 @@ public class Singleton {
             manager.setBranch(branch);
             this.ms.create(manager);
             
-            pilot = new Pilot();
-            pilot.setName("pilot"+i);
-            pilot.setEmail("pilot"+i+"@mum.edu");
-            pilot.setPassword("pilot"+i);
-            pilot.setBranch(branch);
-            this.ps.create(pilot);
-            
             helicopter = new Helicopter();
             helicopter.setType("helicopter"+i);
             helicopter.setCapacity(i);
             helicopter.setFixedcost(5.0);
             helicopter.setBranch(branch);
             this.hs.create(helicopter);
+            
+            pilot = new Pilot();
+            pilot.setName("pilot"+i);
+            pilot.setEmail("pilot"+i+"@mum.edu");
+            pilot.setPassword("pilot"+i);
+            pilot.setHelicopter(helicopter);
+            pilot.setBranch(branch);
+            this.ps.create(pilot);
+            
             
         }      
             customer = new Customer();

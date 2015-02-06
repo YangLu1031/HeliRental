@@ -8,7 +8,9 @@ package hr.ejb;
 
 import hr.boundary.AbstractFacade;
 import hr.model.entity.Reservation;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -34,17 +36,29 @@ public class ReservService extends AbstractFacade<Reservation> {
         super(Reservation.class);
     }
     
-    public Reservation findReservationBySearch(String depart, String arrival, Date reservDate){
+    public Collection findPilotHeliByReserveDate(Date reservDate){
         try {
-            System.out.println("query for Reservation with Search ");
-            Query userNameQuery = em.createNamedQuery("Reservation.findBySearch");
-            userNameQuery.setParameter("depart", depart);
-            userNameQuery.setParameter("arrival", arrival);
+            System.out.println("query for Reservation with ReserveDate ");
+            Query userNameQuery = em.createNamedQuery("Reservations.findPilotHeliByReserveDate");
             userNameQuery.setParameter("reservDate", reservDate);
-            Reservation foundReservation = (Reservation) userNameQuery.getSingleResult();
-            return foundReservation;
+            Collection foundResult =  userNameQuery.getResultList();
+            return foundResult;
         } catch (NoResultException e) {
-            System.out.println("new Reservation "+e);
+            System.out.println("new ReserveDate "+e);
+            return null;
+        }
+
+    }
+    
+    public List<Reservation> findReservationsByPilotId(int id){
+        try {
+            System.out.println("query for Reservations with PilotId ");
+            Query userNameQuery = em.createNamedQuery("Reservations.findByPilotId");
+            userNameQuery.setParameter("pilotId", id);
+            List<Reservation> foundReservations =  userNameQuery.getResultList();
+            return foundReservations;
+        } catch (NoResultException e) {
+            System.out.println("new Reservations "+e);
             return null;
         }
 

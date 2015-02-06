@@ -34,7 +34,6 @@ public class Helicopter implements Serializable {
     private Integer capacity;
     private boolean status;
     private Double fixedcost;
-    
     @ManyToOne
     @JoinColumn(name="branch_id")
     private Branch branch;

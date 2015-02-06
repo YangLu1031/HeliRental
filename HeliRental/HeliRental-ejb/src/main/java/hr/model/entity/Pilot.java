@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -29,11 +30,20 @@ import javax.persistence.OneToMany;
 public class Pilot extends Staff implements Serializable {
     private static final long serialVersionUID = 1L;
 
-
+    @OneToOne
+    private Helicopter helicopter;
 
 
     public Pilot(){
         
+    }
+
+    public Helicopter getHelicopter() {
+        return helicopter;
+    }
+
+    public void setHelicopter(Helicopter helicopter) {
+        this.helicopter = helicopter;
     }
     
 
