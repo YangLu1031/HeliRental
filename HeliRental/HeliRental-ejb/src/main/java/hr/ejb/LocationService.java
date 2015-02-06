@@ -3,9 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hr.boundary;
 
+package hr.ejb;
+
+import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
+import hr.model.entity.Location;
+import hr.model.entity.Manager;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,10 +20,10 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author hasee
+ * @author Xpan
  */
 @Stateless
-public class BranchService extends AbstractFacade<Branch> {
+public class LocationService extends AbstractFacade<Location>{
 
     @PersistenceContext(name = "HeliRental")
     private EntityManager em;
@@ -26,20 +33,15 @@ public class BranchService extends AbstractFacade<Branch> {
         return em;
     }
 
-    public BranchService() {
-        super(Branch.class);
+    public LocationService() {
+        super(Location.class);
     }
     
-    public void find(){
-        Branch b=em.find(Branch.class, 2);
-        System.out.println("======"+b.getLocations().get(1).getName());
-    }
-    
-    public Branch findBranchWithName(String name){
+    public Location findLocationWithName(String name){
         try {
-            TypedQuery query = em.createNamedQuery("Branch.findBranchByName", Branch.class).setParameter("name", name);
-            Branch b = (Branch) query.getSingleResult();
-            return b;
+            TypedQuery query = em.createNamedQuery("Location.findLocationByName", Location.class).setParameter("name", name);
+            Location l = (Location) query.getSingleResult();
+            return l;
         } catch (Exception e) {
             return null;
         }

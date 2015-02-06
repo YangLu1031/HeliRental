@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package hr.boundary;
+package hr.ejb;
 
+import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
 import hr.boundary.AbstractFacade;
 import hr.model.entity.Manager;
 import javax.ejb.Stateless;

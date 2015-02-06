@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hr.boundary;
+package hr.ejb;
 
+import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
 import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
 import hr.model.entity.Location;
