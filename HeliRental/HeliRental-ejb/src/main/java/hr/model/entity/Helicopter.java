@@ -7,18 +7,26 @@
 package hr.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author Xpan
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Helicopter.findAllASC", query = "select h from Helicopter h ORDER BY size(h.reservations) asc"),})
 public class Helicopter implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,6 +39,9 @@ public class Helicopter implements Serializable {
     @ManyToOne
     @JoinColumn(name="branch_id")
     private Branch branch;
+    @OneToMany(mappedBy = "helicopter", cascade = CascadeType.REFRESH)
+    private List<Reservation> reservations;
+    
 
     public Helicopter() {
     }
@@ -81,6 +92,14 @@ public class Helicopter implements Serializable {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
 }

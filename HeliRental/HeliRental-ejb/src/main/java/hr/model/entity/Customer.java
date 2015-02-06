@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
@@ -23,6 +25,8 @@ import javax.validation.constraints.Size;
  * @author Xpan
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Customer.findCustomerById", query = "select c from Customer c where c.id=:id"),})
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

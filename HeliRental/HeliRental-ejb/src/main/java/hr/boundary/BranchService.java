@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hr.ejb;
+package hr.boundary;
 
-import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 
-package hr.ejb;
+package hr.boundary;
 
 import hr.boundary.AbstractFacade;
-import hr.model.entity.Pilot;
+import hr.model.entity.Manager;
+import hr.model.entity.Pschedule;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +19,7 @@ import javax.persistence.PersistenceContext;
  * @author Xpan
  */
 @Stateless
-public class PilotService extends AbstractFacade<Pilot> {
+public class PscheduleService extends AbstractFacade<Pschedule>{
 
     @PersistenceContext(name = "HeliRental")
     private EntityManager em;
@@ -27,7 +29,7 @@ public class PilotService extends AbstractFacade<Pilot> {
         return em;
     }
 
-    public PilotService() {
-        super(Pilot.class);
+    public PscheduleService() {
+        super(Pschedule.class);
     }
 }

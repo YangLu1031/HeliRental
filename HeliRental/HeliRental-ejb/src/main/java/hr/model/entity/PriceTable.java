@@ -12,12 +12,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Xpan
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "PriceTable.findPriceTableByRoutine", query = "select pt from PriceTable pt where pt.departure.id=:departure and pt.arrival.id=:arrival"),})
 public class PriceTable implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,6 +39,7 @@ public class PriceTable implements Serializable {
     private Double sellprice;
     private Double pilotBonus;
     private Double expense;
+    private Integer timezoneDiff;
 
     public PriceTable() {
     }
@@ -101,6 +106,14 @@ public class PriceTable implements Serializable {
 
     public void setExpense(Double expense) {
         this.expense = expense;
+    }
+
+    public Integer getTimezoneDiff() {
+        return timezoneDiff;
+    }
+
+    public void setTimezoneDiff(Integer timezoneDiff) {
+        this.timezoneDiff = timezoneDiff;
     }
 
 }
