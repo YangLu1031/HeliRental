@@ -30,21 +30,11 @@ import javax.persistence.OneToOne;
 public class Pilot extends Staff implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne
-    private Helicopter helicopter;
-
 
     public Pilot(){
         
     }
 
-    public Helicopter getHelicopter() {
-        return helicopter;
-    }
-
-    public void setHelicopter(Helicopter helicopter) {
-        this.helicopter = helicopter;
-    }
     
 
 

@@ -4,34 +4,27 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <!--<title>Facelet Title</title>-->
-        <link rel="stylesheet" type="text/css" href="style.css" />
-     
-    </h:head>
-    <h:body>
-                <h:form>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="reservation">
                 <p:messages/>
-                <p:panel >
-                        <h:outputLabel for="emailAddr" value="Email Address" 
-                                       styleClass="requiredLbl"/>
-                        <h:inputText id="emailAddr" label="Email Address" 
-                                     value="#{loginMB.email}" 
-                                     required="true"/>
-                        <h:outputLabel for="password" value="Password" 
-                                       styleClass="requiredLbl"/>
-                        <h:inputText id="password" label="Password" 
-                                     value="#{loginMB.password}" 
-                                     required="true"/>
-                        
-                        <h:panelGroup/>
-                        <p:commandButton 
-                            value="Submit" 
-                            action ="#{loginMB.loginUser}" 
-                            ajax="false"/>
-                </p:panel>
+           
+                <div id="reserve">
+                <h:form>
+                    <h:panelGrid columns="2" id="reserv">
+                        Departure:
+                        <h:inputText id="departure" value="#{RegCustomer.departure}"/>
+                        Arrival:
+                        <h:inputText id="arrival" value="#{RegCustomer.arrival}"/>    
+                        Number of Passengers:
+                        <h:inputText id="passengers" value="#{RegCustomer.passengers}"/>  
+                        Depart time:(format "yyyy/MM/dd HH:mm")
+                        <h:inputText id="time" value="#{RegCustomer.departureTime}"/> 
+                    </h:panelGrid>
+          
+            <h:commandButton value="Reserve" action="#{RegCustomer.makeReservation}" />
             </h:form>
-            
-    </h:body>
+            </div>
+            </ui:define>
+        </ui:composition>
 </html>
 

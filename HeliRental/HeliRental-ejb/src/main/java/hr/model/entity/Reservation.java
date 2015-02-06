@@ -23,16 +23,6 @@ import javax.persistence.Temporal;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Reservations.findPilotHeliByReserveDate",
-        query = "SELECT p, h "
-                + "FROM Pilot p, Helicopter h"
-                + " WHERE p.helicopter.id = h.id"
-                + " AND NOT EXIST (SELECT 1 "
-                + "                FROM Reservation r "
-                + "                WHERE r.reservDate = :reservDate"
-                + "                AND r.pilot.id = p.id"
-                + "               )"
-    ),
     @NamedQuery(name = "Reservations.findByPilotId",
         query = "SELECT r FROM Reservation r WHERE r.pilot.id = :pilotId")
 })

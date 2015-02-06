@@ -9,11 +9,8 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.util.*;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.Query;
-import javax.servlet.http.HttpSession;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,7 +33,8 @@ public class LoginMB implements Serializable{
     
     @Inject
     private PilotService ps;
-    private Pilot loginPilot;    
+    private Pilot loginPilot;   
+    
     @Inject
     private HeliService hs;
     

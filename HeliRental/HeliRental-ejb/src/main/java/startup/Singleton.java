@@ -73,7 +73,6 @@ public class Singleton {
             pilot.setName("pilot"+i);
             pilot.setEmail("pilot"+i+"@mum.edu");
             pilot.setPassword("pilot"+i);
-            pilot.setHelicopter(helicopter);
             pilot.setBranch(branch);
             this.ps.create(pilot);
             
