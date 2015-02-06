@@ -29,9 +29,9 @@ public class Pschedule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
     @ManyToOne
     @JoinColumn(name="pilot_id")
@@ -39,7 +39,7 @@ public class Pschedule implements Serializable {
     @ManyToOne
     @JoinColumn(name="helicopter_id")
     private Helicopter helicopter;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private Reservation reservation;
 
     public int getId() {

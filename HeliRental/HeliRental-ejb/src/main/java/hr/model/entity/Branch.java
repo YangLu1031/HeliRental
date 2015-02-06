@@ -33,7 +33,7 @@ public class Branch implements Serializable {
     private int id;
     @NotNull
     private String name;
-    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "branch", fetch = FetchType.EAGER)
     private List<Location> locations;
 
     public Branch() {

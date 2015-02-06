@@ -25,7 +25,7 @@ import javax.persistence.OneToMany;
 public class Pilot extends Staff implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(mappedBy = "pilot",cascade = CascadeType. ALL,fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "pilot",fetch=FetchType.EAGER)
     private List<Pschedule> schedules;
 
     public Pilot(){

@@ -84,22 +84,22 @@ public class MakeReservationMB {
         long t = date.getTime();
         Date arrivalTime = new Date(t + (pt.getDuration() * ONE_MINUTE_IN_MILLIS));
         r.setArrivalTime(arrivalTime);
+        Date startTime = new Date(t - (pt.getDeparture().getPrepareTime() * ONE_MINUTE_IN_MILLIS));
+        t = arrivalTime.getTime();
+        Date endTime = new Date(t + (pt.getArrival().getPrepareTime() * ONE_MINUTE_IN_MILLIS));
         List<Helicopter> helis = hs.findAllASCWithBranch(depart.getBranch());
-        Helicopter h = assignHeli(helis, arrivalTime, date);
-        List<Pilot> pilots = ps.findAllASCWithBranch(depart.getBranch());
-        Pilot p = assignPilot(pilots, arrivalTime, date);
-        if (h != null && p != null) {
-            if (passengers <= h.getCapacity()) {
-                r.setPassengers(passengers);
+        Helicopter h = assignHeli(helis, endTime, startTime);
+        if (h != null) {
+            List<Pilot> pilots = ps.findAllASCWithBranch(depart.getBranch());
+            Pilot p = assignPilot(pilots, endTime, startTime);
+            if (p != null) {
+                if (passengers <= h.getCapacity()) {
+                    r.setPassengers(passengers);
 
-                Pschedule s = new Pschedule();
-                s.setHelicopter(h);
-                s.setPilot(p);
-                    t = date.getTime();
-                    Date startTime = new Date(t - (pt.getDeparture().getPrepareTime() * ONE_MINUTE_IN_MILLIS));
+                    Pschedule s = new Pschedule();
+                    s.setHelicopter(h);
+                    s.setPilot(p);
                     s.setStartTime(startTime);
-                    t = arrivalTime.getTime();
-                    Date endTime = new Date(t + (pt.getArrival().getPrepareTime() * ONE_MINUTE_IN_MILLIS));
                     s.setEndTime(endTime);
                     date = new Date();
                     System.out.println("============" + dateFormat.format(date));
@@ -107,11 +107,14 @@ public class MakeReservationMB {
                     rs.create(r);
                     s.setReservation(r);
                     pss.create(s);
+                } else {
+                    System.err.println("Not enough seats");
+                }
             } else {
-                System.err.println("Not enough seats");
+                System.err.println("No pilot available");
             }
         } else {
-            System.err.println("No helicopter or pilot available");
+            System.err.println("No helicopter available");
         }
         return null;
     }
