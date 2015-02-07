@@ -26,6 +26,7 @@ import javax.validation.constraints.Size;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Branch.findBranchByName", query = "select b from Branch b where b.name=:name"),
+    
 })
 public class Branch implements Serializable {
 

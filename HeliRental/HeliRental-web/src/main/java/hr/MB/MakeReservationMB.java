@@ -5,9 +5,14 @@
  */
 package hr.MB;
 
+import hr.ejb.BranchService;
 import hr.ejb.ReservService;
+import hr.model.entity.Branch;
+import hr.model.entity.Location;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -23,16 +28,49 @@ import javax.servlet.http.HttpSession;
 @Named(value = "makeReservationMB")
 @SessionScoped
 public class MakeReservationMB implements Serializable {
-    private String departure;
-    private String arrival;
+
+    @EJB
+    private BranchService bs;
+    private List<Branch> branches;
+    private List<String> brancheNames = new ArrayList<>();
+    private String selectedBranch;
+
+    private List<String> departure = new ArrayList<>();
+    private String selectedDeparture;
+
+    private List<String> arrival = new ArrayList<>();
+    private String selectedArrival;
+
     private Integer passengers;
     private Integer customerid;
     private String departureTime;
-    
+
     @EJB
     private ReservService rs;
 
     public MakeReservationMB() {
+
+    }
+
+    public void init() {
+        branches = bs.findAll();
+        for (Branch b : branches) {
+            brancheNames.add(b.getName());
+        }
+
+    }
+
+    public String locationSelectionChanged() {
+        if (this.branches != null) {
+            for (Branch b : branches) {
+                for (Location l : b.getLocations()) {
+                    departure.add(l.getName());
+                    arrival.add(l.getName());
+                }
+            }
+        }
+
+        return null;
     }
 
     public String makeReservation() throws ParseException {
@@ -45,31 +83,52 @@ public class MakeReservationMB implements Serializable {
         session.setAttribute("departureTime", departureTime);
         CheckSessionMB cs = new CheckSessionMB();
         String msg = rs.makeReservation();
-    
+
         if (msg.equals("reserve successfully!")) {
             if (cs.getSession() == null) {
                 System.out.println("please login or sign up");
                 return null;//redirect to login and signup page
-            }else
+            } else {
                 return null;//reserve successfully
+            }
         }
         FacesContext.getCurrentInstance().addMessage("id", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
         return null;
     }
 
-    public String getDeparture() {
+    public List<String> getBrancheNames() {
+//        branches = bs.findAll();
+//        for (Branch b : branches) {
+//            brancheNames.add(b.getName());
+//        }
+        return brancheNames;
+    }
+
+    public void setBrancheNames(List<String> brancheNames) {
+        this.brancheNames = brancheNames;
+    }
+
+    public List<Branch> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(List<Branch> branches) {
+        this.branches = branches;
+    }
+
+    public List<String> getDeparture() {
         return departure;
     }
 
-    public void setDeparture(String departure) {
+    public void setDeparture(List<String> departure) {
         this.departure = departure;
     }
 
-    public String getArrival() {
+    public List<String> getArrival() {
         return arrival;
     }
 
-    public void setArrival(String arrival) {
+    public void setArrival(List<String> arrival) {
         this.arrival = arrival;
     }
 
@@ -104,4 +163,37 @@ public class MakeReservationMB implements Serializable {
     public void setRs(ReservService rs) {
         this.rs = rs;
     }
+
+    public BranchService getBs() {
+        return bs;
+    }
+
+    public void setBs(BranchService bs) {
+        this.bs = bs;
+    }
+
+    public String getSelectedBranch() {
+        return selectedBranch;
+    }
+
+    public void setSelectedBranch(String selectedBranch) {
+        this.selectedBranch = selectedBranch;
+    }
+
+    public String getSelectedDeparture() {
+        return selectedDeparture;
+    }
+
+    public void setSelectedDeparture(String selectedDeparture) {
+        this.selectedDeparture = selectedDeparture;
+    }
+
+    public String getSelectedArrival() {
+        return selectedArrival;
+    }
+
+    public void setSelectedArrival(String selectedArrival) {
+        this.selectedArrival = selectedArrival;
+    }
+
 }

@@ -3,24 +3,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
         <ui:composition template="/template/template.xhtml">
             <ui:define name="reservation">
+                <f:event type="preRenderView" listener="#{makeReservationMB.init}" />
                 <p:messages/>
            
                 <div id="reserve">
                 <h:form>
                     <h:panelGrid columns="2" id="reserv">
                         Branch:
-  
+                        <p:selectOneMenu value="#{makeReservationMB.selectedBranch}"> 
+                            <f:selectItems value="#{makeReservationMB.brancheNames}" />
+                            <p:ajax event="change" update="departure arrival"
+                                    listener="#{makeReservationMB.locationSelectionChanged}"/>
+                        </p:selectOneMenu>    
                         Departure:
-
-                        <h:inputText id="departure" value="#{makeReservationMB.departure}"/>
+                        <p:selectOneMenu id="departure" value="#{makeReservationMB.selectedDeparture}"> 
+                            <f:selectItems value="#{makeReservationMB.departure}" />
+                        </p:selectOneMenu>    
                         Arrival:
-                        <p:selectOneMenu value="#{makeReservationMB.departure}"> 
-                            
+                        <p:selectOneMenu id="arrival" value="#{makeReservationMB.selectedArrival}"> 
+                            <f:selectItems value="#{makeReservationMB.arrival}" />
                         </p:selectOneMenu>  
-                        <h:inputText id="arrival" value="#{makeReservationMB.arrival}" />    
                         Number of Passengers:
                         <h:inputText id="passengers" value="#{makeReservationMB.passengers}"/>  
                         Depart time:(format "yyyy/MM/dd HH:mm")
