@@ -4,58 +4,52 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:body>
         <ui:composition>
-            <ui:define name="header">
-            <div id="header">
 		<a href="#" class="logo"><img src="images/logo.jpg" alt="" width="274" height="90" /></a>																																								
                 <div>
-                <ui:fragment rendered="#{RegCustomer.userName==null}">
-                <h:form>
-                    <p:panel >
-                        <h:outputLabel for="emailAddr" value="Email Address" 
-                                       styleClass="requiredLbl"/>
+                    <h:form>
+                    <ui:fragment rendered="#{HomeMB.userName==null}">
+                
+                    <h:panelGroup >
+                        <h:outputLabel for="emailAddr" value="Email Address"/>
                         <h:inputText id="emailAddr" label="Email Address" 
-                                     value="#{RegCustomer.email}" 
-                                     required="true"/>
+                                     value="#{HomeMB.email}" />
                         <h:outputLabel for="password" value="Password" 
                                        styleClass="requiredLbl"/>
                         <h:inputText id="password" label="Password" 
-                                     value="#{RegCustomer.password}" 
+                                     value="#{HomeMB.password}" 
                                      required="true"/>
                         
-                      <h:panelGroup/>
-                        <p:commandButton value="Sign In" action ="#{RegCustomer.signInUser}" ajax="true"/>
-                        <p:commandButton value="Sign Up" action ="#{RegCustomer.signUpUser}" ajax="true"/>
+                     
+                        <p:commandButton value="Sign In" action ="#{HomeMB.signInUser}" ajax="true"/>
+                        <p:commandButton value="Sign Up" action ="#{HomeMB.signUpUser}" ajax="true"/>
+                    </h:panelGroup>
                 </ui:fragment>
-                <ui:fragment rendered="#{RegCustomer.userName!=null}">
+                <ui:fragment rendered="#{HomeMB.userName!=null}">
                     <h:outputLabel  value="Welcome " />
-                    <h:outputText value="#{RegCustomer.userName}"/>
-                    <h:link hreflang="#{RegCustomer.signUpUser}" value="Log Out"/>
+                    <h:outputText value="#{HomeMB.userName}"/>
+                    <h:link outcome ="editProfile" value="Edit Profile"/>
+                    <h:commandLink action="#{HomeMB.logOut}" value="Log Out"/>
                 </ui:fragment>
-                </p:panel>
+                
                 </h:form>
                 </div>
                 <ul id="menu">
                     <li><a href="#">Home Page</a></li>
                     <li><a href="#">About Company</a></li>
-                    <li><a href="#">Contact us</a></li>
-                    <ui:fragment rendered="#{RegCustomer.userIdentity == "customer"}">
-                    <li><h:link rel="editProfile.xhtml" value="Edit Profile"/></li>
+                    <li><a href="contactUs.xhtml">Contact us</a></li>
+                    <ui:fragment rendered="#{HomeMB.userIdentity==null}">
+                    <ui:fragment rendered="#{HomeMB.userIdentity=='customer'}">
                     <li><h:link rel="reservationHistory.xhtml" value="Reserved History"/></li>
                     </ui:fragment>
-                    <ui:fragment rendered="#{RegCustomer.userIdentity == "pilot"}">
-                    <li><h:link rel="editProfile.xhtml" value="Edit Profile"/></li>
+                    <ui:fragment rendered="#{HomeMB.userIdentity == 'pilot'}">
                     <li><h:link rel="schedule.xhtml" value="Schedule"/></li>                        
                     </ui:fragment>
-                    <ui:fragment rendered="#{RegCustomer.userIdentity == "manager"}">
-                    <li><h:link rel="editProfile.xhtml" value="Edit Profile"/></li>
+                    <ui:fragment rendered="#{HomeMB.userIdentity == 'manager'}">
                     <li><h:link rel="management.xhtml" value="Management"/></li>
+                    </ui:fragment>
+                    </ui:fragment>
 		</ul>
-            </div>
-            </ui:define>
-            
         </ui:composition>
-    </h:body>
 </html>
 

@@ -3,14 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="management">
         <h:form>
                 <p:messages/>
-                <p:dataTable id="heliTable" value="#{loginMB.helicopters}" var="heli">
+                <p:dataTable id="heliTable" value="#{ManagementMB.helicopters}" var="heli">
                     <p:column headerText="Helicopter Type" >
                         <h:outputText value="#{heli.type}" />
                     </p:column>
@@ -21,22 +20,22 @@
                         <h:outputText value="#{heli.fixedcost}" />
                     </p:column>
                     <p:column headerText="Helicopter update" >
-                        <h:commandLink value="Delete" action="#{loginMB.deleteHeli(heli)}">
+                        <h:commandLink value="Delete" action="#{ManagementMB.deleteHeli(heli)}">
                             <f:ajax execute="@this" render="heliTable"/>
                         </h:commandLink>
                         
                     </p:column>                    
                 </p:dataTable>
                 <p:panelGrid columns="4">
-                    <h:inputText value="#{loginMB.type}" />
-                    <h:inputText value="#{loginMB.capacity}" />
-                    <h:inputText value="#{loginMB.fixedcost}" />
-                    <h:commandLink value="Add" action="#{loginMB.addHeli}">
+                    <h:inputText value="#{ManagementMB.type}" />
+                    <h:inputText value="#{ManagementMB.capacity}" />
+                    <h:inputText value="#{ManagementMB.fixedcost}" />
+                    <h:commandLink value="Add" action="#{ManagementMB.addHeli}">
                             
                     </h:commandLink>
                 </p:panelGrid>
                 
-                <p:dataTable id="pilotTable" value="#{loginMB.pilots}" var="pilot">
+                <p:dataTable id="pilotTable" value="#{ManagementMB.pilots}" var="pilot">
            
                     <p:column headerText="Name" >
                         <h:outputText value="#{pilot.name}" />
@@ -48,21 +47,22 @@
                         <h:outputText value="#{pilot.password}" />
                     </p:column>        
                     <p:column headerText="Update" >
-                        <h:commandLink value="Delete" action="#{loginMB.deletePilot(pilot)}">
+                        <h:commandLink value="Delete" action="#{ManagementMB.deletePilot(pilot)}">
 
                         </h:commandLink>           
                     </p:column>                    
                 </p:dataTable>
                 
                 <p:panelGrid columns="4">
-                    <h:inputText value="#{loginMB.pilotName}" />
-                    <h:inputText value="#{loginMB.pilotEmail}" />
-                    <h:inputText value="#{loginMB.pilotPassword}" />
-                    <h:commandLink value="Add" action="#{loginMB.addPilot}">
+                    <h:inputText value="#{ManagementMB.pilotName}" />
+                    <h:inputText value="#{ManagementMB.pilotEmail}" />
+                    <h:inputText value="#{ManagementMB.pilotPassword}" />
+                    <h:commandLink value="Add" action="#{ManagementMB.addPilot}">
                             
                     </h:commandLink>
                 </p:panelGrid>
             </h:form>
-    </h:body>
+         </ui:define>
+       </ui:composition>
 </html>
 

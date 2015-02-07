@@ -7,7 +7,12 @@ package mainpage;
 
 import hr.ejb.CustomerService;
 import hr.model.entity.Customer;
+import hr.model.entity.Helicopter;
+import hr.model.entity.Pilot;
+import hr.model.entity.Reservation;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -34,13 +39,34 @@ public class RegCustomer implements Serializable{
     private String email;
     private String password;
     
+    //register
+    private String passwordConf;
+    
     //reservation
     private String departure;
     private String arrival;
     private String passengers;
     private String departureTime;
     
+    //schedule
+    private List<Reservation> schedule = new ArrayList<Reservation>();
     
+    //reservation history
+    private List<Reservation> reserved = new ArrayList<Reservation>();
+    
+    //management
+        //helicopters
+        private List<Helicopter> helicopters = new ArrayList<Helicopter>();
+        private String type;
+        private Integer capacity;
+        private Double fixedcost;
+        private int branchId;
+
+        //pilots
+        private List<Pilot> pilots = new ArrayList<Pilot>();
+        private String pilotName;
+        private String pilotEmail;
+        private String pilotPassword;
     
     public String makeReservation(){
         
@@ -66,6 +92,102 @@ public class RegCustomer implements Serializable{
       }
       return "login";
       // return "lastpage";
+    }
+
+    public String getPasswordConf() {
+        return passwordConf;
+    }
+
+    public void setPasswordConf(String passwordConf) {
+        this.passwordConf = passwordConf;
+    }
+
+    public List<Reservation> getReserved() {
+        return reserved;
+    }
+
+    public void setReserved(List<Reservation> reserved) {
+        this.reserved = reserved;
+    }
+
+    public List<Helicopter> getHelicopters() {
+        return helicopters;
+    }
+
+    public void setHelicopters(List<Helicopter> helicopters) {
+        this.helicopters = helicopters;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public Double getFixedcost() {
+        return fixedcost;
+    }
+
+    public void setFixedcost(Double fixedcost) {
+        this.fixedcost = fixedcost;
+    }
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
+    }
+
+    public List<Pilot> getPilots() {
+        return pilots;
+    }
+
+    public void setPilots(List<Pilot> pilots) {
+        this.pilots = pilots;
+    }
+
+    public String getPilotName() {
+        return pilotName;
+    }
+
+    public void setPilotName(String pilotName) {
+        this.pilotName = pilotName;
+    }
+
+    public String getPilotEmail() {
+        return pilotEmail;
+    }
+
+    public void setPilotEmail(String pilotEmail) {
+        this.pilotEmail = pilotEmail;
+    }
+
+    public String getPilotPassword() {
+        return pilotPassword;
+    }
+
+    public void setPilotPassword(String pilotPassword) {
+        this.pilotPassword = pilotPassword;
+    }
+
+    public List<Reservation> getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(List<Reservation> schedule) {
+        this.schedule = schedule;
     }
 
     public String getAddress() {

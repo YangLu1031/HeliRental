@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mainpage;
+package hr.MB;
 
 import hr.ejb.*;
 import hr.model.entity.*;
@@ -20,9 +20,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author 吕杨
  */
-@Named(value="managerMB")
+@Named(value="ManagementMB")
 @SessionScoped
-public class ManagerMB implements Serializable{
+public class ManagementMB implements Serializable{
+    @Inject
+    private BranchService bs;
+    
     @Inject
     private ManagerService ms;
     
@@ -34,65 +37,118 @@ public class ManagerMB implements Serializable{
     
     private Manager manager;
     
+    //helicopters
     private List<Helicopter> helicopters = new ArrayList<Helicopter>();
-    private List<Pilot> pilots = new ArrayList<Pilot>();
-    private int id;
+    private String type;
     private Integer capacity;
     private Double fixedcost;
+    private int branchId;
     
-    public ManagerMB(){
-//        setProperty();
+    //pilots
+    private List<Pilot> pilots = new ArrayList<Pilot>();
+    private String pilotName;
+    private String pilotEmail;
+    private String pilotPassword;
+    
+    public ManagementMB(){
     }
-//        FacesContext context = FacesContext.getCurrentInstance();
-//    ExternalContext ec = context.getExternalContext();
-//    HttpSession s = (HttpSession) ec.getSession(true);
-//    System.out.println("**************"+s.getAttribute("loggedUserId"));
-//    userSession=(String) s.getAttribute("loggedUserId");
-//    FacesContext context = FacesContext.getCurrentInstance();
-//    ExternalContext ec = context.getExternalContext();
-//    HttpSession session = (HttpSession) ec.getSession(true);
-//    // session.setAttribute("loggedUserId", user.getId());
-//    // session.setAttribute("loggedUserName", user.getName());
-//    session.setAttribute("loggedUserId", user.getId());
-//    
+
     public void setProperty(Manager manager){
-//        Helicopter helicopter = new Helicopter();
-//        Helicopter helicopter1 = new Helicopter();
-//        helicopter.setCapacity(4);
-//        helicopter.setFixedcost(1.2);
-//        helicopter.setStatus(true);
-//        helicopter1.setCapacity(3);
-//        helicopter1.setFixedcost(1.2);
-//        helicopter1.setStatus(true);
-//        helicopters.add(helicopter);
-//        helicopters.add(helicopter1);
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-//        manager = (Manager) session.getAttribute("loginManager");
-        int id = ms.findBranchIdByManagerId(manager.getId());
-        helicopters = hs.findHelicoptersByBranchId(id);
-        pilots = ps.findPilotsByBranchId(id);
+
         
     }
     
-    public void deleteHeli(Helicopter h){
+    public String deleteHeli(Helicopter h){
 
         if(helicopters.contains(h))
         {
+            hs.remove(h);
             helicopters.remove(h);
         }
-        //return "managerLogin";
+        return null;
     }
     
     public String addHeli(){
+        Branch branch = bs.find(branchId);
         Helicopter helicopter = new Helicopter();
         helicopter.setCapacity(this.capacity);
         helicopter.setFixedcost(this.fixedcost);
-        helicopter.setId(this.id);        
+        helicopter.setType(this.type);
+        helicopter.setBranch(branch);
         helicopters.add(helicopter);
-        return "managerLogin";
+        hs.create(helicopter);
+        return null;
+    }
+    
+    public String deletePilot(Pilot p){
+        if(pilots.contains(p))
+        {
+            ps.remove(p);
+            pilots.remove(p);
+        }
+        return null;
+    }
+    
+    public String addPilot(){
+        Branch branch = bs.find(branchId);
+        Pilot p = new Pilot();
+        p.setName(this.pilotName);
+        p.setEmail(this.pilotEmail);
+        p.setPassword(this.pilotPassword);
+        p.setBranch(branch);
+        pilots.add(p);
+        ps.create(p);
+        return null;
+    }    
+
+    public BranchService getBs() {
+        return bs;
     }
 
+    public void setBs(BranchService bs) {
+        this.bs = bs;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getPilotName() {
+        return pilotName;
+    }
+
+    public void setPilotName(String pilotName) {
+        this.pilotName = pilotName;
+    }
+
+    public String getPilotEmail() {
+        return pilotEmail;
+    }
+
+    public void setPilotEmail(String pilotEmail) {
+        this.pilotEmail = pilotEmail;
+    }
+
+    public String getPilotPassword() {
+        return pilotPassword;
+    }
+
+    public void setPilotPassword(String pilotPassword) {
+        this.pilotPassword = pilotPassword;
+    }
+    
     public ManagerService getMs() {
         return ms;
     }
@@ -143,13 +199,6 @@ public class ManagerMB implements Serializable{
         this.helicopters = helicopters;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Integer getCapacity() {
         return capacity;

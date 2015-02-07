@@ -12,16 +12,16 @@
                 <h:form>
                     <h:panelGrid columns="2" id="reserv">
                         Departure:
-                        <h:inputText id="departure" value="#{RegCustomer.departure}"/>
+                        <h:inputText id="departure" value="#{HomeMB.departure}"/>
                         Arrival:
-                        <h:inputText id="arrival" value="#{RegCustomer.arrival}"/>    
+                        <h:inputText id="arrival" value="#{HomeMB.arrival}"/>    
                         Number of Passengers:
-                        <h:inputText id="passengers" value="#{RegCustomer.passengers}"/>  
+                        <h:inputText id="passengers" value="#{HomeMB.passengers}"/>  
                         Depart time:(format "yyyy/MM/dd HH:mm")
-                        <h:inputText id="time" value="#{RegCustomer.departureTime}"/> 
+                        <h:inputText id="time" value="#{HomeMB.departureTime}"/> 
                     </h:panelGrid>
           
-            <h:commandButton value="Reserve" action="#{RegCustomer.makeReservation}" />
+            <h:commandButton value="Reserve" action="#{HomeMB.makeReservation}" />
             </h:form>
             </div>
             </ui:define>

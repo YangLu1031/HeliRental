@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mainpage;
+package hr.MB;
 
+import hr.model.entity.Reservation;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -13,18 +16,22 @@ import javax.inject.Named;
  *
  * @author 吕杨
  */
-@Named(value="pilotMB")
+@Named(value="PilotMB")
 @SessionScoped
 public class PilotMB implements Serializable{
     
-    private String startTime;
+    
+    private List<Reservation> schedule = new ArrayList<Reservation>();
 
-    public String getStartTime() {
-        return startTime;
+    
+    public List<Reservation> getSchedule() {
+        return schedule;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setSchedule(List<Reservation> schedule) {
+        this.schedule = schedule;
     }
+
+
     
 }
