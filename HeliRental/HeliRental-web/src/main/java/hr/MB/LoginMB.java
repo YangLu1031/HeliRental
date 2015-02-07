@@ -33,6 +33,8 @@ public class LoginMB implements Serializable {
 
     private String email;
     private String password;
+    private String userName;
+    private String userType;
     @EJB
     private CustomerService cs;
     @EJB
@@ -55,6 +57,7 @@ public class LoginMB implements Serializable {
         if (c != null) {
             session.setAttribute("loggedUserId", c.getId());
             session.setAttribute("userType", "customer");
+            userType = "customer";
             if (res) {
                 rs.makeReservation();
                 return null;//redirect to reserve successfully!
@@ -64,10 +67,12 @@ public class LoginMB implements Serializable {
         }else if(m!=null){
             session.setAttribute("loggedUserId", m.getId());
             session.setAttribute("userType", "manager");
+            userType = "manager";
             return null;//redirect to manager homepage
         }else if(p!=null){
             session.setAttribute("loggedUserId", p.getId());
             session.setAttribute("userType", "pilot");
+            userType = "pilot";
             return null;//redirect to pilot homepage
         }
         return null;//invalid user account
@@ -119,6 +124,22 @@ public class LoginMB implements Serializable {
 
     public void setPs(PilotService ps) {
         this.ps = ps;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
 }

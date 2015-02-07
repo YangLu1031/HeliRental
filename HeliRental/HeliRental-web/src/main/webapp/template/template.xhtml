@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Helicopter Rental</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </h:head>
+    <h:body>
+        <div id="header" class="header">
+            <ui:insert name="header">
+                <ui:include src="/template/header.xhtml"/>
+            </ui:insert>
+        </div>
+        <div id="content" class="content">
+            <ui:insert name="content">
+                <ui:include src="/template/content.xhtml"/>
+            </ui:insert>
+            <ui:insert name="reservation">
+            </ui:insert> 
+            <ui:insert name="schedule">
+            </ui:insert> 
+            <ui:insert name="reservationHistory">
+            </ui:insert> 
+            <ui:insert name="management">
+            </ui:insert> 
+            <ui:insert name="register">
+            </ui:insert> 
+            <ui:insert name="contactUs">
+            </ui:insert> 
+            <ui:insert name="congrats">
+            </ui:insert> 
+            <ui:insert name="editProfile">
+            </ui:insert> 
+        </div>
+        <div id="footer" class="footer">
+            <ui:insert name="footer">
+                <ui:include src="/template/footer.xhtml"/>
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+

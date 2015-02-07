@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+        <ui:composition>
+		<a href="#" class="logo"><img src="images/logo.jpg" alt="" width="274" height="90" /></a>																																								
+                <div>
+                    <h:form>
+                    <ui:fragment rendered="#{loginMB.userName==null}">
+                
+                    <h:panelGroup >
+                        <h:outputLabel for="emailAddr" value="Email Address"/>
+                        <h:inputText id="emailAddr" label="Email Address" 
+                                     value="#{loginMB.email}" />
+                        <h:outputLabel for="password" value="Password" 
+                                       styleClass="requiredLbl"/>
+                        <h:inputText id="password" label="Password" 
+                                     value="#{loginMB.password}" 
+                                     required="true"/>
+                        
+                     
+                        <p:commandButton value="Sign In" action ="#{loginMB.signInUser}" ajax="true"/>
+                        <p:commandButton value="Sign Up" action ="#{loginMB.signUpUser}" ajax="true"/>
+                    </h:panelGroup>
+                </ui:fragment>
+                <ui:fragment rendered="#{loginMB.userName!=null}">
+                    <h:outputLabel  value="Welcome " />
+                    <h:outputText value="#{loginMB.userName}"/>
+                    <h:link outcome ="editProfile" value="Edit Profile"/>
+                    <h:commandLink action="#{loginMB.logOut}" value="Log Out"/>
+                </ui:fragment>
+                
+                </h:form>
+                </div>
+                <ul id="menu">
+                    <li><a href="#">Home Page</a></li>
+                    <li><a href="#">About Company</a></li>
+                    <li><a href="contactUs.xhtml">Contact us</a></li>
+                    <ui:fragment rendered="#{loginMB.userType==null}">
+                    <ui:fragment rendered="#{loginMB.userType=='customer'}">
+                    <li><h:link rel="reservationHistory.xhtml" value="Reserved History"/></li>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{loginMB.userType == 'pilot'}">
+                    <li><h:link rel="schedule.xhtml" value="Schedule"/></li>                        
+                    </ui:fragment>
+                    <ui:fragment rendered="#{loginMB.userType == 'manager'}">
+                    <li><h:link rel="management.xhtml" value="Management"/></li>
+                    </ui:fragment>
+                    </ui:fragment>
+		</ul>
+        </ui:composition>
+</html>
+

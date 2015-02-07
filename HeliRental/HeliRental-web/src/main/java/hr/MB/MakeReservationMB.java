@@ -23,12 +23,12 @@ import javax.servlet.http.HttpSession;
 @Named(value = "makeReservationMB")
 @SessionScoped
 public class MakeReservationMB implements Serializable {
-
     private String departure;
     private String arrival;
     private Integer passengers;
     private Integer customerid;
     private String departureTime;
+    
     @EJB
     private ReservService rs;
 
