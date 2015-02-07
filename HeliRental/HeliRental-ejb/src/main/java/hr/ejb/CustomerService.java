@@ -45,4 +45,24 @@ public class CustomerService extends AbstractFacade<Customer> {
             return null;
         }
     }
+    
+    public Customer findLoginCustomer(String email, String password){
+        try {
+            TypedQuery query = em.createNamedQuery("Customer.findLoginCustomer", Customer.class).setParameter("email", email).setParameter("password", password);
+            Customer c = (Customer) query.getSingleResult();
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public Customer findCutomerWithEmail(String email){
+        try {
+            TypedQuery query = em.createNamedQuery("Customer.findCustomerByEmail", Customer.class).setParameter("email", email);
+            Customer c = (Customer) query.getSingleResult();
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

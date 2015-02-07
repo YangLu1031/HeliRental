@@ -5,29 +5,12 @@
  */
 package hr.MB;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
-import hr.ejb.CustomerService;
-import hr.ejb.HeliService;
-import hr.ejb.LocationService;
-import hr.ejb.PilotService;
-import hr.ejb.PriceTableService;
-import hr.ejb.PscheduleService;
 import hr.ejb.ReservService;
-import hr.model.entity.Customer;
-import hr.model.entity.Helicopter;
-import hr.model.entity.Location;
-import hr.model.entity.Pilot;
-import hr.model.entity.PriceTable;
-import hr.model.entity.Pschedule;
-import hr.model.entity.Reservation;
-import java.text.DateFormat;
+import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Schedule;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -38,8 +21,8 @@ import javax.servlet.http.HttpSession;
  * @author Xpan
  */
 @Named(value = "makeReservationMB")
-@RequestScoped
-public class MakeReservationMB {
+@SessionScoped
+public class MakeReservationMB implements Serializable {
 
     private String departure;
     private String arrival;
@@ -61,11 +44,16 @@ public class MakeReservationMB {
         session.setAttribute("numberOfPassengers", passengers);
         session.setAttribute("departureTime", departureTime);
         CheckSessionMB cs = new CheckSessionMB();
-        if (cs.getSession() == null) {
-            System.out.println("please login or sign up");
-            return "login_signup page";
+        String msg = rs.makeReservation();
+    
+        if (msg.equals("reserve successfully!")) {
+            if (cs.getSession() == null) {
+                System.out.println("please login or sign up");
+                return null;//redirect to login and signup page
+            }else
+                return null;//reserve successfully
         }
-        rs.makeReservation();
+        FacesContext.getCurrentInstance().addMessage("id", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
         return null;
     }
 

@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -24,7 +25,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Branch.findBranchByName", query = "select b from Branch b where b.name=:name"),})
+    @NamedQuery(name = "Branch.findBranchByName", query = "select b from Branch b where b.name=:name"),
+})
 public class Branch implements Serializable {
 
     private static final long serialVersionUID = 1L;

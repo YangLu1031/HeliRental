@@ -7,14 +7,15 @@
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
+import hr.model.entity.Customer;
 import hr.model.entity.Manager;
 import hr.model.entity.Pschedule;
+import hr.model.entity.Reservation;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -33,5 +34,15 @@ public class PscheduleService extends AbstractFacade<Pschedule>{
 
     public PscheduleService() {
         super(Pschedule.class);
+    }
+    
+    public Pschedule findScheduleWithReservation(Reservation r){
+        try {
+            TypedQuery query = em.createNamedQuery("Pschedule.findScheduleByReservation", Pschedule.class).setParameter("reservation", r);
+            Pschedule s = (Pschedule) query.getSingleResult();
+            return s;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -12,12 +12,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Xpan
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Staff.findStaffById", query = "select s from Staff s where s.id=:id"),
+    @NamedQuery(name = "Staff.findLoginStaff", query = "select s from Staff s where s.email=:email and s.password=:password"),
+})
 public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;

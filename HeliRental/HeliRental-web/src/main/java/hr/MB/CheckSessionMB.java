@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package hr.MB;
 
 import hr.utility.SessionChecker;
@@ -29,9 +28,12 @@ public class CheckSessionMB implements Serializable {
     public CheckSessionMB() {
         sc = new SessionChecker();
         if (sc.isUserPrincipal() == true) {
-            this.session="user logged";
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext ec = context.getExternalContext();
+            HttpSession s = (HttpSession) ec.getSession(true);
+            this.session = (String) s.getAttribute("userType");
         } else {
-            this.session=null;
+            this.session = null;
         }
     }
 
@@ -39,8 +41,8 @@ public class CheckSessionMB implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
         HttpSession s = (HttpSession) ec.getSession(true);
-        System.out.println("**************"+s.getAttribute("loggedUserId"));
-        userSession=(String) s.getAttribute("loggedUserId");
+        System.out.println("**************" + s.getAttribute("loggedUserId"));
+        userSession = (String) s.getAttribute("loggedUserId");
         return "index?faces-redirect=true";
     }
 
@@ -67,5 +69,5 @@ public class CheckSessionMB implements Serializable {
     public void setUserSession(String userSession) {
         this.userSession = userSession;
     }
-    
+
 }

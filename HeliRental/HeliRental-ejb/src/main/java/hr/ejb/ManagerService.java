@@ -10,9 +10,11 @@ import hr.boundary.AbstractFacade;
 import hr.boundary.AbstractFacade;
 import hr.boundary.AbstractFacade;
 import hr.model.entity.Manager;
+import hr.model.entity.Manager;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -31,5 +33,25 @@ public class ManagerService extends AbstractFacade<Manager>{
 
     public ManagerService() {
         super(Manager.class);
+    }
+    
+        public Manager findManagerWithId(int id) {
+        try {
+            TypedQuery query = em.createNamedQuery("Manager.findManagerById", Manager.class).setParameter("id", id);
+            Manager s = (Manager) query.getSingleResult();
+            return s;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Manager findLoginManager(String email, String password) {
+        try {
+            TypedQuery query = em.createNamedQuery("Manager.findLoginManager", Manager.class).setParameter("email", email).setParameter("password", password);
+            Manager s = (Manager) query.getSingleResult();
+            return s;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

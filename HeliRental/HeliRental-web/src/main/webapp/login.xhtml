@@ -6,11 +6,15 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
         <h:form>
-            <h:commandButton value="run" action="#{testMB.testRun}" />
-            <h:commandButton value="reservation" action="makeReservation?faces-redirect=true" />
-            <h:commandButton value="login" action="login" />
+            <h:panelGrid columns="2" id="login">
+                e-mail:
+                <h:inputText id="departure" value="#{loginMB.email}"/>
+                password:
+                <h:inputSecret id="arrival" value="#{loginMB.password}"/>    
+            </h:panelGrid>
+          
+            <h:commandButton value="log in" action="#{loginMB.login(false)}" />
         </h:form>
     </h:body>
 </html>

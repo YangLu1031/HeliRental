@@ -72,6 +72,7 @@ public class ReservService extends AbstractFacade<Reservation> {
         System.out.println("============" + dateFormat.format(date));
         Reservation r = new Reservation();
         Customer c = cs.findCutomerWithId((int) session.getAttribute("loggedUserId"));
+//        Customer c = cs.findCutomerWithId(1);
         r.setCustomer(c);
         r.setDepartureTime(date);
         Location depart = ls.findLocationWithName((String) session.getAttribute("departure"));
@@ -90,21 +91,29 @@ public class ReservService extends AbstractFacade<Reservation> {
         t = arrivalTime.getTime();
         Date endTime = new Date(t + (pt.getArrival().getPrepareTime() * ONE_MINUTE_IN_MILLIS));
         List<Helicopter> helis = hs.findAllASCWithBranch(depart.getBranch());
-        Helicopter h;
-        int passengers = (int) session.getAttribute("passengers");
-
-        int size = helis.size();
-        for (int i = 0; i < size; i++) {
+        if (helis.isEmpty()) {
+            System.err.println("No helicopter in this branch");
+            return "no helicopter available";
+        }
+        int h;
+        int passengers = (int) session.getAttribute("numberOfPassengers");
+        int available = 0;//capacity check
+        while (!helis.isEmpty()) {
             h = assignHeli(helis, endTime, startTime);
-            if (h != null) {
-                if (passengers <= h.getCapacity()) {
+            if (h < helis.size()) {
+                available++;
+                if (passengers <= helis.get(h).getCapacity()) {
                     List<Pilot> pilots = ps.findAllASCWithBranch(depart.getBranch());
+                    if (pilots.isEmpty()) {
+                        System.err.println("No pilot in this branch");
+                        return "no pilot available";
+                    }
                     Pilot p = assignPilot(pilots, endTime, startTime);
                     if (p != null) {
                         r.setPassengers(passengers);
 
                         Pschedule s = new Pschedule();
-                        s.setHelicopter(h);
+                        s.setHelicopter(helis.get(h));
                         s.setPilot(p);
                         s.setStartTime(startTime);
                         s.setEndTime(endTime);
@@ -121,23 +130,30 @@ public class ReservService extends AbstractFacade<Reservation> {
                         return "no pilot available";
                     }
                 } else {
-                    helis.remove(0);
+                    for (int i = 0; i <= h; i++) {
+                        helis.remove(0);
+                    }
                 }
             } else {
-                System.err.println("No helicopter available");
-                return "no helicopter available";
+                if (available == 0) {
+                    System.err.println("No helicopter available");
+                    return "no helicopter available";
+                } else {
+                    System.err.println("Not enough seats");
+                    return "number of passengers is over capacity";
+                }
             }
         }
         System.err.println("Not enough seats");
         return "number of passengers is over capacity";
     }
 
-    public Helicopter assignHeli(List<Helicopter> helis, Date arriveTime, Date departTime) {
+    public int assignHeli(List<Helicopter> helis, Date arriveTime, Date departTime) {
         Boolean flag = false;
         for (int i = 0; i < helis.size(); i++) {
             Helicopter h = helis.get(i);
             if (h.getSchedules().isEmpty()) {
-                return h;
+                return i;
             }
             for (int j = 0; j < h.getSchedules().size(); j++) {
                 Pschedule s = h.getSchedules().get(j);
@@ -156,10 +172,10 @@ public class ReservService extends AbstractFacade<Reservation> {
                 flag = true;
             }
             if (flag) {
-                return h;
+                return i;
             }
         }
-        return null;
+        return helis.size() + 1;
     }
 
     public Pilot assignPilot(List<Pilot> pilots, Date arriveTime, Date departTime) {
