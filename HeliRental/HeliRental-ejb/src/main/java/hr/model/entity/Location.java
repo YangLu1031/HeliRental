@@ -24,7 +24,9 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Location.findLocationByName", query = "select l from Location l where l.name=:name"),})
+    @NamedQuery(name = "Location.findLocationByName", query = "select l from Location l where l.name=:name"),
+    @NamedQuery(name = "Location.findLocationByNameBranch", query = "select l from Location l where l.branch=:branch and l.name=:name"),
+})
 public class Location implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

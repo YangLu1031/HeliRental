@@ -11,6 +11,7 @@ import hr.boundary.AbstractFacade;
 import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
 import hr.model.entity.Location;
+import hr.model.entity.Location;
 import hr.model.entity.Manager;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -45,5 +46,28 @@ public class LocationService extends AbstractFacade<Location>{
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    public Location findLocationWithNameBranch(String name, Branch b){
+        try {
+            TypedQuery query = em.createNamedQuery("Location.findLocationByNameBranch", Location.class).setParameter("name", name).setParameter("branch", b);
+            Location l = (Location) query.getSingleResult();
+            return l;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public String addLocation(Branch b, String name, Integer time){
+        Location l=findLocationWithNameBranch(name, b);
+        if(l!=null){
+            return "this location already exists";
+        }
+        l=new Location();
+        l.setBranch(b);
+        l.setName(name);
+        l.setPrepareTime(time);
+        create(l);
+        return "add successfully";
     }
 }

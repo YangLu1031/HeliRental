@@ -13,7 +13,10 @@ import java.io.Serializable;
 import java.text.ParseException;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,7 +39,10 @@ public class SignupMB implements Serializable {
     public SignupMB() {
     }
 
-    public String signup(boolean res) throws ParseException{
+    public String signup() throws ParseException{
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
         Customer c=cs.findCutomerWithEmail(email);
         if(c==null){
             c=new Customer();
@@ -46,7 +52,9 @@ public class SignupMB implements Serializable {
             c.setPassword(password);
             c.setPhone(phone);
             cs.create(c);
-            if(res){
+            session.setAttribute("loggedUserId", c.getId());
+            session.setAttribute("userType", "customer");
+            if(session.getAttribute("departure")!=null){
                 rs.makeReservation();
                 return null;//redirect to reserve successfully
             }

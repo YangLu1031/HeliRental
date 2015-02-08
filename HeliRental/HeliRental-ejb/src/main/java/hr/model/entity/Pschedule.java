@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package hr.model.entity;
 
 import java.io.Serializable;
@@ -30,6 +29,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Pschedule.findScheduleByReservation", query = "select s from Pschedule s where s.reservation=:reservation"),
 })
 public class Pschedule implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,12 +39,12 @@ public class Pschedule implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
     @ManyToOne
-    @JoinColumn(name="pilot_id")
+    @JoinColumn(name = "pilot_id")
     private Pilot pilot;
     @ManyToOne
-    @JoinColumn(name="helicopter_id")
+    @JoinColumn(name = "helicopter_id")
     private Helicopter helicopter;
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Reservation reservation;
 
     public int getId() {
@@ -94,5 +94,5 @@ public class Pschedule implements Serializable {
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
-    
+
 }

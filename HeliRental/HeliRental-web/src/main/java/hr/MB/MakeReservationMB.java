@@ -32,13 +32,13 @@ public class MakeReservationMB implements Serializable {
     @EJB
     private BranchService bs;
     private List<Branch> branches;
-    private List<String> brancheNames = new ArrayList<>();
+    private List<String> brancheNames = new ArrayList<String>();
     private String selectedBranch;
 
-    private List<String> departure = new ArrayList<>();
+    private List<String> departure = new ArrayList<String>();
     private String selectedDeparture;
 
-    private List<String> arrival = new ArrayList<>();
+    private List<String> arrival = new ArrayList<String>();
     private String selectedArrival;
 
     private Integer passengers;
@@ -74,6 +74,9 @@ public class MakeReservationMB implements Serializable {
     }
 
     public String makeReservation() throws ParseException {
+        if (departure.equals(arrival)) {
+            return null;//please choose different locations
+        }
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(true);
@@ -84,7 +87,7 @@ public class MakeReservationMB implements Serializable {
         CheckSessionMB cs = new CheckSessionMB();
         String msg = rs.makeReservation();
 
-        if (msg.equals("reserve successfully!")) {
+        if (msg.equals("available")) {
             if (cs.getSession() == null) {
                 System.out.println("please login or sign up");
                 return null;//redirect to login and signup page
@@ -195,5 +198,4 @@ public class MakeReservationMB implements Serializable {
     public void setSelectedArrival(String selectedArrival) {
         this.selectedArrival = selectedArrival;
     }
-
 }

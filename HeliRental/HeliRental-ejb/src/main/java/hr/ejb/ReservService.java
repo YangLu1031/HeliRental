@@ -83,6 +83,7 @@ public class ReservService extends AbstractFacade<Reservation> {
             return "this routine has not been set up yet";
         }
         r.setPrice(pt);
+        r.setSellprice(pt.getSellprice());
         pt.getDuration();
         long t = date.getTime();
         Date arrivalTime = new Date(t + (pt.getDuration() * ONE_MINUTE_IN_MILLIS));
@@ -120,11 +121,13 @@ public class ReservService extends AbstractFacade<Reservation> {
                         date = new Date();
                         System.out.println("============" + dateFormat.format(date));
                         r.setReservTime(date);
+                        r.setArrival(pt.getArrival().getName());
+                        r.setDeparture(pt.getDeparture().getName());
 //                    rs.create(r);
                         s.setReservation(r);
                         pss.create(s);
 
-                        return "reserve successfully!";
+                        return "available";
                     } else {
                         System.err.println("No pilot available");
                         return "no pilot available";

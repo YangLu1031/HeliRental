@@ -10,7 +10,7 @@ import hr.boundary.AbstractFacade;
 import hr.boundary.AbstractFacade;
 import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
-import hr.model.entity.Helicopter;
+import hr.model.entity.Pilot;
 import hr.model.entity.Pilot;
 import hr.model.entity.Pschedule;
 import hr.model.entity.Pilot;
@@ -63,5 +63,33 @@ public class PilotService extends AbstractFacade<Pilot> {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    public Pilot findPilotWithEmail(String email) {
+        try {
+            TypedQuery query = em.createNamedQuery("Pilot.findPilotByEmail", Pilot.class).setParameter("email", email);
+            Pilot s = (Pilot) query.getSingleResult();
+            return s;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public String addPilot(Branch branch, String email, String name, String password, String position, String address, String phone, Double salary){
+        Pilot p=findPilotWithEmail(email);
+        if(p!=null){
+            return "email is already registered";
+        }
+        p=new Pilot();
+        p.setAddress(address);
+        p.setBranch(branch);
+        p.setEmail(email);
+        p.setName(name);
+        p.setPassword(password);
+        p.setPhone(phone);
+        p.setPosition(position);
+        p.setSalary(salary);
+        create(p);
+        return "add successfully";
     }
 }

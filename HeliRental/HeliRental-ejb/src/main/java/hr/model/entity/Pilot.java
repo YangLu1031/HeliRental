@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 @NamedQueries({
     @NamedQuery(name = "Pilot.findAllASCByBranch", query = "select p from Pilot p where p.branch=:branch Order BY size(p.schedules) asc"),
     @NamedQuery(name = "Pilot.findPilotById", query = "select s from Pilot s where s.id=:id"),
+    @NamedQuery(name = "Pilot.findPilotByEmail", query = "select s from Pilot s where s.email=:email"),
     @NamedQuery(name = "Pilot.findLoginPilot", query = "select s from Pilot s where s.email=:email and s.password=:password"),})
 public class Pilot extends Staff implements Serializable {
 

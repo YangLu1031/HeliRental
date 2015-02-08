@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,6 +25,9 @@ import javax.persistence.TemporalType;
  * @author Xpan
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Reservation.findReservationByBranch", query = "select r from Reservation r where r.price.departure.branch=:branch"),
+})
 public class Reservation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,6 +41,9 @@ public class Reservation implements Serializable {
     private int passengers;
     @Temporal(TemporalType.TIMESTAMP)
     private Date reservTime;
+    private String departure;
+    private String arrival;
+    private Double sellprice;
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -101,4 +109,29 @@ public class Reservation implements Serializable {
     public void setReservTime(Date reservTime) {
         this.reservTime = reservTime;
     }
+
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
+    }
+
+    public String getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(String arrival) {
+        this.arrival = arrival;
+    }
+
+    public Double getSellprice() {
+        return sellprice;
+    }
+
+    public void setSellprice(Double sellprice) {
+        this.sellprice = sellprice;
+    }
+    
 }

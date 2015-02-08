@@ -47,29 +47,28 @@ public class LoginMB implements Serializable {
     public LoginMB() {
     }
 
-    public String login(boolean res) throws ParseException {
+    public String login() throws ParseException {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(true);
         Customer c = cs.findLoginCustomer(email, password);
         Manager m = ms.findLoginManager(email, password);
-        Pilot p=ps.findLoginPilot(email,password);
+        Pilot p = ps.findLoginPilot(email, password);
         if (c != null) {
             session.setAttribute("loggedUserId", c.getId());
             session.setAttribute("userType", "customer");
-            userType = "customer";
-            if (res) {
+            if (session.getAttribute("departure") != null) {
                 rs.makeReservation();
                 return null;//redirect to reserve successfully!
             } else {
                 return null;//redirect to customer homepage
             }
-        }else if(m!=null){
+        } else if (m != null) {
             session.setAttribute("loggedUserId", m.getId());
             session.setAttribute("userType", "manager");
             userType = "manager";
             return null;//redirect to manager homepage
-        }else if(p!=null){
+        } else if (p != null) {
             session.setAttribute("loggedUserId", p.getId());
             session.setAttribute("userType", "pilot");
             userType = "pilot";

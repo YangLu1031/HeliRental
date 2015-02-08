@@ -40,4 +40,28 @@ public class HeliService extends AbstractFacade<Helicopter> {
         List<Helicopter> helis = query.getResultList();
         return helis;
     }
+    
+    public Helicopter findHelicopterWithNameBranch(String name, Branch b){
+        try {
+            TypedQuery query = em.createNamedQuery("Helicopter.findHelicopterByNameBranch", Helicopter.class).setParameter("name", name).setParameter("branch", b);
+            Helicopter h = (Helicopter) query.getSingleResult();
+            return h;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public String addHelicopter(Branch branch, String name, Integer capacity, Double fixedcost){
+        Helicopter h=findHelicopterWithNameBranch(name, branch);
+        if(h!=null){
+            return "this helicopter already exists";
+        }
+        h=new Helicopter();
+        h.setBranch(branch);
+        h.setCapacity(capacity);
+        h.setFixedcost(fixedcost);
+        h.setName(name);
+        create(h);
+        return "add successfully";
+    }
 }

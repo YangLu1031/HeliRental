@@ -26,7 +26,9 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Helicopter.findAllASCByBranch", query = "select h from Helicopter h where h.branch=:branch Order BY size(h.schedules) asc"),})
+    @NamedQuery(name = "Helicopter.findAllASCByBranch", query = "select h from Helicopter h where h.branch=:branch Order BY size(h.schedules) asc"),
+    @NamedQuery(name = "Helicopter.findHelicopterByNameBranch", query = "select h from Helicopter h where h.branch=:branch and h.name=:name"),
+})
 public class Helicopter implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,6 +36,7 @@ public class Helicopter implements Serializable {
     private int id;
     private Integer capacity;
     private Double fixedcost;
+    private String name;
     @ManyToOne
     @JoinColumn(name="branch_id")
     private Branch branch;
@@ -82,6 +85,14 @@ public class Helicopter implements Serializable {
 
     public void setSchedules(List<Pschedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     
 }
