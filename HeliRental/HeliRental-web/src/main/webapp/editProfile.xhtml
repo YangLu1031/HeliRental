@@ -12,7 +12,7 @@
                     <h:panelGrid columns="2">
                         <h:outputLabel for="name" value="Name" styleClass="optionalLbl"/>
                         <h:inputText id="name" label="Name" 
-                                     value="#{ProfileMB.name}"/>                        
+                                     value="#{ProfileMB.name}" required="true"/>                        
                         <h:outputLabel for="emailAddress" value="Email Address" 
                                        styleClass="requiredLbl"/>
                         <h:inputText id="emailAddress" label="Email Address" 
@@ -32,11 +32,13 @@ pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[
                         
                         <h:outputLabel for="phone" value="Phone" styleClass="optionalLbl"/>
                         <h:inputText id="phone" label="Phone" 
-                                     value="#{ProfileMB.phone}"/>    
+                                     value="#{ProfileMB.phone}" required="true">
+                             <f:validateRegex pattern="^[0-9-]{12,15}$"/>
+                        </h:inputText>    
                         
                         <h:outputLabel for="address" value="Address" styleClass="optionalLbl"/>
                         <h:inputText id="address" label="Address" 
-                                     value="#{ProfileMB.address}"/>         
+                                     value="#{ProfileMB.address}" required="true"/>         
                         
                         <h:panelGroup/>
                         <p:commandButton 

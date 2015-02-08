@@ -7,12 +7,15 @@
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
+import hr.model.entity.Branch;
 import hr.model.entity.Customer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -47,13 +50,33 @@ public class CustomerService extends AbstractFacade<Customer>{
 
     }
     
-    public boolean checkUser(String email, String password) {
-        Customer f = findCustomerByEmail(email);
-        if (f != null) {
-            if (f.getPassword().equals(password)) {
-                return true;//log in successfully
-            }
+    public Customer findCutomerWithId(int id){
+        try {
+            TypedQuery query = em.createNamedQuery("Customer.findCustomerById", Customer.class).setParameter("id", id);
+            Customer c = (Customer) query.getSingleResult();
+            return c;
+        } catch (Exception e) {
+            return null;
         }
-        return false;//invalid input
-    } 
+    }
+    
+    public Customer findLoginCustomer(String email, String password){
+        try {
+            TypedQuery query = em.createNamedQuery("Customer.findLoginCustomer", Customer.class).setParameter("email", email).setParameter("password", password);
+            Customer c = (Customer) query.getSingleResult();
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public Customer findCutomerWithEmail(String email){
+        try {
+            TypedQuery query = em.createNamedQuery("Customer.findCustomerByEmail", Customer.class).setParameter("email", email);
+            Customer c = (Customer) query.getSingleResult();
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

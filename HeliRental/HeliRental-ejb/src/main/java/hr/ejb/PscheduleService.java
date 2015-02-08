@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
-import hr.model.entity.Branch;
-import hr.model.entity.Location;
-import hr.model.entity.PriceTable;
+import hr.model.entity.Customer;
+import hr.model.entity.Manager;
+import hr.model.entity.Pschedule;
+import hr.model.entity.Reservation;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,7 +22,7 @@ import javax.persistence.TypedQuery;
  * @author Xpan
  */
 @Stateless
-public class PriceTableService extends AbstractFacade<PriceTable> {
+public class PscheduleService extends AbstractFacade<Pschedule>{
 
     @PersistenceContext(name = "HeliRental")
     private EntityManager em;
@@ -31,16 +32,15 @@ public class PriceTableService extends AbstractFacade<PriceTable> {
         return em;
     }
 
-    public PriceTableService() {
-        super(PriceTable.class);
+    public PscheduleService() {
+        super(Pschedule.class);
     }
-
-    public PriceTable findPriceTableWithRoutine(Location departure, Location arrival) {
+    
+    public Pschedule findScheduleWithReservation(Reservation r){
         try {
-            TypedQuery query = em.createNamedQuery("PriceTable.findPriceTableByRoutine",
-                    PriceTable.class).setParameter("departure", departure.getId()).setParameter("arrival", arrival.getId());
-            PriceTable pt = (PriceTable) query.getSingleResult();
-            return pt;
+            TypedQuery query = em.createNamedQuery("Pschedule.findScheduleByReservation", Pschedule.class).setParameter("reservation", r);
+            Pschedule s = (Pschedule) query.getSingleResult();
+            return s;
         } catch (Exception e) {
             return null;
         }

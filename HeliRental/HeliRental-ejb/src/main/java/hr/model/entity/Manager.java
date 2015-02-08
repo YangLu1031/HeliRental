@@ -17,10 +17,8 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Manager.findByEmail",
-        query = "SELECT m FROM Manager m WHERE m.email = :emailAddress"),
-    @NamedQuery(name = "BranchId.findByManagerId",
-        query = "SELECT m.branch.id FROM Manager m WHERE m.id = :id")
+    @NamedQuery(name = "Manager.findManagerById", query = "select s from Manager s where s.id=:id"),
+    @NamedQuery(name = "Manager.findLoginManager", query = "select s from Manager s where s.email=:email and s.password=:password"),
 })
 public class Manager extends Staff implements Serializable {
     private static final long serialVersionUID = 1L;

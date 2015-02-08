@@ -25,10 +25,10 @@ import javax.persistence.Table;
  * @author Xpan
  */
 @Entity
-@Table
 @NamedQueries({
-    @NamedQuery(name = "Customer.findByEmail",
-        query = "SELECT c FROM Customer c WHERE c.email = :emailAddress")    
+    @NamedQuery(name = "Customer.findCustomerById", query = "select c from Customer c where c.id=:id"),
+    @NamedQuery(name = "Customer.findLoginCustomer", query = "select c from Customer c where c.email=:email and c.password=:password"),
+    @NamedQuery(name = "Customer.findCustomerByEmail", query = "select c from Customer c where c.email=:email"),
 })
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;

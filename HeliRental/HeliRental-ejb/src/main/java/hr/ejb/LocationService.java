@@ -7,12 +7,16 @@
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
+import hr.model.entity.Branch;
 import hr.model.entity.Location;
 import hr.model.entity.Manager;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -31,5 +35,15 @@ public class LocationService extends AbstractFacade<Location>{
 
     public LocationService() {
         super(Location.class);
+    }
+    
+    public Location findLocationWithName(String name){
+        try {
+            TypedQuery query = em.createNamedQuery("Location.findLocationByName", Location.class).setParameter("name", name);
+            Location l = (Location) query.getSingleResult();
+            return l;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

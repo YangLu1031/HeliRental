@@ -7,7 +7,10 @@
 package hr.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,21 +26,20 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Helicopters.findByBranchId",
-        query = "SELECT h FROM Helicopter h WHERE h.branch.id = :id")
-})
+    @NamedQuery(name = "Helicopter.findAllASCByBranch", query = "select h from Helicopter h where h.branch=:branch Order BY size(h.schedules) asc"),})
 public class Helicopter implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String type;
     private Integer capacity;
-    private boolean status;
     private Double fixedcost;
     @ManyToOne
     @JoinColumn(name="branch_id")
     private Branch branch;
+    @OneToMany(mappedBy = "helicopter", cascade = CascadeType.REFRESH)
+    private List<Pschedule> schedules;
+    
 
     public Helicopter() {
     }
@@ -49,28 +52,12 @@ public class Helicopter implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public Integer getCapacity() {
         return capacity;
     }
 
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public Double getFixedcost() {
@@ -89,4 +76,12 @@ public class Helicopter implements Serializable {
         this.branch = branch;
     }
 
+    public List<Pschedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Pschedule> schedules) {
+        this.schedules = schedules;
+    }
+    
 }

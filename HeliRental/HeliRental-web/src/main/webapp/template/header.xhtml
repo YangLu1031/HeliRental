@@ -8,28 +8,28 @@
 		<a href="#" class="logo"><img src="images/logo.jpg" alt="" width="274" height="90" /></a>																																								
                 <div>
                     <h:form>
-                    <ui:fragment rendered="#{HomeMB.userName==null}">
+                    <ui:fragment rendered="#{loginMB.userName==null}">
                 
                     <h:panelGroup >
                         <h:outputLabel for="emailAddr" value="Email Address"/>
                         <h:inputText id="emailAddr" label="Email Address" 
-                                     value="#{HomeMB.email}" />
+                                     value="#{loginMB.email}" />
                         <h:outputLabel for="password" value="Password" 
                                        styleClass="requiredLbl"/>
                         <h:inputText id="password" label="Password" 
-                                     value="#{HomeMB.password}" 
+                                     value="#{loginMB.password}" 
                                      required="true"/>
                         
                      
-                        <p:commandButton value="Sign In" action ="#{HomeMB.signInUser}" ajax="true"/>
-                        <p:commandButton value="Sign Up" action ="#{HomeMB.signUpUser}" ajax="true"/>
+                        <p:commandButton value="Sign In" action ="#{loginMB.signInUser}" ajax="true"/>
+                        <p:commandButton value="Sign Up" action ="#{loginMB.signUpUser}" ajax="true"/>
                     </h:panelGroup>
                 </ui:fragment>
-                <ui:fragment rendered="#{HomeMB.userName!=null}">
+                <ui:fragment rendered="#{loginMB.userName!=null}">
                     <h:outputLabel  value="Welcome " />
-                    <h:outputText value="#{HomeMB.userName}"/>
+                    <h:outputText value="#{loginMB.userName}"/>
                     <h:link outcome ="editProfile" value="Edit Profile"/>
-                    <h:commandLink action="#{HomeMB.logOut}" value="Log Out"/>
+                    <h:commandLink action="#{loginMB.logOut}" value="Log Out"/>
                 </ui:fragment>
                 
                 </h:form>
@@ -38,14 +38,14 @@
                     <li><a href="#">Home Page</a></li>
                     <li><a href="#">About Company</a></li>
                     <li><a href="contactUs.xhtml">Contact us</a></li>
-                    <ui:fragment rendered="#{HomeMB.userIdentity==null}">
-                    <ui:fragment rendered="#{HomeMB.userIdentity=='customer'}">
+                    <ui:fragment rendered="#{loginMB.userType==null}">
+                    <ui:fragment rendered="#{loginMB.userType=='customer'}">
                     <li><h:link rel="reservationHistory.xhtml" value="Reserved History"/></li>
                     </ui:fragment>
-                    <ui:fragment rendered="#{HomeMB.userIdentity == 'pilot'}">
+                    <ui:fragment rendered="#{loginMB.userType == 'pilot'}">
                     <li><h:link rel="schedule.xhtml" value="Schedule"/></li>                        
                     </ui:fragment>
-                    <ui:fragment rendered="#{HomeMB.userIdentity == 'manager'}">
+                    <ui:fragment rendered="#{loginMB.userType == 'manager'}">
                     <li><h:link rel="management.xhtml" value="Management"/></li>
                     </ui:fragment>
                     </ui:fragment>

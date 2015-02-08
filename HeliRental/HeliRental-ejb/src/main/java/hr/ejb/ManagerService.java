@@ -7,12 +7,15 @@
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
+import hr.boundary.AbstractFacade;
+import hr.model.entity.Manager;
 import hr.model.entity.Manager;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -33,41 +36,23 @@ public class ManagerService extends AbstractFacade<Manager>{
         super(Manager.class);
     }
     
-    public Manager findManagerByEmail(String email){
+        public Manager findManagerWithId(int id) {
         try {
-            System.out.println("query for Manager with email " + email);
-            Query userNameQuery = em.createNamedQuery("Manager.findByEmail");
-            userNameQuery.setParameter("emailAddress", email);
-            Manager foundManager = (Manager) userNameQuery.getSingleResult();
-            return foundManager;
-        } catch (NoResultException e) {
-            System.out.println("new user "+e);
+            TypedQuery query = em.createNamedQuery("Manager.findManagerById", Manager.class).setParameter("id", id);
+            Manager s = (Manager) query.getSingleResult();
+            return s;
+        } catch (Exception e) {
             return null;
         }
-
     }
-    
-    public Integer findBranchIdByManagerId(int id){
+
+    public Manager findLoginManager(String email, String password) {
         try {
-            System.out.println("query for BranchId with ManagerId " + id);
-            Query userNameQuery = em.createNamedQuery("BranchId.findByManagerId");
-            userNameQuery.setParameter("id", id);
-            Integer foundId = (Integer) userNameQuery.getSingleResult();
-            return foundId;
-        } catch (NoResultException e) {
-            System.out.println("new BranchId "+e);
+            TypedQuery query = em.createNamedQuery("Manager.findLoginManager", Manager.class).setParameter("email", email).setParameter("password", password);
+            Manager s = (Manager) query.getSingleResult();
+            return s;
+        } catch (Exception e) {
             return null;
         }
-
     }
-    
-    public boolean checkUser(String email, String password) {
-        Manager f = findManagerByEmail(email);
-        if (f != null) {
-            if (f.getPassword().equals(password)) {
-                return true;//log in successfully
-            }
-        }
-        return false;//invalid input
-    }    
 }
