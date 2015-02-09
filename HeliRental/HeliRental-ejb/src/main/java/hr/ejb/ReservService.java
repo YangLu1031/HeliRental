@@ -60,6 +60,64 @@ public class ReservService extends AbstractFacade<Reservation> {
     public ReservService() {
         super(Reservation.class);
     }
+    
+    public String checkFlight(String departure, String arrival, Date departureTime, Integer numberOfPassengers) throws ParseException{
+        Location depart = ls.findLocationWithName(departure);
+        Location arrive = ls.findLocationWithName(arrival);
+        PriceTable pt = pts.findPriceTableWithRoutine(depart, arrive);
+        if (pt == null) {
+            System.err.println("No price-table available");
+            return "this routine has not been set up yet";
+        }
+        Date date = departureTime;
+        long t = date.getTime();
+        Date arrivalTime = new Date(t + (pt.getDuration() * ONE_MINUTE_IN_MILLIS));
+        Date startTime = new Date(t - (pt.getDeparture().getPrepareTime() * ONE_MINUTE_IN_MILLIS));
+        t = arrivalTime.getTime();
+        Date endTime = new Date(t + (pt.getArrival().getPrepareTime() * ONE_MINUTE_IN_MILLIS));
+        List<Helicopter> helis = hs.findAllASCWithBranch(depart.getBranch());
+        if (helis.isEmpty()) {
+            System.err.println("No helicopter in this branch");
+            return "no helicopter available";
+        }
+        int h;
+        int passengers = (int) numberOfPassengers;
+        int available = 0;//capacity check
+        while (!helis.isEmpty()) {
+            h = assignHeli(helis, endTime, startTime);
+            if (h < helis.size()) {
+                available++;
+                if (passengers <= helis.get(h).getCapacity()) {
+                    List<Pilot> pilots = ps.findAllASCWithBranch(depart.getBranch());
+                    if (pilots.isEmpty()) {
+                        System.err.println("No pilot in this branch");
+                        return "no pilot available";
+                    }
+                    Pilot p = assignPilot(pilots, endTime, startTime);
+                    if (p != null) {
+                        return "available";
+                    } else {
+                        System.err.println("No pilot available");
+                        return "no pilot available";
+                    }
+                } else {
+                    for (int i = 0; i <= h; i++) {
+                        helis.remove(0);
+                    }
+                }
+            } else {
+                if (available == 0) {
+                    System.err.println("No helicopter available");
+                    return "no helicopter available";
+                } else {
+                    System.err.println("Not enough seats");
+                    return "number of passengers is over capacity";
+                }
+            }
+        }
+        System.err.println("Not enough seats");
+        return "number of passengers is over capacity";
+    }
 
     public String makeReservation() throws ParseException {
         FacesContext context = FacesContext.getCurrentInstance();

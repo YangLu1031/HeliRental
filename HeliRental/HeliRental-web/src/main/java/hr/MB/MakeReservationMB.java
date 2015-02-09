@@ -10,8 +10,11 @@ import hr.ejb.ReservService;
 import hr.model.entity.Branch;
 import hr.model.entity.Location;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -43,14 +46,11 @@ public class MakeReservationMB implements Serializable {
 
     private Integer passengers;
     private Integer customerid;
-    private String departureTime;
+    private Date departureTime;
+    private Date currentDate = new Date();
 
     @EJB
     private ReservService rs;
-
-    public MakeReservationMB() {
-
-    }
 
     public void init() {
         branches = bs.findAll();
@@ -59,13 +59,28 @@ public class MakeReservationMB implements Serializable {
         }
 
     }
+    
+    public String test(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
+        System.out.println(session.getAttribute("loggedUserId"));
+        return "index";
+    }
 
     public String locationSelectionChanged() {
+        departure.clear();
+        arrival.clear();
+        selectedDeparture = null;
+        selectedArrival = null;
         if (this.branches != null) {
             for (Branch b : branches) {
-                for (Location l : b.getLocations()) {
-                    departure.add(l.getName());
-                    arrival.add(l.getName());
+                if (b.getName().equals(selectedBranch)) {
+                    for (Location l : b.getLocations()) {
+                        departure.add(l.getName());
+                        arrival.add(l.getName());
+                    }
+
                 }
             }
         }
@@ -74,41 +89,70 @@ public class MakeReservationMB implements Serializable {
     }
 
     public String makeReservation() throws ParseException {
-        if (departure.equals(arrival)) {
+        if (selectedDeparture.equals(selectedArrival)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "please choose different locations", null));
             return null;//please choose different locations
         }
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(true);
-        session.setAttribute("departure", departure);
-        session.setAttribute("arrival", arrival);
+        session.setAttribute("departure", selectedDeparture);
+        session.setAttribute("arrival", selectedArrival);
         session.setAttribute("numberOfPassengers", passengers);
-        session.setAttribute("departureTime", departureTime);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        long time = departureTime.getTime();
+        departureTime.setTime((time / 1000) * 1000);
+        String t = dateFormat.format(departureTime);
+        session.setAttribute("departureTime", t);
         CheckSessionMB cs = new CheckSessionMB();
-        String msg = rs.makeReservation();
-
-        if (msg.equals("available")) {
-            if (cs.getSession() == null) {
-                System.out.println("please login or sign up");
-                return null;//redirect to login and signup page
-            } else {
-                return null;//reserve successfully
+        String msg;
+        if (cs.getSession() == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "please login or sign up first", null));
+            System.out.println("please login or sign up");
+            return null;//redirect to login and signup page
+        } else {
+            msg = rs.makeReservation();
+            if (msg.equals("available")) {
+                return "congrats";//reserve successfully
             }
         }
-        FacesContext.getCurrentInstance().addMessage("id", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
+        return null;
+    }
+
+    public String check() throws ParseException {
+        if (selectedDeparture.equals(selectedArrival)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "please choose different locations", null));
+            return null;//please choose different locations
+        }
+        String msg = rs.checkFlight(selectedDeparture, selectedArrival, departureTime, passengers);
+        if (msg.equals("available")) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
+        }
         return null;
     }
 
     public List<String> getBrancheNames() {
-//        branches = bs.findAll();
-//        for (Branch b : branches) {
-//            brancheNames.add(b.getName());
-//        }
+        branches = bs.findAll();
+        brancheNames.clear();
+        for (Branch b : branches) {
+            brancheNames.add(b.getName());
+        }
         return brancheNames;
     }
 
     public void setBrancheNames(List<String> brancheNames) {
         this.brancheNames = brancheNames;
+    }
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
     }
 
     public List<Branch> getBranches() {
@@ -151,11 +195,11 @@ public class MakeReservationMB implements Serializable {
         this.customerid = customerid;
     }
 
-    public String getDepartureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(String departureTime) {
+    public void setDepartureTime(Date departureTime) {
         this.departureTime = departureTime;
     }
 

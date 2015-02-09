@@ -7,30 +7,30 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
         <ui:composition template="/template/template.xhtml">
             <ui:define name="reservation">
-                <f:event type="preRenderView" listener="#{makeReservationMB.init}" />
                 <p:messages/>
            
                 <div id="reserve">
                 <h:form>
                     <h:panelGrid columns="2" id="reserv">
                         Branch:
-                        <p:selectOneMenu value="#{makeReservationMB.selectedBranch}"> 
+                        <p:selectOneMenu value="#{makeReservationMB.selectedBranch}" required="true"> 
+                            <f:selectItem itemLabel="----" itemValue=""/>
                             <f:selectItems value="#{makeReservationMB.brancheNames}" />
                             <p:ajax event="change" update="departure arrival"
                                     listener="#{makeReservationMB.locationSelectionChanged}"/>
                         </p:selectOneMenu>    
                         Departure:
-                        <p:selectOneMenu id="departure" value="#{makeReservationMB.selectedDeparture}"> 
+                        <p:selectOneMenu id="departure" value="#{makeReservationMB.selectedDeparture}" required="true"> 
                             <f:selectItems value="#{makeReservationMB.departure}" />
                         </p:selectOneMenu>    
                         Arrival:
-                        <p:selectOneMenu id="arrival" value="#{makeReservationMB.selectedArrival}"> 
+                        <p:selectOneMenu id="arrival" value="#{makeReservationMB.selectedArrival}" required="true"> 
                             <f:selectItems value="#{makeReservationMB.arrival}" />
                         </p:selectOneMenu>  
                         Number of Passengers:
-                        <h:inputText id="passengers" value="#{makeReservationMB.passengers}"/>  
+                        <h:inputText id="passengers" value="#{makeReservationMB.passengers}" required="true"/>  
                         Depart time:(format "yyyy/MM/dd HH:mm")
-                        <h:inputText id="time" value="#{makeReservationMB.departureTime}"/> 
+                        <p:calendar mindate="#{makeReservationMB.currentDate}" pattern="yyyy/MM/dd HH:mm" value="#{makeReservationMB.departureTime}" required="true"/>
                     </h:panelGrid>
           
             <h:commandButton value="Reserve" action="#{makeReservationMB.makeReservation}" />
@@ -39,4 +39,3 @@
             </ui:define>
         </ui:composition>
 </html>
-

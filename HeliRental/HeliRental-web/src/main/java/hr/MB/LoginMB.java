@@ -17,7 +17,9 @@ import hr.model.entity.Staff;
 import java.io.Serializable;
 import java.text.ParseException;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -56,24 +58,33 @@ public class LoginMB implements Serializable {
         Pilot p = ps.findLoginPilot(email, password);
         if (c != null) {
             session.setAttribute("loggedUserId", c.getId());
+            session.setAttribute("userName", c.getName());
             session.setAttribute("userType", "customer");
+            userType = "customer";
+            userName = c.getName();
             if (session.getAttribute("departure") != null) {
                 rs.makeReservation();
-                return null;//redirect to reserve successfully!
+                return "congrats";//redirect to reserve successfully!
             } else {
+                
                 return null;//redirect to customer homepage
             }
         } else if (m != null) {
             session.setAttribute("loggedUserId", m.getId());
+            session.setAttribute("userName", c.getName());
             session.setAttribute("userType", "manager");
             userType = "manager";
+            userName = m.getName();
             return null;//redirect to manager homepage
         } else if (p != null) {
             session.setAttribute("loggedUserId", p.getId());
+            session.setAttribute("userName", c.getName());
             session.setAttribute("userType", "pilot");
             userType = "pilot";
+            userName = p.getName();
             return null;//redirect to pilot homepage
         }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Email or Password",null));
         return null;//invalid user account
     }
 

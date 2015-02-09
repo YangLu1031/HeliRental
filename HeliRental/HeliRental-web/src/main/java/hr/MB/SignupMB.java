@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -58,8 +59,9 @@ public class SignupMB implements Serializable {
                 rs.makeReservation();
                 return null;//redirect to reserve successfully
             }
-            return null;//redirect to customer homepage
+            return "reservation";//redirect to customer homepage
         }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "email already registered", null));
         return null;//email already registered
     }
     

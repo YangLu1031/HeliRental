@@ -1,17 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <h:form>
-            <h:commandButton value="run" action="#{testMB.testRun}" />
-            <h:commandButton value="reservation" action="makeReservation?faces-redirect=true" />
-            <h:commandButton value="login" action="login" />
-        </h:form>
-    </h:body>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="reservation">
+            <p:messages />
+            <div id="reserve">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        Branch:
+                        <p:selectOneMenu id="branch" value="#{makeReservationMB.selectedBranch}" required="true" requiredMessage="Please select a branch"> 
+                            <f:selectItem itemLabel="----" itemValue=""/>
+                            <f:selectItems value="#{makeReservationMB.brancheNames}" />
+                            <p:ajax event="change" update="departure arrival"
+                                    listener="#{makeReservationMB.locationSelectionChanged}"/>
+                        </p:selectOneMenu>    
+                        Departure:
+                        <p:selectOneMenu id="departure" value="#{makeReservationMB.selectedDeparture}" required="true" requiredMessage="Please select departure"> 
+                            <f:selectItems value="#{makeReservationMB.departure}" />
+                        </p:selectOneMenu>    
+                        Arrival:
+                        <p:selectOneMenu id="arrival" value="#{makeReservationMB.selectedArrival}" required="true" requiredMessage="Please select arrival"> 
+                            <f:selectItems value="#{makeReservationMB.arrival}" />
+                        </p:selectOneMenu>  
+                        Number of Passengers:
+                        <p:inputText id="passengers" value="#{makeReservationMB.passengers}" required="true" requiredMessage="Please input number of passengers">  
+                            <f:validateLongRange minimum="1" maximum="5"/>
+                        </p:inputText>
+                        Depart time:
+                        <p:calendar id="departureTime" mindate="#{makeReservationMB.currentDate}" pattern="yyyy/MM/dd HH:mm" value="#{makeReservationMB.departureTime}" required="true" requiredMessage="Please choose departure time"/>
+                    </h:panelGrid>
+                    <h:commandButton value="search" image="images/search.jpg" action="#{makeReservationMB.check}" style="width: 95px; margin-right: 80px"/>
+                    <h:commandButton value="Reserve" image="images/reserve.png" action="#{makeReservationMB.makeReservation}" style="width: 100px"/>
+                </h:form>
+                <h:form>
+                    <h:commandButton value="test" action="#{makeReservationMB.test}"/>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
 </html>
-

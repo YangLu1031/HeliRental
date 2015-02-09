@@ -23,27 +23,18 @@ public class CheckSessionMB implements Serializable {
 
     private String session;
     private SessionChecker sc;
-    private String userSession;
+    private String name;
 
     public CheckSessionMB() {
-        sc = new SessionChecker();
-        if (sc.isUserPrincipal() == true) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext ec = context.getExternalContext();
-            HttpSession s = (HttpSession) ec.getSession(true);
-            this.session = (String) s.getAttribute("userType");
-        } else {
-            this.session = null;
-        }
-    }
-
-    public String getUserSession() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
         HttpSession s = (HttpSession) ec.getSession(true);
-        System.out.println("**************" + s.getAttribute("loggedUserId"));
-        userSession = (String) s.getAttribute("loggedUserId");
-        return "index?faces-redirect=true";
+        if (s.getAttribute("loggedUserId")!=null) {
+            this.session = (String) s.getAttribute("userType");
+            this.name=(String) s.getAttribute("userName");
+        } else {
+            this.session = null;
+        }
     }
 
     public String getSession() {
@@ -62,12 +53,12 @@ public class CheckSessionMB implements Serializable {
         this.sc = sc;
     }
 
-//    public String getUserSession() {
-//        return userSession;
-//    }
-//    
-    public void setUserSession(String userSession) {
-        this.userSession = userSession;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

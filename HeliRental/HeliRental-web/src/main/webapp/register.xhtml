@@ -14,13 +14,13 @@
                     <h:panelGrid columns="2">
                         <h:outputLabel for="name" value="Name" styleClass="optionalLbl"/>
                         <h:inputText id="name" label="Name" 
-                                     value="#{Register.name}"/>
+                                     value="#{signupMB.name}"/>
                         
                         <h:outputLabel for="emailAddress" value="Email Address" 
                                        styleClass="requiredLbl"/>
                         <h:inputText id="emailAddress" label="Email Address" 
                                      validatorMessage="Invalid email format"
-                                     value="#{Register.email}" 
+                                     value="#{signupMB.email}" 
                                      required="true">
                         <f:validateRegex
 pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
@@ -29,34 +29,26 @@ pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[
                         
                         <h:outputLabel for="password" value="Password" styleClass="optionalLbl"/>
                         <h:inputSecret
-                            id="password" value="#{Register.password}"
-                            required="true" validatorMessage="Length of password should between 6-16">
-                            <f:validateLength maximum="16" minimum="6"/>
-                        </h:inputSecret>
-                        
-                        <h:outputLabel for="passwordConf" value="Password Confirm" styleClass="optionalLbl"/>
-                        <h:inputSecret
-                            id="passwordConf" value="#{Register.passwordConf}"
+                            id="password" value="#{signupMB.password}"
                             required="true" validatorMessage="Length of password should between 6-16">
                             <f:validateLength maximum="16" minimum="6"/>
                         </h:inputSecret>
                         
                         <h:outputLabel for="phone" value="Phone" styleClass="optionalLbl"/>
                         <h:inputText id="phone" label="Phone" 
-                                     value="#{Register.phone}" required="true">
-                            <f:validateRegex pattern="^[0-9-]{12,15}$"/>
+                                     value="#{signupMB.phone}" required="true">
+                            <f:validateRegex pattern="^[0-9-]{10}$"/>
                         </h:inputText>  
                         
                         <h:outputLabel for="address" value="Address" styleClass="optionalLbl"/>
                         <h:inputText id="address" label="Address" 
-                                     value="#{Register.address}" required="true"/>         
+                                     value="#{signupMB.address}" required="true"/>         
                         
                         <h:panelGroup/>
-                        <p:commandButton value="Submit" action ="#{Register.saveRegInfo}" ajax="false"/>
+                        <p:commandButton value="Submit" action ="#{signupMB.signup}" ajax="false"/>
                     </h:panelGrid>
                 </p:panel>
             </h:form>
             </ui:define>
         </ui:composition>
 </html>
-
