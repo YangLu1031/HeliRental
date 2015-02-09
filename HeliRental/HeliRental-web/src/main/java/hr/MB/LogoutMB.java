@@ -29,7 +29,7 @@ public class LogoutMB implements Serializable {
         ExternalContext ec = context.getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(true);
         session.invalidate();
-        return "homePage?faces-redirect=true";
+        return "reservation?faces-redirect=true";
     }
     
 }

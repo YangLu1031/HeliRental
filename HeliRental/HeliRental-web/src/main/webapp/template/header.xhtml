@@ -7,41 +7,38 @@
         <a href="#" class="logo"><img src="images/spintheworld.jpg" alt="" width="274" height="90" /></a>																																								
         <div>
             <h:form>
-                <ui:fragment rendered="#{checkSessionMB.session==null}">
-                    <h:panelGroup >
-
-                        <h:outputLabel for="emailAddr" value="Email Address"/>
-                        <h:inputText id="emailAddr" label="Email Address" 
-                                     value="#{loginMB.email}" />
-                        <h:outputLabel for="password" value="Password" />
-                        <h:inputSecret id="password" label="Password" 
-                                       value="#{loginMB.password}" 
-                                       required="true"/>
-
-                        <h:commandLink value="Sign In" action="#{loginMB.login}"  style="margin-right: 10px"/>
-                        <h:commandLink value="Sign Up" action="register"/>
-                    </h:panelGroup>
+                    <h:panelGroup>
+                <ui:fragment rendered="#{loginMB.userName==null}">
+                    <h:outputLabel for="emailAddr" value="Email Address"/>
+                    <h:inputText id="emailAddr" label="Email Address" 
+                                 value="#{loginMB.email}" />
+                    <h:outputLabel for="password" value="Password" />
+                    <h:inputSecret id="password" label="Password" 
+                                   value="#{loginMB.password}" 
+                                   required="true"/>
+                <h:commandLink value="Sign In" action="#{loginMB.login}"  style="margin-right: 10px"/>
+                <h:commandLink value="Sign Up" action="register"/>
                 </ui:fragment>
-                <ui:fragment rendered="#{checkSessionMB.session!=null}">
-                    <h:outputLabel  value="Welcome #{checkSessionMB.name}! " style="right: 20px; font-size: medium" />
+                </h:panelGroup>
+                <ui:fragment rendered="#{loginMB.userName!=null}">
+                    <h:outputLabel  value="Welcome #{loginMB.userName}! " style="right: 20px; font-size: medium" />
                     <h:link outcome ="editProfile" value="Edit Profile" style="font-size: small" />
                     <h:commandLink action="#{logoutMB.logout}" value="Log Out" style="font-size: small"  />
                 </ui:fragment>
-
             </h:form>
         </div>
         <ul id="menu">
             <li><a href="reservation.jsf">Home Page</a></li>
             <li><a href="#">About Company</a></li>
             <li><a href="contactUs.jsf">Contact us</a></li>
-            <ui:fragment rendered="#{checkSessionMB.session!=null}">
-                <ui:fragment rendered="#{checkSessionMB.session=='customer'}">
+            <ui:fragment rendered="#{loginMB.userType!=null}">
+                <ui:fragment rendered="#{loginMB.userType=='customer'}">
                     <li><h:link rel="reservationHistory.jsf" value="Reserved History"/></li>
                 </ui:fragment>
-                <ui:fragment rendered="#{checkSessionMB.session == 'pilot'}">
+                <ui:fragment rendered="#{loginMB.userType == 'pilot'}">
                     <li><h:link rel="schedule.jsf" value="Schedule"/></li>                        
                 </ui:fragment>
-                <ui:fragment rendered="#{checkSessionMB.session == 'manager'}">
+                <ui:fragment rendered="#{loginMB.userType == 'manager'}">
                     <li><h:link rel="management.jsf" value="Management"/></li>
                 </ui:fragment>
             </ui:fragment>

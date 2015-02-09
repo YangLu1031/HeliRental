@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
  * @author Xpan
  */
 @Named(value = "loginMB")
-@SessionScoped
+@RequestScoped
 public class LoginMB implements Serializable {
 
     private String email;

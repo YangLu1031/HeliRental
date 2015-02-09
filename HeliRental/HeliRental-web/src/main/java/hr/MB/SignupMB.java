@@ -55,11 +55,12 @@ public class SignupMB implements Serializable {
             cs.create(c);
             session.setAttribute("loggedUserId", c.getId());
             session.setAttribute("userType", "customer");
+            
             if(session.getAttribute("departure")!=null){
                 rs.makeReservation();
                 return null;//redirect to reserve successfully
             }
-            return "reservation";//redirect to customer homepage
+            return "index";//redirect to customer homepage
         }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "email already registered", null));
         return null;//email already registered
