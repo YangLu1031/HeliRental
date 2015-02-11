@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
@@ -16,9 +15,12 @@ import hr.model.entity.Pschedule;
 import hr.model.entity.Pilot;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,15 +40,40 @@ public class PilotService extends AbstractFacade<Pilot> {
     public PilotService() {
         super(Pilot.class);
     }
-    
-    public List<Pilot> findAllASCWithBranch(Branch b){
+
+    public List<Pilot> findAllASCWithBranch(Branch b) {
         TypedQuery<Pilot> query = em.createNamedQuery("Pilot.findAllASCByBranch", Pilot.class).setParameter("branch", b);
         List<Pilot> pilots = query.getResultList();
         return pilots;
     }
-    
-        public Pilot findPilotWithId(int id) {
+
+    public List<Pilot> findAllPilotWithBranch() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
+        Branch b = (Branch) session.getAttribute("branch");
+        TypedQuery<Pilot> query = em.createNamedQuery("Pilot.findAllASCByBranch", Pilot.class).setParameter("branch", b);
+        List<Pilot> pilots = query.getResultList();
+        return pilots;
+    }
+
+    public Pilot findPilotWithId(int id) {
         try {
+            TypedQuery query = em.createNamedQuery("Pilot.findPilotById", Pilot.class).setParameter("id", id);
+            Pilot s = (Pilot) query.getSingleResult();
+            return s;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Pilot findPilotWithId() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
+        
+        try {
+            int id=(int) session.getAttribute("loggedUserId");
             TypedQuery query = em.createNamedQuery("Pilot.findPilotById", Pilot.class).setParameter("id", id);
             Pilot s = (Pilot) query.getSingleResult();
             return s;
@@ -64,7 +91,7 @@ public class PilotService extends AbstractFacade<Pilot> {
             return null;
         }
     }
-    
+
     public Pilot findPilotWithEmail(String email) {
         try {
             TypedQuery query = em.createNamedQuery("Pilot.findPilotByEmail", Pilot.class).setParameter("email", email);
@@ -74,13 +101,13 @@ public class PilotService extends AbstractFacade<Pilot> {
             return null;
         }
     }
-    
-    public String addPilot(Branch branch, String email, String name, String password, String position, String address, String phone, Double salary){
-        Pilot p=findPilotWithEmail(email);
-        if(p!=null){
+
+    public String addPilot(Branch branch, String email, String name, String password, String position, String address, String phone, Double salary) {
+        Pilot p = findPilotWithEmail(email);
+        if (p != null) {
             return "email is already registered";
         }
-        p=new Pilot();
+        p = new Pilot();
         p.setAddress(address);
         p.setBranch(branch);
         p.setEmail(email);

@@ -11,6 +11,9 @@
             <h:commandButton value="run" action="#{testMB.testRun}" />
             <h:commandButton value="reservation" action="makeReservation?faces-redirect=true" />
             <h:commandButton value="login" action="login" />
+            Message:
+            <h:inputText id="msg" value="#{loginMB.msg}"/>
+            <h:commandButton value="send" action="#{loginMB.sendMsg}" />
         </h:form>
     </h:body>
 </html>

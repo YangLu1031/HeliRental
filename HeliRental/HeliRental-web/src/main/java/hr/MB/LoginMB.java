@@ -16,13 +16,18 @@ import hr.model.entity.Pilot;
 import hr.model.entity.Staff;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.Queue;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -30,13 +35,19 @@ import javax.servlet.http.HttpSession;
  * @author Xpan
  */
 @Named(value = "loginMB")
-@RequestScoped
+@SessionScoped
 public class LoginMB implements Serializable {
-
+    @Resource(mappedName = "jms/dest")
+    private javax.jms.Queue dest;
+    @Inject
+    @JMSConnectionFactory("jms/myQueue")
+    private JMSContext context;
+    
     private String email;
     private String password;
     private String userName;
     private String userType;
+    private String msg;
     @EJB
     private CustomerService cs;
     @EJB
@@ -47,6 +58,10 @@ public class LoginMB implements Serializable {
     private ReservService rs;
 
     public LoginMB() {
+    }
+    
+    public void sendMsg(){
+        sendJMSMessageToDest(msg);
     }
 
     public String login() throws ParseException {
@@ -71,14 +86,15 @@ public class LoginMB implements Serializable {
             }
         } else if (m != null) {
             session.setAttribute("loggedUserId", m.getId());
-            session.setAttribute("userName", c.getName());
+            session.setAttribute("userName", m.getName());
             session.setAttribute("userType", "manager");
+            session.setAttribute("branch", m.getBranch());
             userType = "manager";
             userName = m.getName();
             return null;//redirect to manager homepage
         } else if (p != null) {
             session.setAttribute("loggedUserId", p.getId());
-            session.setAttribute("userName", c.getName());
+            session.setAttribute("userName", p.getName());
             session.setAttribute("userType", "pilot");
             userType = "pilot";
             userName = p.getName();
@@ -150,6 +166,18 @@ public class LoginMB implements Serializable {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    private void sendJMSMessageToDest(String messageData) {
+        context.createProducer().send(dest, messageData);
     }
 
 }

@@ -15,9 +15,12 @@ import hr.model.entity.Location;
 import hr.model.entity.PriceTable;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -56,6 +59,16 @@ public class PriceTableService extends AbstractFacade<PriceTable> {
     }
     
     public List<PriceTable> findPriceTableGroupWithBranch(Branch b) {
+        TypedQuery<PriceTable> query = em.createNamedQuery("PriceTable.findPriceTableGroupByBranch", PriceTable.class).setParameter("branch", b);
+        List<PriceTable> pts = query.getResultList();
+        return pts;
+    }
+    
+    public List<PriceTable> findPriceTableGroupWithBranch() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
+        Branch b=(Branch) session.getAttribute("branch");
         TypedQuery<PriceTable> query = em.createNamedQuery("PriceTable.findPriceTableGroupByBranch", PriceTable.class).setParameter("branch", b);
         List<PriceTable> pts = query.getResultList();
         return pts;

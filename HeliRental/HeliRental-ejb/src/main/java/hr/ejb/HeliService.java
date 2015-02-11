@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
@@ -12,9 +11,12 @@ import hr.model.entity.Branch;
 import hr.model.entity.Helicopter;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,14 +36,24 @@ public class HeliService extends AbstractFacade<Helicopter> {
     public HeliService() {
         super(Helicopter.class);
     }
-    
-    public List<Helicopter> findAllASCWithBranch(Branch b){
+
+    public List<Helicopter> findAllASCWithBranch(Branch b) {
         TypedQuery<Helicopter> query = em.createNamedQuery("Helicopter.findAllASCByBranch", Helicopter.class).setParameter("branch", b);
         List<Helicopter> helis = query.getResultList();
         return helis;
     }
-    
-    public Helicopter findHelicopterWithNameBranch(String name, Branch b){
+
+    public List<Helicopter> findAllHelicopterWithBranch() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
+        Branch b=(Branch) session.getAttribute("branch");
+        TypedQuery<Helicopter> query = em.createNamedQuery("Helicopter.findAllASCByBranch", Helicopter.class).setParameter("branch", b);
+        List<Helicopter> helis = query.getResultList();
+        return helis;
+    }
+
+    public Helicopter findHelicopterWithNameBranch(String name, Branch b) {
         try {
             TypedQuery query = em.createNamedQuery("Helicopter.findHelicopterByNameBranch", Helicopter.class).setParameter("name", name).setParameter("branch", b);
             Helicopter h = (Helicopter) query.getSingleResult();
@@ -50,13 +62,13 @@ public class HeliService extends AbstractFacade<Helicopter> {
             return null;
         }
     }
-    
-    public String addHelicopter(Branch branch, String name, Integer capacity, Double fixedcost){
-        Helicopter h=findHelicopterWithNameBranch(name, branch);
-        if(h!=null){
+
+    public String addHelicopter(Branch branch, String name, Integer capacity, Double fixedcost) {
+        Helicopter h = findHelicopterWithNameBranch(name, branch);
+        if (h != null) {
             return "this helicopter already exists";
         }
-        h=new Helicopter();
+        h = new Helicopter();
         h.setBranch(branch);
         h.setCapacity(capacity);
         h.setFixedcost(fixedcost);
