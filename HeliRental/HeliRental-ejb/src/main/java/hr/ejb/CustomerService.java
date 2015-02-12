@@ -14,6 +14,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpSession;
  * @author Xpan
  */
 @Stateless
+@Named
 public class CustomerService extends AbstractFacade<Customer> {
 
     @PersistenceContext(name = "HeliRental")

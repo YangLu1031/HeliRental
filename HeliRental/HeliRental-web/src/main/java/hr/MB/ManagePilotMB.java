@@ -11,7 +11,9 @@ import hr.ejb.PilotService;
 import hr.model.entity.Branch;
 import hr.model.entity.Pilot;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -40,8 +42,18 @@ public class ManagePilotMB implements Serializable {
     private ManagerService ms;
     @EJB
     private PilotService ps;
+    private List<Pilot> pilots = new ArrayList<Pilot>();
     
     public ManagePilotMB() {
+    }
+    
+    public void setProperty() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
+        int id = (int) session.getAttribute("loggedUserId");
+        branch = ms.findManagerWithId(id).getBranch();
+        pilots = ps.findAllASCWithBranch(branch);
     }
     
     public String addPilot(){
@@ -66,6 +78,14 @@ public class ManagePilotMB implements Serializable {
             }
         }
         return null;//delete successful ajax list
+    }
+
+    public List<Pilot> getPilots() {
+        return pilots;
+    }
+
+    public void setPilots(List<Pilot> pilots) {
+        this.pilots = pilots;
     }
 
     public String getEmail() {

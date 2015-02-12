@@ -33,13 +33,15 @@
             <li><a href="contactUs.jsf">Contact us</a></li>
             <ui:fragment rendered="#{loginMB.userType!=null}">
                 <ui:fragment rendered="#{loginMB.userType=='customer'}">
-                    <li><h:link rel="reservationHistory.jsf" value="Reserved History"/></li>
+                    <li><h:link outcome="reservationHistory.jsf" value="Reserved History"/></li>
                 </ui:fragment>
                 <ui:fragment rendered="#{loginMB.userType == 'pilot'}">
-                    <li><h:link rel="schedule.jsf" value="Schedule"/></li>                        
+                    <li><h:link outcome="schedule.jsf" value="Schedule"/></li>                        
                 </ui:fragment>
                 <ui:fragment rendered="#{loginMB.userType == 'manager'}">
-                    <li><h:link rel="management.jsf" value="Management"/></li>
+                    <li><h:link outcome="managementHeli.jsf" value="Manage Helicopters"/></li>
+                    <li><h:link outcome="managementPilot.jsf" value="Manage Pilots"/></li>
+                    <li><h:link outcome="managementPrice.jsf" value="Manage Price"/></li>
                 </ui:fragment>
             </ui:fragment>
         </ul>

@@ -8,12 +8,13 @@
             <ui:define name="reservationHistory">
                 <p:messages/>
         <h:form>
-                <p:dataTable value="#{CustomerMB.reserved}" var="rsvd">
+            <h:outputText value="#{customerService.findCutomerWithId()}"/>
+                <p:dataTable value="#{customerService.findCutomerWithId().getReservations}" var="rsvd">
                     <p:column headerText="Reserved Date" >
-                        <h:outputText value="#{rsvd.reservDate}" />
+                        <h:outputText value="#{rsvd.reservTime}" />
                     </p:column>
                     <p:column headerText="depart" >
-                        <h:outputText value="#{rsvd.depart}" />
+                        <h:outputText value="#{rsvd.departure}" />
                     </p:column>
                     <p:column headerText="arrival" >
                         <h:outputText value="#{rsvd.arrival}" />

@@ -9,8 +9,11 @@ import hr.ejb.HeliService;
 import hr.ejb.ManagerService;
 import hr.model.entity.Branch;
 import hr.model.entity.Helicopter;
+import hr.model.entity.Manager;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -23,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author hasee
  */
-@Named(value = "addHelicopterMB")
+@Named(value = "helicopterMB")
 @SessionScoped
 public class ManageHelicopterMB implements Serializable {
 
@@ -33,12 +36,23 @@ public class ManageHelicopterMB implements Serializable {
     private Branch branch;
     @EJB
     private HeliService hs;
+    private List<Helicopter> helicopters = new ArrayList<Helicopter>();
     @EJB
     private ManagerService ms;
 
     public ManageHelicopterMB() {
+        
     }
-
+    
+    public void setProperty(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
+        int id = (int) session.getAttribute("loggedUserId");
+        branch = ms.findManagerWithId(id).getBranch();
+        helicopters = hs.findAllASCWithBranch(branch);
+    }
+    
     public String addHelicopter() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
@@ -61,6 +75,14 @@ public class ManageHelicopterMB implements Serializable {
             }
         }
         return null;//delete successful ajax list
+    }
+
+    public List<Helicopter> getHelicopters() {
+        return helicopters;
+    }
+
+    public void setHelicopters(List<Helicopter> helicopters) {
+        this.helicopters = helicopters;
     }
 
     public String getName() {

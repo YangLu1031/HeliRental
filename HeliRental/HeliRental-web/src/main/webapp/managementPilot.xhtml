@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="management">
+                <f:event  type="preRenderView" listener="#{managePilotMB.setProperty}"/>
+        <h:form>
+                <p:messages/>
+                <p:dataTable id="pilotTable" value="#{managePilotMB.pilots}" var="pilot" paginator="true" rows="1">
+           
+                    <p:column headerText="Name" >
+                        <h:outputText value="#{pilot.name}" />
+                    </p:column>          
+                    <p:column headerText="Email" >
+                        <h:outputText value="#{pilot.email}" />
+                    </p:column>
+                     <p:column headerText="Password" >
+                        <h:outputText value="#{pilot.password}" />
+                    </p:column>        
+                    <p:column headerText="Update" >
+                        <h:commandLink value="Delete" action="#{managePilotMB.deletePilot(pilot)}">
+
+                        </h:commandLink>           
+                    </p:column>                    
+                </p:dataTable>
+                
+                <p:panelGrid columns="4">
+                    <h:inputText value="#{managePilotMB.name}" />
+                    <h:inputText value="#{managePilotMB.email}" />
+                    <h:inputText value="#{managePilotMB.password}" />
+                    <h:commandLink value="Add" action="#{managePilotMB.addPilot}">
+                            
+                    </h:commandLink>
+                </p:panelGrid>
+            </h:form>
+         </ui:define>
+       </ui:composition>
+</html>

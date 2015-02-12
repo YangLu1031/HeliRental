@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package hr.MB;
 
 import hr.ejb.ManagerService;
@@ -12,6 +11,7 @@ import hr.model.entity.Branch;
 import hr.model.entity.Location;
 import hr.model.entity.PriceTable;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -39,12 +39,22 @@ public class ManagePriceTableMB implements Serializable {
     private ManagerService ms;
     @EJB
     private PriceTableService pts;
-    
+    private List<PriceTable> tables = new ArrayList<PriceTable>();
+
     public ManagePriceTableMB() {
     }
-    
-    public String addPriceTable(){
-        if(location_1.equals(location_2)){
+
+    public void setProperty() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
+        int id = (int) session.getAttribute("loggedUserId");
+        branch = ms.findManagerWithId(id).getBranch();
+        tables = pts.findPriceTableGroupWithBranch(branch);
+    }
+
+    public String addPriceTable() {
+        if (location_1.equals(location_2)) {
             return null;//please select two different locations
         }
         FacesContext context = FacesContext.getCurrentInstance();
@@ -52,23 +62,32 @@ public class ManagePriceTableMB implements Serializable {
         HttpSession session = (HttpSession) ec.getSession(true);
         int id = (int) session.getAttribute("loggedUserId");
         branch = ms.findManagerWithId(id).getBranch();
-        String msg = pts.addPriceTable(branch, location_1,location_2, duration, sellprice, expense);
+        String msg = pts.addPriceTable(branch, location_1, location_2, duration, sellprice, expense);
         if (msg.equals("add successfully")) {
             return null;//add successful ajax list
         }
         FacesContext.getCurrentInstance().addMessage("id", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
         return null;
     }
-    
-    public String deletePriceTable(PriceTable pt){
+
+    public String deletePriceTable(PriceTable pt) {
         pts.remove(pt);
         return null;//delete successful ajax list
     }
-    
-    public void updatePrice(PriceTable pt){
+
+    public void updatePrice(PriceTable pt) {
         pt.setSellprice(sellprice);
         pts.edit(pt);
     }
+
+    public List<PriceTable> getTables() {
+        return tables;
+    }
+
+    public void setTables(List<PriceTable> tables) {
+        this.tables = tables;
+    }
+
 
     public String getLocation_1() {
         return location_1;
@@ -133,5 +152,5 @@ public class ManagePriceTableMB implements Serializable {
     public void setPts(PriceTableService pts) {
         this.pts = pts;
     }
-    
+
 }
