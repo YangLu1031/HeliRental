@@ -11,13 +11,13 @@
                 <h:panelGrid columns="2">
                         <h:outputLabel for="title" value="Title" styleClass="optionalLbl"/>
                         <h:inputText id="title" label="Title" 
-                                     value="#{ContactUs.title}"/>
+                                     value="#{contactMB.title}"/>
                         <h:outputLabel for="email" value="Email" styleClass="optionalLbl"/>
                         <h:inputText id="email" label="Email" 
-                                     value="#{ContactUs.email}"/>
+                                     value="#{contactMB.email}"/>
                         <h:outputLabel for="text" value="Text" styleClass="optionalLbl"/>
-                        <h:inputTextarea id="text" label="Text" cols="30" rows="10" value="#{ContactUs.text}"/>
-                        <h:commandButton value="Submit" action="#{ContactUs.submitConsult}"/>
+                        <h:inputTextarea id="text" label="Text" cols="30" rows="10" value="#{contactMB.text}"/>
+                        <h:commandButton value="Submit" action="#{contactMB.submitConsult}"/>
                 </h:panelGrid>        
             </h:form>
         </ui:define>

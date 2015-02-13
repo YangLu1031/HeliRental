@@ -3,13 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
         <ui:composition template="/template/template.xhtml">
             <ui:define name="reservationHistory">
+                <f:event type="preRenderView" listener="#{customerMB.getInformation}"/>
                 <p:messages/>
         <h:form>
-            <h:outputText value="#{customerService.findCutomerWithId()}"/>
-                <p:dataTable value="#{customerService.findCutomerWithId().getReservations}" var="rsvd">
+            <p:dataTable value="#{customerMB.reservations}" var="rsvd">
                     <p:column headerText="Reserved Date" >
                         <h:outputText value="#{rsvd.reservTime}" />
                     </p:column>

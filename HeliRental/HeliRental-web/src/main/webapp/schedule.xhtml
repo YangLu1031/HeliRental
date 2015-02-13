@@ -7,20 +7,24 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
         <ui:composition template="/template/template.xhtml"> 
             <ui:define name="schedule">
+                <f:event type="preRenderView" listener="#{PilotMB.getInformation}"/>
             <p:messages/>
             <h:form>
-                <p:dataTable value="#{PilotMB.schedule}" var="schdl">
-                    <p:column headerText="Reserved Date" >
-                        <h:outputText value="#{schdl.reservDate}" />
+                <p:dataTable value="#{PilotMB.schedules}" var="schdl">
+                    <p:column headerText="Start Time" >
+                        <h:outputText value="#{schdl.startTime}" />
                     </p:column>
-                    <p:column headerText="depart" >
-                        <h:outputText value="#{schdl.depart}" />
+                    <p:column headerText="End Time" >
+                        <h:outputText value="#{schdl.endTime}" />
+                    </p:column>
+                    <p:column headerText="Helicopter Name" >
+                        <h:outputText value="#{schdl.helicopter.name}" />
+                    </p:column>
+                    <p:column headerText="departure" >
+                        <h:outputText value="#{schdl.reservation.departure}" />
                     </p:column>
                     <p:column headerText="arrival" >
-                        <h:outputText value="#{schdl.arrival}" />
-                    </p:column>
-                    <p:column headerText="Passengers" >
-                        <h:outputText value="#{schdl.passengers}" />
+                        <h:outputText value="#{schdl.reservation.arrival}" />
                     </p:column>
                 </p:dataTable>
             </h:form>
