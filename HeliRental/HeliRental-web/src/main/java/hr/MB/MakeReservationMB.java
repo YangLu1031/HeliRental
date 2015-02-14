@@ -7,6 +7,7 @@ package hr.MB;
 
 import hr.ejb.BranchService;
 import hr.ejb.ReservService;
+import hr.interceptor.LoggingInterceptor;
 import hr.model.entity.Branch;
 import hr.model.entity.Location;
 import java.io.Serializable;
@@ -16,12 +17,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.interceptor.Interceptors;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -30,6 +33,7 @@ import javax.servlet.http.HttpSession;
  */
 @Named(value = "makeReservationMB")
 @SessionScoped
+@Interceptors(LoggingInterceptor.class)
 public class MakeReservationMB implements Serializable {
 
     @EJB
@@ -52,15 +56,15 @@ public class MakeReservationMB implements Serializable {
     @EJB
     private ReservService rs;
 
-    public void init() {
+    public void index() {
         branches = bs.findAll();
         for (Branch b : branches) {
             brancheNames.add(b.getName());
         }
 
     }
-    
-    public String test(){
+
+    public String test() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(true);
