@@ -9,6 +9,7 @@ package hr.MB;
 import hr.ejb.CustomerService;
 import hr.ejb.ReservService;
 import hr.model.entity.Customer;
+import hr.utility.EmailSender;
 import java.io.Serializable;
 import java.text.ParseException;
 import javax.ejb.EJB;
@@ -55,7 +56,7 @@ public class SignupMB implements Serializable {
             cs.create(c);
             session.setAttribute("loggedUserId", c.getId());
             session.setAttribute("userType", "customer");
-            
+            new EmailSender().sendSignupEmail(c);
             if(session.getAttribute("departure")!=null){
                 rs.makeReservation();
                 return null;//redirect to reserve successfully

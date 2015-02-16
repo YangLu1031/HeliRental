@@ -7,10 +7,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
         <ui:composition template="/template/template.xhtml"> 
             <ui:define name="schedule">
-                <f:event type="preRenderView" listener="#{PilotMB.getInformation}"/>
+                <f:event type="preRenderView" listener="#{pilotMB.getInformation}"/>
             <p:messages/>
             <h:form>
-                <p:dataTable value="#{PilotMB.schedules}" var="schdl">
+                <p:dataTable value="#{pilotMB.schedules}" var="schdl">
                     <p:column headerText="Start Time" >
                         <h:outputText value="#{schdl.startTime}" />
                     </p:column>

@@ -12,14 +12,17 @@
                 <p:messages/>
                 <p:dataTable id="pilotTable" value="#{managePriceTableMB.tables}" var="price" paginator="true" rows="1">
            
-                    <p:column headerText="Name" >
+                    <p:column headerText="Departure" >
                         <h:outputText value="#{price.departure.name}" />
                     </p:column>          
-                    <p:column headerText="Email" >
+                    <p:column headerText="Arrival" >
                         <h:outputText value="#{price.arrival.name}" />
                     </p:column>
-                     <p:column headerText="Password" >
+                     <p:column headerText="Duration" >
                         <h:outputText value="#{price.duration}" />
+                    </p:column>        
+                     <p:column headerText="Price" >
+                        <h:outputText value="#{price.sellprice}" />
                     </p:column>        
                     <p:column headerText="Update" >
                         <h:commandLink value="Delete" action="#{managePriceTableMB.deletePriceTable(price)}">
@@ -28,12 +31,16 @@
                     </p:column>                    
                 </p:dataTable>
                 
-                <p:panelGrid columns="4">
-                    <h:inputText value="#{managePriceTableMB.location_1}" />
-                    <h:inputText value="#{managePriceTableMB.location_2}" />
-                    <h:inputText value="#{managePriceTableMB.duration}" />
-                    <h:inputText value="#{managePriceTableMB.sellprice}" />
-                    <h:inputText value="#{managePriceTableMB.expense}" />
+                <p:panelGrid columns="5">
+                    <h:outputLabel value="Departure"/>
+                    <h:outputLabel value="Arrival"/>
+                    <h:outputLabel value="Duration"/>
+                    <h:outputLabel value="Price"/>
+                    <h:outputLabel value="Add"/>
+                    <h:inputText value="#{managePriceTableMB.location_1}" required="true"/>
+                    <h:inputText value="#{managePriceTableMB.location_2}" required="true"/>
+                    <h:inputText value="#{managePriceTableMB.duration}" required="true"/>
+                    <h:inputText value="#{managePriceTableMB.sellprice}" required="true"/>
                     <h:commandLink value="Add" action="#{managePriceTableMB.addPriceTable}">
                             
                     </h:commandLink>

@@ -74,6 +74,7 @@ public class ManageHelicopterMB implements Serializable {
                 return null;//cannot delete
             }
         }
+        hs.remove(h);
         return null;//delete successful ajax list
     }
 

@@ -29,9 +29,16 @@
                 </p:dataTable>
                 
                 <p:panelGrid columns="4">
-                    <h:inputText value="#{managePilotMB.name}" />
-                    <h:inputText value="#{managePilotMB.email}" />
-                    <h:inputText value="#{managePilotMB.password}" />
+                    <h:outputLabel value="Name"/>
+                    <h:outputLabel value="Email"/>
+                    <h:outputLabel value="Password"/>
+                    <h:outputLabel value="Add"/>
+                    <h:inputText value="#{managePilotMB.name}" required="true"/>
+                    <h:inputText id="email" value="#{managePilotMB.email}" required="true">
+                        <f:validateRegex for="email"
+pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                    </h:inputText>
+                    <h:inputText value="#{managePilotMB.password}" required="true"/>
                     <h:commandLink value="Add" action="#{managePilotMB.addPilot}">
                             
                     </h:commandLink>

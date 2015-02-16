@@ -77,6 +77,7 @@ public class ManagePilotMB implements Serializable {
                 return null;//cannot delete
             }
         }
+        ps.remove(p);
         return null;//delete successful ajax list
     }
 

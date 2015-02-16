@@ -23,7 +23,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "PriceTable.findPriceTableByRoutine", query = "select pt from PriceTable pt where pt.departure.id=:departure and pt.arrival.id=:arrival"),
     @NamedQuery(name = "PriceTable.findPriceTableByLocation", query = "select pt from PriceTable pt where pt.departure=:location or pt.arrival=:location"),
-    @NamedQuery(name = "PriceTable.findPriceTableGroupByBranch", query = "select pt from PriceTable pt where pt.departure.branch=:branch group by pt.departure"),})
+    @NamedQuery(name = "PriceTable.findPriceTableGroupByBranch", query = "select pt from PriceTable pt where pt.departure.branch=:branch "),})
 public class PriceTable implements Serializable {
 
     private static final long serialVersionUID = 1L;

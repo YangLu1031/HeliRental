@@ -10,7 +10,7 @@
                 <f:event  type="preRenderView" listener="#{helicopterMB.setProperty}"/>
         <h:form>
                 <p:messages/>
-                <p:dataTable id="heliTable" value="#{helicopterMB.helicopters}" var="heli" paginator="true" rows="1">
+                <p:dataTable id="heliTable" value="#{helicopterMB.helicopters}" var="heli" paginator="true" rows="">
                     <p:column headerText="Helicopter Name" >
                         <h:outputText value="#{heli.name}" />
                     </p:column>
@@ -28,9 +28,13 @@
                     </p:column>                    
                 </p:dataTable>
                 <p:panelGrid columns="4">
-                    <h:inputText value="#{helicopterMB.name}" />
-                    <h:inputText value="#{helicopterMB.capacity}" />
-                    <h:inputText value="#{helicopterMB.fixedcost}" />
+                    <h:outputLabel value="Name"/>
+                    <h:outputLabel value="Capacity"/>
+                    <h:outputLabel value="Fixedcost"/>
+                    <h:outputLabel value="Add"/>                    
+                    <h:inputText value="#{helicopterMB.name}" required="true"/>
+                    <h:inputText value="#{helicopterMB.capacity}" required="true"/>
+                    <h:inputText value="#{helicopterMB.fixedcost}" required="true"/>
                     <h:commandLink value="Add" action="#{helicopterMB.addHelicopter}">
                             
                     </h:commandLink>
