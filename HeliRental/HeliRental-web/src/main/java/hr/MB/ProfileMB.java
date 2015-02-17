@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package hr.MB;
 
 import hr.ejb.CustomerService;
@@ -41,16 +40,16 @@ public class ProfileMB implements Serializable {
     private PilotService ps;
     @EJB
     private CustomerService cs;
-    
+
     public ProfileMB() {
     }
-    
-    public void setProperty(){
+
+    public void setProperty() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(true);
         int id = (int) session.getAttribute("loggedUserId");
-        String userType = (String)session.getAttribute("userType");
+        String userType = (String) session.getAttribute("userType");
         switch (userType) {
             case "customer":
                 Customer c = cs.findCutomerWithId(id);
@@ -78,13 +77,13 @@ public class ProfileMB implements Serializable {
                 break;
         }
     }
-    
-    public String saveProfileInfo() throws ParseException{
+
+    public String saveProfileInfo() throws ParseException {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(true);
-        int id = (int)session.getAttribute("loggedUserId");
-        String userType = (String)session.getAttribute("userType");
+        int id = (int) session.getAttribute("loggedUserId");
+        String userType = (String) session.getAttribute("userType");
         switch (userType) {
             case "customer":
                 Customer c = cs.findCutomerWithId(id);
@@ -93,7 +92,12 @@ public class ProfileMB implements Serializable {
                 c.setName(name);
                 c.setPhone(phone);
                 c.setAddress(address);
-                cs.edit(c);
+                try {
+                    cs.edit(c);
+                } catch (javax.persistence.PersistenceException e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "email is already registered", null));
+                    return null;
+                }
                 break;
             case "manager":
                 Manager m = ms.findManagerWithId(id);
@@ -108,15 +112,15 @@ public class ProfileMB implements Serializable {
                 Pilot p = ps.findPilotWithId(id);
                 p.setEmail(email);
                 p.setPassword(password);
-                p.setName(name);               
+                p.setName(name);
                 p.setPhone(phone);
                 p.setAddress(address);
                 ps.edit(p);
                 break;
         }
-            return "index";
+        return "index";
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -181,5 +185,4 @@ public class ProfileMB implements Serializable {
         this.ps = ps;
     }
 
-    
 }
