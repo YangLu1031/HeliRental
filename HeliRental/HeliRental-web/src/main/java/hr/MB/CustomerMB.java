@@ -6,13 +6,18 @@
 package hr.MB;
 
 import hr.ejb.CustomerService;
+import hr.ejb.PscheduleService;
+import hr.ejb.ReservService;
+import hr.model.entity.Pschedule;
 import hr.model.entity.Reservation;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -28,6 +33,12 @@ public class CustomerMB implements Serializable {
     @EJB
     private CustomerService cs;
     private List<Reservation> reservations = new ArrayList<Reservation>();
+    
+    @EJB
+    private PscheduleService ps;
+    @EJB
+    private ReservService rs;
+    
     /**
      * Creates a new instance of CustomerMB
      */
@@ -42,6 +53,21 @@ public class CustomerMB implements Serializable {
         reservations = cs.findCutomerWithId(id).getReservations();
     }
 
+    public String cancelReservation(Reservation r) {
+        Date date = new Date();
+        Pschedule p=ps.findScheduleWithReservation(r);
+        if(p==null){
+            return null;//cannot find Pschedule
+        }
+        if(p.getStartTime().before(date)||p.getStartTime().equals(date)){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "time out can not cancel", null));
+            return null;//cannot cancel reservation
+        }
+        ps.remove(p);
+        rs.remove(r);
+        return null;//ajax updated reservlist
+    }
+    
     public CustomerService getCs() {
         return cs;
     }

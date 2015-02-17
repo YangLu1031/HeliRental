@@ -8,20 +8,25 @@
         <ui:composition template="/template/template.xhtml">
             <ui:define name="reservationHistory">
                 <f:event type="preRenderView" listener="#{customerMB.getInformation}"/>
-                <p:messages/>
         <h:form>
-            <p:dataTable value="#{customerMB.reservations}" var="rsvd">
+                <h:messages/>
+            <p:dataTable id="rsvdTable" value="#{customerMB.reservations}" var="rsvd">
                     <p:column headerText="Reserved Date" >
                         <h:outputText value="#{rsvd.reservTime}" />
                     </p:column>
-                    <p:column headerText="depart" >
+                    <p:column headerText="Depart" >
                         <h:outputText value="#{rsvd.departure}" />
                     </p:column>
-                    <p:column headerText="arrival" >
+                    <p:column headerText="Arrival" >
                         <h:outputText value="#{rsvd.arrival}" />
                     </p:column>
                     <p:column headerText="Passengers" >
                         <h:outputText value="#{rsvd.passengers}" />
+                    </p:column>
+                    <p:column headerText="Cancel" >
+                        <h:commandLink value="Cancel" action="#{customerMB.cancelReservation(rsvd)}" rendered="true">
+                            <f:ajax execute="@this" render="rsvdTable"/>
+                        </h:commandLink>
                     </p:column>
                 </p:dataTable>
         </h:form>
