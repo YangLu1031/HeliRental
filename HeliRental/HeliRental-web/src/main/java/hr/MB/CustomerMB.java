@@ -50,7 +50,8 @@ public class CustomerMB implements Serializable {
         ExternalContext ec = context.getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(true);
         int id = (int) session.getAttribute("loggedUserId");
-        reservations = cs.findCutomerWithId(id).getReservations();
+        reservations = rs.findReservationByCustomerId(id);
+//        reservations = cs.findCutomerWithId(id).getReservations();
     }
 
     public String cancelReservation(Reservation r) {
@@ -63,8 +64,8 @@ public class CustomerMB implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "time out can not cancel", null));
             return null;//cannot cancel reservation
         }
-        ps.remove(p);
-        rs.remove(r);
+        ps.cancel(p);
+        rs.cancel(r);
         return null;//ajax updated reservlist
     }
     

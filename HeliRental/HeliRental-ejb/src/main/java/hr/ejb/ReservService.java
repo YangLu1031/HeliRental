@@ -26,6 +26,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -267,6 +268,14 @@ public class ReservService extends AbstractFacade<Reservation> {
             }
         }
         return null;
+    }
+    public List<Reservation> findReservationByCustomerId(int id){
+        TypedQuery<Reservation> query = em.createNamedQuery("Reservation.findReservationByCustomerId", Reservation.class).setParameter("id", id);
+        List<Reservation> rsvs = query.getResultList();
+        return rsvs;
+    }
+    public void cancel(Reservation r){
+        remove(r);
     }
 
     public CustomerService getCs() {

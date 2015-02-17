@@ -10,7 +10,7 @@
                 <f:event  type="preRenderView" listener="#{helicopterMB.setProperty}"/>
         <h:form>
                 <p:messages/>
-                <p:dataTable id="heliTable" value="#{helicopterMB.helicopters}" var="heli" paginator="true" rows="">
+                <p:dataTable id="heliTable" value="#{helicopterMB.helicopters}" var="heli" paginator="true" rows="2">
                     <p:column headerText="Helicopter Name" >
                         <h:outputText value="#{heli.name}" />
                     </p:column>

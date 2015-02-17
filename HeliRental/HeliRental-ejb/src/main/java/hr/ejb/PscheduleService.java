@@ -43,4 +43,7 @@ public class PscheduleService extends AbstractFacade<Pschedule>{
         }
     }
     
+    public void cancel(Pschedule sch){
+        remove(sch);
+    }
 }

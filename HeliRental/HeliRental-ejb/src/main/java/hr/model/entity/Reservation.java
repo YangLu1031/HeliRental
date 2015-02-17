@@ -27,6 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Reservation.findReservationByBranch", query = "select r from Reservation r where r.price.departure.branch=:branch"),
+    @NamedQuery(name = "Reservation.findReservationByCustomerId", query = "select r from Reservation r where r.customer.id =:id")
 })
 public class Reservation implements Serializable {
 

@@ -74,6 +74,7 @@ public class ManageHelicopterMB implements Serializable {
                 return null;//cannot delete
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "time out can not cancel", null));
         hs.remove(h);
         return null;//delete successful ajax list
     }
