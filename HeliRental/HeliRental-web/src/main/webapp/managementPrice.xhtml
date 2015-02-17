@@ -5,32 +5,39 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-        <ui:composition template="/template/template.xhtml">
-            <ui:define name="management">
-                <f:event  type="preRenderView" listener="#{managePriceTableMB.setProperty}"/>
-        <h:form>
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="management">
+            <f:event  type="preRenderView" listener="#{managePriceTableMB.setProperty}"/>
+            <h:form>
                 <p:messages/>
-                <p:dataTable id="pilotTable" value="#{managePriceTableMB.tables}" var="price" paginator="true" rows="1">
-           
-                    <p:column headerText="Departure" >
-                        <h:outputText value="#{price.departure.name}" />
+                <p:panelGrid columns="3">
+                    <h:outputLabel value="Location Name"/>
+                    <h:outputLabel value="Prepare Time"/>
+                    <h:outputLabel value="Add"/>
+                    <h:inputText value="#{manageLocationMB.name}" required="true"/>
+                    <h:inputText value="#{manageLocationMB.prepareTime}" required="true"/>
+                    <h:commandLink value="Add" action="#{manageLocationMB.addLocation()}">
+
+                    </h:commandLink>
+                </p:panelGrid>
+
+                <p:dataTable id="locationTable" value="#{manageLocationMB.tables}" var="location" paginator="true" rows="1">
+
+                    <p:column headerText="Name" >
+                        <h:outputText value="#{location.name}" />
                     </p:column>          
-                    <p:column headerText="Arrival" >
-                        <h:outputText value="#{price.arrival.name}" />
-                    </p:column>
-                     <p:column headerText="Duration" >
-                        <h:outputText value="#{price.duration}" />
-                    </p:column>        
-                     <p:column headerText="Price" >
-                        <h:outputText value="#{price.sellprice}" />
-                    </p:column>        
+                    <p:column headerText="Prepare time" >
+                        <h:outputText value="#{location.prepareTime}" />
+                    </p:column>       
                     <p:column headerText="Update" >
-                        <h:commandLink value="Delete" action="#{managePriceTableMB.deletePriceTable(price)}">
+                        <h:commandLink value="Delete" action="#{manageLocationMB.deleteLocation(location)}">
 
                         </h:commandLink>           
                     </p:column>                    
                 </p:dataTable>
-                
+            </h:form>
+            <br/>
+            <h:form>
                 <p:panelGrid columns="5">
                     <h:outputLabel value="Departure"/>
                     <h:outputLabel value="Arrival"/>
@@ -42,10 +49,30 @@
                     <h:inputText value="#{managePriceTableMB.duration}" required="true"/>
                     <h:inputText value="#{managePriceTableMB.sellprice}" required="true"/>
                     <h:commandLink value="Add" action="#{managePriceTableMB.addPriceTable}">
-                            
+
                     </h:commandLink>
                 </p:panelGrid>
+                <p:dataTable id="priceTable" value="#{managePriceTableMB.tables}" var="price" paginator="true" rows="1">
+
+                    <p:column headerText="Departure" >
+                        <h:outputText value="#{price.departure.name}" />
+                    </p:column>          
+                    <p:column headerText="Arrival" >
+                        <h:outputText value="#{price.arrival.name}" />
+                    </p:column>
+                    <p:column headerText="Duration" >
+                        <h:outputText value="#{price.duration}" />
+                    </p:column>        
+                    <p:column headerText="Price" >
+                        <h:outputText value="#{price.sellprice}" />
+                    </p:column>        
+                    <p:column headerText="Update" >
+                        <h:commandLink value="Delete" action="#{managePriceTableMB.deletePriceTable(price)}">
+
+                        </h:commandLink>           
+                    </p:column>                    
+                </p:dataTable>
             </h:form>
-         </ui:define>
-       </ui:composition>
+        </ui:define>
+    </ui:composition>
 </html>

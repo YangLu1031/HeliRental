@@ -41,7 +41,7 @@ public class Customer implements Serializable {
     private String password;
     private String phone;
     private String address;
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.REFRESH, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.REFRESH)
     @OrderBy("departureTime ASC")
     private List<Reservation> reservations;
 

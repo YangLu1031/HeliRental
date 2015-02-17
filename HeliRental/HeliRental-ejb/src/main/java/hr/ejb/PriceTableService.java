@@ -6,11 +6,7 @@
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
-import hr.model.entity.PriceTable;
-import hr.model.entity.PriceTable;
 import hr.model.entity.Location;
 import hr.model.entity.PriceTable;
 import java.util.List;

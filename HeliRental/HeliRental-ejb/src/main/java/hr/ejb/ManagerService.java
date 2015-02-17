@@ -7,9 +7,6 @@
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
-import hr.model.entity.Manager;
 import hr.model.entity.Manager;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

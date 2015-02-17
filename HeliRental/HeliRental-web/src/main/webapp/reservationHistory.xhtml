@@ -5,12 +5,12 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-        <ui:composition template="/template/template.xhtml">
-            <ui:define name="reservationHistory">
-                <f:event type="preRenderView" listener="#{customerMB.getInformation}"/>
-        <h:form>
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="reservationHistory">
+            <f:event type="preRenderView" listener="#{customerMB.getInformation}"/>
+            <h:form>
                 <h:messages/>
-            <p:dataTable id="rsvdTable" value="#{customerMB.reservations}" var="rsvd">
+                <p:dataTable id="rsvdTable" value="#{customerMB.reservations}" var="rsvd">
                     <p:column headerText="Reserved Date" >
                         <h:outputText value="#{rsvd.reservTime}" />
                     </p:column>
@@ -29,8 +29,8 @@
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
-        </h:form>
-                </ui:define>
-        </ui:composition>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </html>
 

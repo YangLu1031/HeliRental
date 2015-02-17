@@ -7,13 +7,10 @@
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
 import hr.model.entity.Location;
 import hr.model.entity.Location;
-import hr.model.entity.Manager;
-import javax.ejb.LocalBean;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -56,6 +53,12 @@ public class LocationService extends AbstractFacade<Location>{
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    public List<Location> findLocationWithBranch(Branch b) {
+        TypedQuery<Location> query = em.createNamedQuery("Location.findLocationByBranch", Location.class).setParameter("branch", b);
+        List<Location> pts = query.getResultList();
+        return pts;
     }
     
     public String addLocation(Branch b, String name, Integer time){

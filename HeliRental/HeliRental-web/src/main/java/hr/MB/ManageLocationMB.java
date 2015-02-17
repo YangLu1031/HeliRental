@@ -13,6 +13,7 @@ import hr.model.entity.Branch;
 import hr.model.entity.Location;
 import hr.model.entity.PriceTable;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -39,8 +40,18 @@ public class ManageLocationMB implements Serializable {
     private LocationService ls;
     @EJB
     private PriceTableService pts;
+    private List<Location> tables = new ArrayList<Location>();
     
     public ManageLocationMB() {
+    }
+    
+        public void setProperty() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(true);
+        int id = (int) session.getAttribute("loggedUserId");
+        branch = ms.findManagerWithId(id).getBranch();
+        tables = ls.findLocationWithBranch(branch);
     }
     
     public String addLocation(){
@@ -58,9 +69,9 @@ public class ManageLocationMB implements Serializable {
     }
     
     public String deleteLocation(Location l){
-        List<PriceTable> tables=pts.findPriceTableWithLocation(l);
-        for(int i=0;i<tables.size();i++){
-            pts.remove(tables.get(0));
+        List<PriceTable> ptables=pts.findPriceTableWithLocation(l);
+        for(int i=0;i<ptables.size();i++){
+            pts.remove(ptables.get(0));
         }
         ls.remove(l);
         return null;//delete successful ajax list
@@ -112,6 +123,14 @@ public class ManageLocationMB implements Serializable {
 
     public void setPts(PriceTableService pts) {
         this.pts = pts;
+    }
+
+    public List<Location> getTables() {
+        return tables;
+    }
+
+    public void setTables(List<Location> tables) {
+        this.tables = tables;
     }
     
 }

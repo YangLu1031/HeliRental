@@ -6,12 +6,7 @@
 package hr.ejb;
 
 import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
-import hr.boundary.AbstractFacade;
 import hr.model.entity.Branch;
-import hr.model.entity.Pilot;
-import hr.model.entity.Pilot;
-import hr.model.entity.Pschedule;
 import hr.model.entity.Pilot;
 import java.util.List;
 import javax.ejb.Stateless;
