@@ -40,7 +40,6 @@
                     </h:inputText>
                     <h:inputText value="#{managePilotMB.password}" required="true"/>
                     <h:commandLink value="Add" action="#{managePilotMB.addPilot}">
-                        <f:ajax execute="@this" render="pilotTable"/>
                     </h:commandLink>
                 </p:panelGrid>
             </h:form>
