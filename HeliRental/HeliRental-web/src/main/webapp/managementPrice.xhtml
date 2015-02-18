@@ -8,6 +8,7 @@
     <ui:composition template="/template/template.xhtml">
         <ui:define name="management">
             <f:event  type="preRenderView" listener="#{managePriceTableMB.setProperty}"/>
+            <f:event  type="preRenderView" listener="#{manageLocationMB.setProperty}"/>
             <h:form>
                 <p:messages/>
                 <p:panelGrid columns="3">

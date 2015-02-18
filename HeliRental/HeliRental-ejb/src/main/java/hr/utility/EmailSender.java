@@ -77,7 +77,7 @@ public class EmailSender {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("spintheworld.helirental@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse("yy36457@gmail.com"));
+					InternetAddress.parse("yanglu1031@gmail.com"));
 			message.setSubject(title + " Consult From "+email);
 			message.setText(text); 
 			Transport.send(message);
